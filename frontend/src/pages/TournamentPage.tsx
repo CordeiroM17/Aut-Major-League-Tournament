@@ -1,14 +1,36 @@
 import React, { useState, useMemo } from 'react';
 import { SWISS_TOURNAMENT_DATA } from '../constants';
-import { Match, TeamStats } from '../types';
+import { Team, Match, TeamStats, TournamentData } from '../types';
 import { Trophy, Calendar, CheckCircle2, LayoutGrid, Info } from 'lucide-react';
 import { RecordSquares } from '../components/RecordSquares';
 import { MatchModal } from '../components/MatchModal';
+import { useEffect } from 'react';
 
 export const TournamentPage: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
-  const data = SWISS_TOURNAMENT_DATA;
+  const [teams, setTeams] = useState<Team[]>(SWISS_TOURNAMENT_DATA.teams);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/teams');
+        const json = await response.json();
+        if (json.status === 'success') {
+          setTeams(json.data);
+          console.log("god")
+        }
+      } catch (error) {
+        console.error('Failed to fetch teams:', error);
+      }
+    };
+    fetchTeams();
+  }, []);
+
+  const data: TournamentData = useMemo(() => ({
+    ...SWISS_TOURNAMENT_DATA,
+    teams: teams
+  }), [teams]);
 
   const getRecordBeforeRound = (teamId: string, roundNum: number) => {
     let wins = 0;
@@ -56,10 +78,13 @@ export const TournamentPage: React.FC = () => {
       round.matches.forEach(match => {
         if (match.status === 'completed' && match.winnerId) {
           const loserId = match.winnerId === match.team1Id ? match.team2Id : match.team1Id;
-          statsMap[match.winnerId].wins += 1;
-          statsMap[loserId].losses += 1;
-          opponents[match.team1Id].push(match.team2Id);
-          opponents[match.team2Id].push(match.team1Id);
+          
+          if (statsMap[match.winnerId] && statsMap[loserId]) {
+            statsMap[match.winnerId].wins += 1;
+            statsMap[loserId].losses += 1;
+            opponents[match.team1Id]?.push(match.team2Id);
+            opponents[match.team2Id]?.push(match.team1Id);
+          }
         }
       });
     });
@@ -142,76 +167,95 @@ export const TournamentPage: React.FC = () => {
             </div>
 
             <div className="space-y-10">
-              {groupedMatches.map(([recordKey, matches]) => {
-                const [w, l] = recordKey.split('-').map(Number);
-                return (
-                  <div key={recordKey} className="space-y-4">
-                    <div className="flex items-center justify-between bg-slate-200/60 px-4 py-2 rounded-lg border border-slate-300/50">
-                      <span className="text-xs font-black text-slate-700 uppercase tracking-widest">
-                        RONDA {activeRound} ({recordKey})
-                      </span>
-                      <RecordSquares wins={w} losses={l} total={4} />
-                    </div>
+              {groupedMatches.length === 0 ? (
+                 <div className="text-center py-20 bg-white rounded-xl border border-slate-200 shadow-sm">
+                   <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                   <h3 className="text-lg font-bold text-slate-900">Ronda no iniciada</h3>
+                   <p className="text-slate-500 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
+                 </div>
+              ) : (
+                groupedMatches.map(([recordKey, matches]) => {
+                  const [w, l] = recordKey.split('-').map(Number);
+                  return (
+                    <div key={recordKey} className="space-y-4">
+                      <div className="flex items-center justify-between bg-slate-200/60 px-4 py-2 rounded-lg border border-slate-300/50">
+                        <span className="text-xs font-black text-slate-700 uppercase tracking-widest">
+                          RONDA {activeRound} ({recordKey})
+                        </span>
+                        <RecordSquares wins={w} losses={l} total={4} />
+                      </div>
 
-                    <div className="grid grid-cols-1 gap-3">
-                      {matches.map((match) => {
-                        const team1 = getTeamById(match.team1Id);
-                        const team2 = getTeamById(match.team2Id);
-                        return (
-                          <button 
-                            key={match.id} 
-                            onClick={() => setSelectedMatch(match)}
-                            className="w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group hover:border-indigo-300 hover:shadow-md transition-all duration-300"
-                          >
-                            <div className="p-4 flex items-center justify-between">
-                              <div className={`flex items-center space-x-4 flex-1 ${match.winnerId === team1?.id ? 'opacity-100' : 'opacity-50'}`}>
-                                <div className="relative">
-                                  <img src={team1?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100" />
-                                  {match.winnerId === team1?.id && (
-                                    <div className="absolute -top-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
-                                      <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                      <div className="grid grid-cols-1 gap-3">
+                        {matches.map((match) => {
+                          const team1 = getTeamById(match.team1Id);
+                          const team2 = getTeamById(match.team2Id);
+                          const isPending = match.status === 'pending';
+                          
+                          return (
+                            <button 
+                              key={match.id} 
+                              onClick={() => !isPending && setSelectedMatch(match)}
+                              disabled={isPending}
+                              className={`w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group transition-all duration-300 ${isPending ? 'opacity-80 cursor-default' : 'hover:border-indigo-300 hover:shadow-md'}`}
+                            >
+                              <div className="p-4 flex items-center justify-between">
+                                <div className={`flex items-center space-x-4 flex-1 ${!isPending && match.winnerId === team1?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
+                                  <div className="relative">
+                                    <img src={team1?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100" />
+                                    {!isPending && match.winnerId === team1?.id && (
+                                      <div className="absolute -top-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
+                                        <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                                      </div>
+                                    )}
+                                  </div>
+                                  <div>
+                                    <p className={`text-sm font-bold ${!isPending && match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
+                                      {team1?.name}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="flex flex-col items-center px-6">
+                                  {isPending ? (
+                                    <div className="bg-slate-100 rounded-lg px-3 py-1 border border-slate-200">
+                                      <span className="text-xs font-black text-slate-500 tracking-wider">VS</span>
                                     </div>
+                                  ) : (
+                                    <>
+                                      <div className="flex items-center space-x-3 bg-slate-50 rounded-lg px-4 py-1.5 border border-slate-100">
+                                        <span className={`text-lg font-black ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score1}</span>
+                                        <span className="text-slate-300 font-light">-</span>
+                                        <span className={`text-lg font-black ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score2}</span>
+                                      </div>
+                                      <span className="text-[8px] font-black text-indigo-400 uppercase mt-1 opacity-0 group-hover:opacity-100 transition-opacity tracking-widest">Estadísticas</span>
+                                    </>
                                   )}
                                 </div>
-                                <div>
-                                  <p className={`text-sm font-bold ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
-                                    {team1?.name}
-                                  </p>
-                                </div>
-                              </div>
 
-                              <div className="flex flex-col items-center px-6">
-                                <div className="flex items-center space-x-3 bg-slate-50 rounded-lg px-4 py-1.5 border border-slate-100">
-                                  <span className={`text-lg font-black ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score1}</span>
-                                  <span className="text-slate-300 font-light">-</span>
-                                  <span className={`text-lg font-black ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score2}</span>
-                                </div>
-                                <span className="text-[8px] font-black text-indigo-400 uppercase mt-1 opacity-0 group-hover:opacity-100 transition-opacity tracking-widest">Estadísticas</span>
-                              </div>
-
-                              <div className={`flex items-center space-x-4 flex-1 justify-end ${match.winnerId === team2?.id ? 'opacity-100' : 'opacity-50'}`}>
-                                <div className="text-right">
-                                  <p className={`text-sm font-bold ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
-                                    {team2?.name}
-                                  </p>
-                                </div>
-                                <div className="relative">
-                                  <img src={team2?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100" />
-                                  {match.winnerId === team2?.id && (
-                                    <div className="absolute -top-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
-                                      <CheckCircle2 className="w-2.5 h-2.5 text-white" />
-                                    </div>
-                                  )}
+                                <div className={`flex items-center space-x-4 flex-1 justify-end ${!isPending && match.winnerId === team2?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
+                                  <div className="text-right">
+                                    <p className={`text-sm font-bold ${!isPending && match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
+                                      {team2?.name}
+                                    </p>
+                                  </div>
+                                  <div className="relative">
+                                    <img src={team2?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100" />
+                                    {!isPending && match.winnerId === team2?.id && (
+                                      <div className="absolute -top-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
+                                        <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </button>
-                        );
-                      })}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
 
@@ -260,7 +304,7 @@ export const TournamentPage: React.FC = () => {
                           <td className="px-4 py-3">
                             <div className="flex items-center space-x-3">
                               <img src={team?.logo} className="w-5 h-5 rounded-full border border-slate-100" alt="" />
-                              <span className="text-xs font-bold text-slate-700 truncate max-w-[100px]">
+                              <span className="text-xs font-bold text-slate-700 ">
                                 {team?.name}
                               </span>
                             </div>

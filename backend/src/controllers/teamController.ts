@@ -1,5 +1,18 @@
 import { Request, Response } from 'express';
-import { createTeam } from '../services/teamService';
+import { createTeam, getAllTeams } from '../services/teamService';
+
+export const getTeamsController = async (req: Request, res: Response) => {
+  try {
+    const teams = await getAllTeams();
+    res.status(200).json({
+      status: 'success',
+      data: teams
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching teams', error });
+  }
+};
 
 export const createTeamController = async (req: Request, res: Response) => {
   try {
