@@ -1,52 +1,11 @@
-
 import React, { useState, useMemo } from 'react';
-import { SWISS_TOURNAMENT_DATA } from './constants';
-import { Team, Match, Round, TeamStats, PlayerStats } from './types';
-import { 
-  Trophy, 
-  Calendar,
-  CheckCircle2,
-  LayoutGrid,
-  X,
-  Swords,
-  Info
-} from 'lucide-react';
+import { SWISS_TOURNAMENT_DATA } from '../constants';
+import { Match, TeamStats } from '../types';
+import { Trophy, Calendar, CheckCircle2, LayoutGrid, Info } from 'lucide-react';
+import { RecordSquares } from '../components/RecordSquares';
+import { MatchModal } from '../components/MatchModal';
 
-const CHAMP_ICON_URL = (name: string) => `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${name}.png`;
-
-const RecordSquares: React.FC<{ wins: number; losses: number; total: number }> = ({ wins, losses, total }) => {
-  const squares = [];
-  for (let i = 0; i < wins; i++) squares.push(<div key={`w-${i}`} className="w-4 h-4 bg-emerald-500 rounded-sm" />);
-  for (let i = 0; i < losses; i++) squares.push(<div key={`l-${i}`} className="w-4 h-4 bg-red-500 rounded-sm" />);
-  while (squares.length < total) squares.push(<div key={`g-${squares.length}`} className="w-4 h-4 bg-slate-300 rounded-sm" />);
-  
-  return <div className="flex space-x-1">{squares}</div>;
-};
-
-const PlayerRow: React.FC<{ player: PlayerStats; align: 'left' | 'right' }> = ({ player, align }) => {
-  const content = (
-    <>
-      <div className={`flex flex-col ${align === 'right' ? 'items-end' : 'items-start'}`}>
-        <span className="text-[10px] font-bold text-slate-400">{player.role}</span>
-        <span className="text-xs font-black text-slate-900">{player.name}</span>
-        <span className="text-[10px] text-indigo-600 font-bold">{player.k}/{player.d}/{player.a}</span>
-      </div>
-      <img 
-        src={CHAMP_ICON_URL(player.champion)} 
-        className="w-10 h-10 rounded-lg border border-slate-200 shadow-sm"
-        alt={player.champion}
-      />
-    </>
-  );
-
-  return (
-    <div className={`flex items-center space-x-3 ${align === 'right' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-      {content}
-    </div>
-  );
-};
-
-const App: React.FC = () => {
+export const TournamentPage: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const data = SWISS_TOURNAMENT_DATA;
@@ -55,12 +14,12 @@ const App: React.FC = () => {
     let wins = 0;
     let losses = 0;
     for (let i = 0; i < roundNum - 1; i++) {
-      const round = data.rounds[i];
-      const match = round.matches.find(m => m.team1Id === teamId || m.team2Id === teamId);
-      if (match && match.winnerId) {
-        if (match.winnerId === teamId) wins++;
-        else losses++;
-      }
+        const round = data.rounds[i];
+        const match = round.matches.find(m => m.team1Id === teamId || m.team2Id === teamId);
+        if (match && match.winnerId) {
+            if (match.winnerId === teamId) wins++;
+            else losses++;
+        }
     }
     return { wins, losses };
   };
@@ -132,51 +91,11 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
-      {/* Modal */}
-      {selectedMatch && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-2xl rounded-2xl border border-slate-200 shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
-            <button 
-              onClick={() => setSelectedMatch(null)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 transition-colors z-10"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            
-            <div className="p-8">
-              <div className="flex items-center justify-center space-x-8 mb-10">
-                <div className="text-center">
-                  <img src={getTeamById(selectedMatch.team1Id)?.logo} className="w-16 h-16 rounded-full mx-auto mb-2 border border-slate-200" alt="" />
-                  <p className="text-sm font-black uppercase text-slate-900">{getTeamById(selectedMatch.team1Id)?.name}</p>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="text-4xl font-black text-indigo-600">{selectedMatch.score1} : {selectedMatch.score2}</div>
-                  <Swords className="w-6 h-6 text-slate-300 mt-2" />
-                </div>
-                <div className="text-center">
-                  <img src={getTeamById(selectedMatch.team2Id)?.logo} className="w-16 h-16 rounded-full mx-auto mb-2 border border-slate-200" alt="" />
-                  <p className="text-sm font-black uppercase text-slate-900">{getTeamById(selectedMatch.team2Id)?.name}</p>
-                </div>
-              </div>
-
-              {selectedMatch.details ? (
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    {selectedMatch.details.team1Players.map((p, i) => <PlayerRow key={i} player={p} align="left" />)}
-                  </div>
-                  <div className="space-y-4">
-                    {selectedMatch.details.team2Players.map((p, i) => <PlayerRow key={i} player={p} align="right" />)}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-20 border-2 border-dashed border-slate-100 rounded-xl">
-                  <p className="text-slate-400 font-bold uppercase tracking-widest italic">Estadísticas detalladas no disponibles</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <MatchModal 
+        match={selectedMatch} 
+        teams={data.teams} 
+        onClose={() => setSelectedMatch(null)} 
+      />
 
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -381,5 +300,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
