@@ -1,0 +1,5 @@
+{
+  "name": "Swiss System Tournament Viewer",
+  "description": "A sophisticated dashboard to visualize a 16-team Swiss format tournament across 5 rounds, featuring detailed match results and live standings.",
+  "requestFramePermissions": []
+}
