@@ -1,4 +1,20 @@
 
+export type Role = 'TOP' | 'JNG' | 'MID' | 'ADC' | 'SUP';
+
+export interface PlayerStats {
+  name: string;
+  role: Role;
+  champion: string;
+  k: number;
+  d: number;
+  a: number;
+}
+
+export interface MatchDetails {
+  team1Players: PlayerStats[];
+  team2Players: PlayerStats[];
+}
+
 export interface Team {
   id: string;
   name: string;
@@ -14,6 +30,7 @@ export interface Match {
   score2: number;
   winnerId: string | null;
   status: 'completed' | 'pending';
+  details?: MatchDetails;
 }
 
 export interface Round {
@@ -31,6 +48,6 @@ export interface TeamStats {
   teamId: string;
   wins: number;
   losses: number;
-  buchholz: number; // Sum of wins of opponents
+  buchholz: number;
   status: 'active' | 'qualified' | 'eliminated';
 }

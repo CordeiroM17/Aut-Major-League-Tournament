@@ -1,17 +1,18 @@
 
 import React, { useState, useMemo } from 'react';
 import { SWISS_TOURNAMENT_DATA } from './constants';
-import { Team, Match, Round, TeamStats } from './types';
+import { Team, Match, Round, TeamStats, PlayerStats } from './types';
 import { 
   Trophy, 
-  ChevronRight, 
-  Info, 
-  BarChart3, 
   Calendar,
   CheckCircle2,
-  XCircle,
-  LayoutGrid
+  LayoutGrid,
+  X,
+  Swords,
+  Info
 } from 'lucide-react';
+
+const CHAMP_ICON_URL = (name: string) => `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${name}.png`;
 
 const RecordSquares: React.FC<{ wins: number; losses: number; total: number }> = ({ wins, losses, total }) => {
   const squares = [];
@@ -22,11 +23,34 @@ const RecordSquares: React.FC<{ wins: number; losses: number; total: number }> =
   return <div className="flex space-x-1">{squares}</div>;
 };
 
+const PlayerRow: React.FC<{ player: PlayerStats; align: 'left' | 'right' }> = ({ player, align }) => {
+  const content = (
+    <>
+      <div className={`flex flex-col ${align === 'right' ? 'items-end' : 'items-start'}`}>
+        <span className="text-[10px] font-bold text-slate-400">{player.role}</span>
+        <span className="text-xs font-black text-slate-900">{player.name}</span>
+        <span className="text-[10px] text-indigo-600 font-bold">{player.k}/{player.d}/{player.a}</span>
+      </div>
+      <img 
+        src={CHAMP_ICON_URL(player.champion)} 
+        className="w-10 h-10 rounded-lg border border-slate-200 shadow-sm"
+        alt={player.champion}
+      />
+    </>
+  );
+
+  return (
+    <div className={`flex items-center space-x-3 ${align === 'right' ? 'flex-row-reverse space-x-reverse' : ''}`}>
+      {content}
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
+  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const data = SWISS_TOURNAMENT_DATA;
 
-  // Helper to get record before a specific round
   const getRecordBeforeRound = (teamId: string, roundNum: number) => {
     let wins = 0;
     let losses = 0;
@@ -52,7 +76,6 @@ const App: React.FC = () => {
       groups[key].push(match);
     });
 
-    // Sort keys by wins (descending)
     return Object.entries(groups).sort((a, b) => {
       const [aw, al] = a[0].split('-').map(Number);
       const [bw, bl] = b[0].split('-').map(Number);
@@ -83,7 +106,7 @@ const App: React.FC = () => {
     });
 
     Object.keys(statsMap).forEach(teamId => {
-      statsMap[teamId].buchholz = opponents[teamId].reduce((acc, oppId) => acc + statsMap[oppId].wins, 0);
+      statsMap[teamId].buchholz = opponents[teamId].reduce((acc, oppId) => acc + (statsMap[oppId]?.wins || 0), 0);
     });
 
     Object.values(statsMap).forEach(stat => {
@@ -101,16 +124,60 @@ const App: React.FC = () => {
 
   const getTeamById = (id: string) => data.teams.find(t => t.id === id);
 
-  const statsCounts = useMemo(() => {
-    return {
-      qualified: standings.filter(s => s.status === 'qualified').length,
-      active: standings.filter(s => s.status === 'active').length,
-      eliminated: standings.filter(s => s.status === 'eliminated').length,
-    };
-  }, [standings]);
+  const statsCounts = useMemo(() => ({
+    qualified: standings.filter(s => s.status === 'qualified').length,
+    active: standings.filter(s => s.status === 'active').length,
+    eliminated: standings.filter(s => s.status === 'eliminated').length,
+  }), [standings]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 pb-20">
+      {/* Modal */}
+      {selectedMatch && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-2xl rounded-2xl border border-slate-200 shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setSelectedMatch(null)}
+              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 transition-colors z-10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            <div className="p-8">
+              <div className="flex items-center justify-center space-x-8 mb-10">
+                <div className="text-center">
+                  <img src={getTeamById(selectedMatch.team1Id)?.logo} className="w-16 h-16 rounded-full mx-auto mb-2 border border-slate-200" alt="" />
+                  <p className="text-sm font-black uppercase text-slate-900">{getTeamById(selectedMatch.team1Id)?.name}</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="text-4xl font-black text-indigo-600">{selectedMatch.score1} : {selectedMatch.score2}</div>
+                  <Swords className="w-6 h-6 text-slate-300 mt-2" />
+                </div>
+                <div className="text-center">
+                  <img src={getTeamById(selectedMatch.team2Id)?.logo} className="w-16 h-16 rounded-full mx-auto mb-2 border border-slate-200" alt="" />
+                  <p className="text-sm font-black uppercase text-slate-900">{getTeamById(selectedMatch.team2Id)?.name}</p>
+                </div>
+              </div>
+
+              {selectedMatch.details ? (
+                <div className="grid grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    {selectedMatch.details.team1Players.map((p, i) => <PlayerRow key={i} player={p} align="left" />)}
+                  </div>
+                  <div className="space-y-4">
+                    {selectedMatch.details.team2Players.map((p, i) => <PlayerRow key={i} player={p} align="right" />)}
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-20 border-2 border-dashed border-slate-100 rounded-xl">
+                  <p className="text-slate-400 font-bold uppercase tracking-widest italic">Estadísticas detalladas no disponibles</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -160,13 +227,10 @@ const App: React.FC = () => {
                 const [w, l] = recordKey.split('-').map(Number);
                 return (
                   <div key={recordKey} className="space-y-4">
-                    {/* Record Group Header with Squares */}
                     <div className="flex items-center justify-between bg-slate-200/60 px-4 py-2 rounded-lg border border-slate-300/50">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-xs font-black text-slate-700 uppercase tracking-widest">
-                          RONDA {activeRound} ({recordKey})
-                        </span>
-                      </div>
+                      <span className="text-xs font-black text-slate-700 uppercase tracking-widest">
+                        RONDA {activeRound} ({recordKey})
+                      </span>
                       <RecordSquares wins={w} losses={l} total={4} />
                     </div>
 
@@ -175,45 +239,45 @@ const App: React.FC = () => {
                         const team1 = getTeamById(match.team1Id);
                         const team2 = getTeamById(match.team2Id);
                         return (
-                          <div key={match.id} className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group hover:border-indigo-300 transition-all duration-300">
+                          <button 
+                            key={match.id} 
+                            onClick={() => setSelectedMatch(match)}
+                            className="w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group hover:border-indigo-300 hover:shadow-md transition-all duration-300"
+                          >
                             <div className="p-4 flex items-center justify-between">
-                              {/* Team 1 */}
                               <div className={`flex items-center space-x-4 flex-1 ${match.winnerId === team1?.id ? 'opacity-100' : 'opacity-50'}`}>
                                 <div className="relative">
-                                  <img src={team1?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 shadow-sm" />
+                                  <img src={team1?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100" />
                                   {match.winnerId === team1?.id && (
                                     <div className="absolute -top-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
                                       <CheckCircle2 className="w-2.5 h-2.5 text-white" />
                                     </div>
                                   )}
                                 </div>
-                                <div className="text-left">
-                                  <p className={`text-sm font-bold truncate max-w-[120px] sm:max-w-none ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
+                                <div>
+                                  <p className={`text-sm font-bold ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
                                     {team1?.name}
                                   </p>
-                                  <p className="text-[10px] text-slate-400 font-bold uppercase">Seed #{team1?.seed}</p>
                                 </div>
                               </div>
 
-                              {/* Central Score */}
-                              <div className="flex flex-col items-center px-4">
-                                <div className="flex items-center space-x-3 bg-slate-50 rounded-lg px-4 py-1.5 border border-slate-100 group-hover:bg-slate-100 transition-colors">
+                              <div className="flex flex-col items-center px-6">
+                                <div className="flex items-center space-x-3 bg-slate-50 rounded-lg px-4 py-1.5 border border-slate-100">
                                   <span className={`text-lg font-black ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score1}</span>
                                   <span className="text-slate-300 font-light">-</span>
                                   <span className={`text-lg font-black ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score2}</span>
                                 </div>
+                                <span className="text-[8px] font-black text-indigo-400 uppercase mt-1 opacity-0 group-hover:opacity-100 transition-opacity tracking-widest">Estadísticas</span>
                               </div>
 
-                              {/* Team 2 */}
                               <div className={`flex items-center space-x-4 flex-1 justify-end ${match.winnerId === team2?.id ? 'opacity-100' : 'opacity-50'}`}>
                                 <div className="text-right">
-                                  <p className={`text-sm font-bold truncate max-w-[120px] sm:max-w-none ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
+                                  <p className={`text-sm font-bold ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
                                     {team2?.name}
                                   </p>
-                                  <p className="text-[10px] text-slate-400 font-bold uppercase">Seed #{team2?.seed}</p>
                                 </div>
                                 <div className="relative">
-                                  <img src={team2?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 shadow-sm" />
+                                  <img src={team2?.logo} alt="" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100" />
                                   {match.winnerId === team2?.id && (
                                     <div className="absolute -top-1 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
                                       <CheckCircle2 className="w-2.5 h-2.5 text-white" />
@@ -222,7 +286,7 @@ const App: React.FC = () => {
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </button>
                         );
                       })}
                     </div>
@@ -238,54 +302,45 @@ const App: React.FC = () => {
               <span>CLASIFICACIÓN</span>
             </h2>
 
-            {/* NEW Status Indicators Above Table */}
             <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-               <div className="flex flex-wrap gap-4 items-center justify-center sm:justify-between">
-                  <div className="flex items-center space-x-2 group">
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]" />
-                    <span className="text-[11px] font-black text-slate-500 uppercase tracking-tight">
-                      {statsCounts.qualified} CLASIFICADOS
-                    </span>
+               <div className="flex flex-wrap gap-4 items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                    <span className="text-[10px] font-black text-slate-500 uppercase">{statsCounts.qualified} CLASIFICADOS</span>
                   </div>
-                  <div className="flex items-center space-x-2 group">
-                    <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.3)]" />
-                    <span className="text-[11px] font-black text-slate-500 uppercase tracking-tight">
-                      {statsCounts.active} ACTIVOS
-                    </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                    <span className="text-[10px] font-black text-slate-500 uppercase">{statsCounts.active} ACTIVOS</span>
                   </div>
-                  <div className="flex items-center space-x-2 group">
-                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.3)]" />
-                    <span className="text-[11px] font-black text-slate-500 uppercase tracking-tight">
-                      {statsCounts.eliminated} ELIMINADOS
-                    </span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                    <span className="text-[10px] font-black text-slate-500 uppercase">{statsCounts.eliminated} ELIMINADOS</span>
                   </div>
                </div>
             </div>
             
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead className="bg-slate-50/50 border-b border-slate-200">
                     <tr>
-                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Pos</th>
-                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Equipo</th>
-                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">W-L</th>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase text-center">Pos</th>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase">Equipo</th>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase text-center">W-L</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {standings.map((stat, index) => {
                       const team = getTeamById(stat.teamId);
-                      const isTop = index < 8;
                       return (
-                        <tr key={stat.teamId} className={`hover:bg-slate-50 transition-colors ${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
+                        <tr key={stat.teamId} className={`${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs font-bold ${isTop ? 'text-indigo-600' : 'text-slate-400'}`}>
+                            <span className={`text-xs font-bold ${index < 8 ? 'text-indigo-600' : 'text-slate-400'}`}>
                               {String(index + 1).padStart(2, '0')}
                             </span>
                           </td>
                           <td className="px-4 py-3">
                             <div className="flex items-center space-x-3">
-                              <img src={team?.logo} className="w-5 h-5 rounded-full" alt="" />
+                              <img src={team?.logo} className="w-5 h-5 rounded-full border border-slate-100" alt="" />
                               <span className="text-xs font-bold text-slate-700 truncate max-w-[100px]">
                                 {team?.name}
                               </span>
@@ -305,28 +360,18 @@ const App: React.FC = () => {
                     })}
                   </tbody>
                 </table>
-              </div>
             </div>
 
-            <div className="bg-indigo-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-500 rounded-full opacity-10 group-hover:scale-150 transition-transform duration-700" />
-              <h3 className="font-bold text-sm mb-4 flex items-center space-x-2 relative z-10">
-                <Info className="w-4 h-4 text-indigo-300" />
-                <span className="uppercase tracking-widest">Guía Rápida</span>
+            <div className="bg-indigo-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+              <h3 className="font-bold text-sm mb-4 flex items-center space-x-2 text-indigo-300">
+                <Info className="w-4 h-4" />
+                <span className="uppercase tracking-widest">Formato</span>
               </h3>
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center space-x-3 text-xs">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
-                  <span className="text-indigo-100 font-medium">3 Victorias = Clasificado</span>
-                </div>
-                <div className="flex items-center space-x-3 text-xs">
-                  <div className="w-2 h-2 rounded-full bg-rose-400 shadow-sm shadow-rose-400" />
-                  <span className="text-indigo-100 font-medium">3 Derrotas = Eliminado</span>
-                </div>
-                <div className="mt-4 pt-4 border-t border-indigo-800">
-                  <p className="text-[10px] text-indigo-300 font-bold uppercase leading-relaxed">
-                    Los equipos solo juegan contra otros que tengan exactamente su mismo récord actual.
-                  </p>
+              <div className="space-y-4 text-xs font-medium text-indigo-100 leading-relaxed">
+                <p>3 Victorias = Clasificación directa.</p>
+                <p>3 Derrotas = Eliminación del torneo.</p>
+                <div className="pt-2 text-indigo-300 uppercase tracking-tighter font-black">
+                  Click en partido para ver KDA
                 </div>
               </div>
             </div>
