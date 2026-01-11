@@ -10,27 +10,44 @@ export const TournamentPage: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [teams, setTeams] = useState<Team[]>(SWISS_TOURNAMENT_DATA.teams);
+  const [matches, setMatches] = useState<Match[]>([]);
 
   useEffect(() => {
-    const fetchTeams = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/teams');
-        const json = await response.json();
-        if (json.status === 'success') {
-          setTeams(json.data);
-          console.log("god")
+        const [teamsRes, matchesRes] = await Promise.all([
+          fetch('http://localhost:5000/api/teams'),
+          fetch('http://localhost:5000/api/matches')
+        ]);
+        
+        const teamsJson = await teamsRes.json();
+        const matchesJson = await matchesRes.json();
+
+        if (teamsJson.status === 'success') {
+          setTeams(teamsJson.data);
+        }
+        if (matchesJson.status === 'success') {
+          setMatches(matchesJson.data);
         }
       } catch (error) {
-        console.error('Failed to fetch teams:', error);
+        console.error('Failed to fetch data:', error);
       }
     };
-    fetchTeams();
+    fetchData();
   }, []);
 
-  const data: TournamentData = useMemo(() => ({
-    ...SWISS_TOURNAMENT_DATA,
-    teams: teams
-  }), [teams]);
+  const data: TournamentData = useMemo(() => {
+    const rounds = SWISS_TOURNAMENT_DATA.rounds.map(round => ({
+      ...round,
+      matches: matches.filter(m => m.round === round.number)
+    }));
+
+    return {
+      ...SWISS_TOURNAMENT_DATA,
+      teams: teams,
+      rounds: rounds
+    };
+  }, [teams, matches]);
 
   const getRecordBeforeRound = (teamId: string, roundNum: number) => {
     let wins = 0;
@@ -155,7 +172,7 @@ export const TournamentPage: React.FC = () => {
                 <button
                   key={round.number}
                   onClick={() => setActiveRound(round.number)}
-                  className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all duration-200 uppercase tracking-tighter ${
+                  className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all duration-200 uppercase tracking-tighter cursor-pointer ${
                     activeRound === round.number
                       ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
                       : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200'
@@ -196,7 +213,7 @@ export const TournamentPage: React.FC = () => {
                               key={match.id} 
                               onClick={() => !isPending && setSelectedMatch(match)}
                               disabled={isPending}
-                              className={`w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group transition-all duration-300 ${isPending ? 'opacity-80 cursor-default' : 'hover:border-indigo-300 hover:shadow-md'}`}
+                              className={`w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-indigo-300 hover:shadow-md cursor-pointer'}`}
                             >
                               <div className="p-4 flex items-center justify-between">
                                 <div className={`flex items-center space-x-4 flex-1 ${!isPending && match.winnerId === team1?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
@@ -227,7 +244,7 @@ export const TournamentPage: React.FC = () => {
                                         <span className="text-slate-300 font-light">-</span>
                                         <span className={`text-lg font-black ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score2}</span>
                                       </div>
-                                      <span className="text-[8px] font-black text-indigo-400 uppercase mt-1 opacity-0 group-hover:opacity-100 transition-opacity tracking-widest">Estadísticas</span>
+                                      <span className="text-[10px] font-black text-indigo-400 uppercase mt-1 transition-opacity tracking-widest">Ver Estadísticas</span>
                                     </>
                                   )}
                                 </div>

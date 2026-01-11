@@ -19,7 +19,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({ match, teams, onClose })
       <div className="bg-white w-full max-w-2xl rounded-2xl border border-slate-200 shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 hover:cursor-pointer transition-colors z-10"
         >
           <X className="w-6 h-6" />
         </button>
@@ -43,10 +43,10 @@ export const MatchModal: React.FC<MatchModalProps> = ({ match, teams, onClose })
           {match.details ? (
             <div className="grid grid-cols-2 gap-8">
               <div className="space-y-4">
-                {match.details.team1Players.map((p, i) => <PlayerRow key={i} player={p} align="left" />)}
+                {match.details.team1Players.map((p, i) => <PlayerRow key={i} player={p} align="right" />)}
               </div>
               <div className="space-y-4">
-                {match.details.team2Players.map((p, i) => <PlayerRow key={i} player={p} align="right" />)}
+                {match.details.team2Players.map((p, i) => <PlayerRow key={i} player={p} align="left" />)}
               </div>
             </div>
           ) : (

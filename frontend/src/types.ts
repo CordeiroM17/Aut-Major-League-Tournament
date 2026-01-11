@@ -1,5 +1,5 @@
 
-export type Role = 'TOP' | 'JNG' | 'MID' | 'ADC' | 'SUP';
+export type Role = 'TOP' | 'JG' | 'MID' | 'ADC' | 'SUP';
 
 export interface PlayerStats {
   name: string;
