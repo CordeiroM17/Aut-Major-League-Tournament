@@ -18,3 +18,12 @@ View your app in AI Studio: https://ai.studio/apps/drive/1RTDAJgGHZ0K3MfPxnU5NlE
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+
+1. guardar las variables privadas 
+3. averiguar para saber informacion en vivo, websocket, o hacer un trigger
+4. cambiar de url
+5. cors
+6. webtoken 
+7. llaves playoffs 
+8. bans

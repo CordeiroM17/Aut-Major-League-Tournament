@@ -23,4 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
+# Ignorar archivos de entorno
 .env
+backend/.env
+frontend/.env
