@@ -5,6 +5,7 @@ import { Trophy, Calendar, CheckCircle2, LayoutGrid, Info } from 'lucide-react';
 import { RecordSquares } from '../components/RecordSquares';
 import { MatchModal } from '../components/MatchModal';
 import { useEffect } from 'react';
+import { TournamentLiveButton } from '../components/TournamentLiveButton';
 
 export const TournamentPage: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
@@ -149,8 +150,7 @@ export const TournamentPage: React.FC = () => {
               <h1 className="text-xl font-bold text-slate-900">Swiss Tracker</h1>
             </div>
             <div className="flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 border border-slate-200">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Tournament Live</span>
+                <TournamentLiveButton />
             </div>
           </div>
         </div>

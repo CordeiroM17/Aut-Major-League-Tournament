@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { connectMongo } from './utils/connections';
 import teamRoutes from './routes/teamRoutes';
 import matchRoutes from './routes/matchRoutes';
+import tournamentRoutes from './routes/tournamentRoutes';
 
 dotenv.config();
 connectMongo(); 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/api/teams', teamRoutes);
 app.use('/api/matches', matchRoutes);
+app.use('/api/tournament', tournamentRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('API is running...');

@@ -20,7 +20,7 @@ View your app in AI Studio: https://ai.studio/apps/drive/1RTDAJgGHZ0K3MfPxnU5NlE
    `npm run dev`
 
 
-1. guardar las variables privadas 
+1. guardar las variables privadas  👌
 3. averiguar para saber informacion en vivo, websocket, o hacer un trigger
 4. cambiar de url
 5. cors
