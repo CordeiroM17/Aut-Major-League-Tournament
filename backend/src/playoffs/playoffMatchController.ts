@@ -1,0 +1,64 @@
+import { Request, Response } from 'express';
+import { createPlayoffMatch, setPlayoffMatchWinner, getPlayoffMatch, getAllPlayoffMatches } from './playoffMatchService';
+
+export const createPlayoffMatchController = async (req: Request, res: Response) => {
+  try {
+    const { id, stage, team1Id, team2Id, status } = req.body;
+    if (!id || !stage || !team1Id || !team2Id) {
+      return res.status(400).json({ message: 'Missing required fields: id, stage, team1Id, team2Id' });
+    }
+    const match = await createPlayoffMatch({ id, stage, team1Id, team2Id, status: status || 'pending' });
+    res.status(201).json({ status: 'created', data: match });
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating playoff match', error });
+  }
+};
+
+export const setPlayoffMatchWinnerController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { winnerId, games } = req.body;
+    if (!id || !winnerId || !games || !Array.isArray(games) || games.length === 0) {
+      return res.status(400).json({ message: 'Missing required fields: id, winnerId, games' });
+    }
+    // Validar cantidad de games según stage
+    const match = await getPlayoffMatch(id);
+    if (!match) {
+      return res.status(404).json({ message: 'Playoff match not found' });
+    }
+    const maxGames = match.stage === 'F' ? 5 : 3;
+    if (games.length > maxGames) {
+      return res.status(400).json({ message: `Games array too long for stage (${maxGames} max)` });
+    }
+    // Actualizar match con resultados y ganador
+    match.games = games;
+    match.winnerId = winnerId;
+    match.status = 'completed';
+    await match.save();
+    res.status(200).json({ status: 'success', data: match });
+  } catch (error) {
+    res.status(500).json({ message: 'Error setting playoff match winner', error });
+  }
+};
+
+export const getPlayoffMatchController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const match = await getPlayoffMatch(id);
+    if (!match) {
+      return res.status(404).json({ message: 'Playoff match not found' });
+    }
+    res.status(200).json({ status: 'success', data: match });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching playoff match', error });
+  }
+};
+
+export const getAllPlayoffMatchesController = async (_req: Request, res: Response) => {
+  try {
+    const matches = await getAllPlayoffMatches();
+    res.status(200).json({ status: 'success', data: matches });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching playoff matches', error });
+  }
+};
