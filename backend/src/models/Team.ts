@@ -3,6 +3,7 @@ import { Schema, model, Document } from 'mongoose';
 export interface IPlayer {
   name: string;
   role: string;
+  opgg: string;
 }
 
 export interface ITeam extends Document {
@@ -15,7 +16,8 @@ export interface ITeam extends Document {
 
 const playerSchema = new Schema<IPlayer>({
   name: { type: String, required: true },
-  role: { type: String, required: true }
+  role: { type: String, required: true },
+  opgg: { type: String, required: true }
 });
 
 const teamSchema = new Schema<ITeam>({

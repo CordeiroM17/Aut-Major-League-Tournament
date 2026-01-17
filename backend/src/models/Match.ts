@@ -12,6 +12,8 @@ export interface IMatchPlayerStats {
 export interface IMatchDetails {
     team1Players: IMatchPlayerStats[];
     team2Players: IMatchPlayerStats[];
+    team1Bans: string[];
+    team2Bans: string[];
 }
 
 export interface IMatch extends Document {
@@ -37,7 +39,9 @@ const matchPlayerStatsSchema = new Schema<IMatchPlayerStats>({
 
 const matchDetailsSchema = new Schema<IMatchDetails>({
     team1Players: [matchPlayerStatsSchema],
-    team2Players: [matchPlayerStatsSchema]
+    team2Players: [matchPlayerStatsSchema],
+    team1Bans: [{ type: String }],
+    team2Bans: [{ type: String }]
 });
 
 const matchSchema = new Schema<IMatch>({

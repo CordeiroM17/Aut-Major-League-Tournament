@@ -34,15 +34,19 @@ export const TournamentLiveButton: React.FC = () => {
   };
 
   return (
-    <button
-      className={`flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 border border-slate-200 transition-colors duration-200 ${isLive ? 'ring-2 ring-emerald-400' : ''}`}
-      disabled={loading}
-      title={isLive ? 'En directo' : 'En directo'}
-    >
-      <div className={`w-2 h-2 rounded-full ${isLive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
-      <span className={`text-xs font-semibold uppercase tracking-wider ${isLive ? 'text-emerald-700' : 'text-slate-600'}`}>
-        {isLive ? 'En directo' : 'En directo'}
-      </span>
-    </button>
+    <div className="flex items-center">
+      <a
+        href="https://www.twitch.tv/autmajorleague"
+        className={`flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 transition-colors duration-200 mb-6 bg-slate-100 rounded-full border border-slate-200 w-full justify-center ${isLive ? 'ring-2 ring-emerald-400 cursor-pointer' : ''}`}
+        disabled={loading}
+        title={isLive ? 'En directo' : 'Canal de twitch'}
+      >
+        <div className={`w-2 h-2 rounded-full ${isLive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+        <span className={`text-[10px] font-semibold uppercase tracking-wider ${isLive ? 'text-emerald-700' : 'text-slate-600'}`}>
+          {isLive ? 'En directo' : 'Canal de twitch'}
+        </span>
+      </a>    
+    </div>
+    
   );
 };

@@ -13,6 +13,8 @@ export interface PlayerStats {
 export interface MatchDetails {
   team1Players: PlayerStats[];
   team2Players: PlayerStats[];
+  team1Bans?: string[];
+  team2Bans?: string[];
 }
 
 export interface Team {

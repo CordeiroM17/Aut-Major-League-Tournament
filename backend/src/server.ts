@@ -46,7 +46,8 @@ function publicGetOnlyFromAllowedOrigin(req: Request, res: Response, next: Funct
   if (req.method === 'GET') {
     const origin = req.headers.origin;
     if (!allowedOrigin || origin !== allowedOrigin) {
-      return res.status(403).json({ error: 'Origen no permitido para lectura pública.' });
+      console.log(`[CORS ERROR] Blocked access from origin: '${origin}'. Expected: '${allowedOrigin}'`);
+      return res.status(403).json({ error: 'Origen no permitido para lectura pública.', origin, expected: allowedOrigin });
     }
     return next();
   }
@@ -57,7 +58,7 @@ function publicGetOnlyFromAllowedOrigin(req: Request, res: Response, next: Funct
 app.use('/api/teams', publicGetOnlyFromAllowedOrigin, teamRoutes);
 app.use('/api/matches', publicGetOnlyFromAllowedOrigin, matchRoutes);
 app.use('/api/tournament', publicGetOnlyFromAllowedOrigin, tournamentRoutes);
-app.use('/api/playoffs', authenticateToken, playoffMatchRoutes);
+app.use('/api/playoffs', publicGetOnlyFromAllowedOrigin, playoffMatchRoutes);
 
 // Endpoint para generar el token
 app.post('/api/generatetoken', (req: Request, res: Response) => {
@@ -71,7 +72,7 @@ app.post('/api/generatetoken', (req: Request, res: Response) => {
   }
 
   if (user === envUser && password === envPassword) {
-    const token = require('jsonwebtoken').sign({ user }, jwtSecret, { expiresIn: '2h' });
+    const token = require('jsonwebtoken').sign({ user }, jwtSecret, { expiresIn: '24h' });
     return res.json({ token });
   } else {
     return res.status(401).json({ error: 'Credenciales inválidas.' });

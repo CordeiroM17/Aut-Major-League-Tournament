@@ -31,7 +31,8 @@ export const createTeamController = async (req: Request, res: Response) => {
     // Sanitize players data
     const sanitizedPlayers = players.map((p: any) => ({
       name: p.name,
-      role: p.role
+      role: p.role,
+      opgg: p.opgg
     }));
 
     // Start-check: Ensure every player has name and role
