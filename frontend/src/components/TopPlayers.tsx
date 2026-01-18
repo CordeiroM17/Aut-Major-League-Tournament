@@ -22,8 +22,8 @@ export const TopPlayers: React.FC = () => {
     const fetchData = async () => {
       try {
         const [matchesRes, teamsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/matches'),
-          fetch('http://localhost:5000/api/teams')
+          fetch(`${import.meta.env.VITE_API_URL}/api/matches`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/teams`)
         ]);
 
         const matchesJson = await matchesRes.json();

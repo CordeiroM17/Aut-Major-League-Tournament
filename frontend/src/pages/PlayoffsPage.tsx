@@ -29,13 +29,13 @@ export const PlayoffsPage: React.FC = () => {
       try {
         setLoading(true);
         // 1. Fetch Teams
-        const teamsRes = await fetch('http://localhost:5000/api/teams');
+        const teamsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/teams`);
         if (!teamsRes.ok) throw new Error('Error fetching teams');
         const teamsResponse = await teamsRes.json();
         const teamsMap = new Map(teamsResponse.data.map((t: any) => [t.id, t]));
 
         // 2. Fetch Matches
-        const matchesRes = await fetch('http://localhost:5000/api/playoffs');
+        const matchesRes = await fetch(`${import.meta.env.VITE_API_URL}/api/playoffs`);
         if (!matchesRes.ok) throw new Error('Error fetching matches');
         const matchesResponse = await matchesRes.json();
         const matchesData = matchesResponse.data;

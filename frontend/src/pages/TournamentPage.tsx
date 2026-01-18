@@ -18,8 +18,8 @@ export const TournamentPage: React.FC = () => {
     const fetchData = async () => {
       try {
         const [teamsRes, matchesRes] = await Promise.all([
-          fetch('http://localhost:5000/api/teams'),
-          fetch('http://localhost:5000/api/matches')
+          fetch(`${import.meta.env.VITE_API_URL}/api/teams`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/matches`)
         ]);
         
         const teamsJson = await teamsRes.json();

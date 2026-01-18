@@ -9,7 +9,7 @@ export const MainPage: React.FC = () => {
     const fetchData = async () => {
       try {
         const [teamsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/teams'),
+          fetch(`${import.meta.env.VITE_API_URL}/api/teams`),
         ]);
         
         const teamsJson = await teamsRes.json();
