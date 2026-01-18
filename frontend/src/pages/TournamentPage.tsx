@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { SWISS_TOURNAMENT_DATA } from '../constants';
 import { Team, Match, TeamStats, TournamentData } from '../types';
-import { Trophy, Calendar, CheckCircle2, LayoutGrid, Info } from 'lucide-react';
+import { Trophy, Calendar, CheckCircle2, LayoutGrid, Info, Link } from 'lucide-react';
 import { RecordSquares } from '../components/RecordSquares';
 import { MatchModal } from '../components/MatchModal';
 import { useEffect } from 'react';
@@ -144,19 +144,19 @@ export const TournamentPage: React.FC = () => {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <a href="/" className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-3">
               <div className="bg-indigo-600 p-2 rounded-lg">
                 <Trophy className="w-4 h-4 sm:w-6 sm:h-6 text-white"/>
               </div>
               <h1 className="text-sm sm:text-xl font-bold text-slate-900">Formato Suizo</h1>
-            </a>
+            </Link>
             <div>
-              <a
+              <Link
               className="text-[10px] sm:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200"
-              href="/playoffs"
+              to="/playoffs"
               >
                 Ir a Playoffs
-              </a>
+              </Link>
             </div>
           </div>
         </div>

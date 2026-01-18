@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TopPlayers } from '../components/TopPlayers';
 import { Match, Team } from '../types';
+import { Link } from 'react-router-dom';
 
 export const MainPage: React.FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
@@ -32,7 +33,7 @@ export const MainPage: React.FC = () => {
         <p className="text-white text-center">AUT Major League es una competencia amateur de League of Legends creada para impulsar el talento emergente y brindar una experiencia competitiva única. </p>
         <p className="text-[#d7b84a] text-center">Torneo exclusivo para el servidor LAS (Latin America South).</p>
         <a 
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfTaMRakzHxVy_r_QK6d5PShJ0f4SWcJzAdQ95gpLfWxZ2mEA/viewform?usp=header"
+        href="https://forms.gle/cEAKt88AKbkG64FU9"
         className="border-2 border-[#d7b84a] px-8 py-4 bold text-[#d7b84a]" 
         target="_blank"
         >
@@ -41,12 +42,12 @@ export const MainPage: React.FC = () => {
       </div>
       <div className="flex flex-col items-center gap-8 px-32 py-16 bg-[#152a42]">
         <div className="flex gap-4">
-          <a href="/swiss" className="px-8 py-4 w-32 text-center bold bg-[#e5e7eb] text-[#4b5563] rounded-md text-[18px] shadow-md">
+          <Link to="/swiss" className="px-8 py-4 w-32 text-center bold bg-[#e5e7eb] text-[#4b5563] rounded-md text-[18px] shadow-md">
             Swiss
-          </a>
-          <a href="/playoffs" className="px-8 py-4 w-32 text-center bold bg-[#e5e7eb] text-[#4b5563] rounded-md text-[18px] shadow-md">
+          </Link>
+          <Link to="/playoffs" className="px-8 py-4 w-32 text-center bold bg-[#e5e7eb] text-[#4b5563] rounded-md text-[18px] shadow-md">
             Playoffs
-          </a>
+          </Link>
         </div>
         <div className="flex flex-col items-center gap-8">
           <h2 className="text-4xl font-bold text-white">Formato del torneo</h2>

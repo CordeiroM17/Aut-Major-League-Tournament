@@ -10,9 +10,9 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/swiss" element={<TournamentPage />} />
         <Route path="/" element={<MainPage />} />
-        <Route path="/playoffs" element={<PlayoffsPage />} />
+        <Route path="/swiss/*" element={<TournamentPage />} />
+        <Route path="/playoffs/*" element={<PlayoffsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
