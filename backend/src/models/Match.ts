@@ -7,6 +7,7 @@ export interface IMatchPlayerStats {
     k: number;
     d: number;
     a: number;
+    opgg?: string;
 }
 
 export interface IMatchDetails {
@@ -34,7 +35,8 @@ const matchPlayerStatsSchema = new Schema<IMatchPlayerStats>({
     champion: { type: String, required: true },
     k: { type: Number, required: true },
     d: { type: Number, required: true },
-    a: { type: Number, required: true }
+    a: { type: Number, required: true },
+    opgg: { type: String }
 });
 
 const matchDetailsSchema = new Schema<IMatchDetails>({

@@ -5,6 +5,7 @@ export interface PlayerStats {
   name: string;
   role: Role;
   champion: string;
+  opgg: string;
   k: number;
   d: number;
   a: number;

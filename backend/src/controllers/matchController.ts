@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { createMatch, getAllMatches, updateMatch } from '../services/matchService';
+import { enrichPlayers } from '../utils/playerUtils';
+import { MatchModel } from '../models/Match';
 
 export const updateMatchController = async (req: Request, res: Response) => {
     try {
@@ -11,7 +13,20 @@ export const updateMatchController = async (req: Request, res: Response) => {
         if (score2 !== undefined) updateData.score2 = score2;
         if (winnerId) updateData.winnerId = winnerId;
         if (status) updateData.status = status;
-        if (details) updateData.details = details;
+        
+        if (details) {
+            const currentMatch = await MatchModel.findOne({ id });
+            
+            if (currentMatch) {
+                if (details.team1Players) {
+                    details.team1Players = await enrichPlayers(details.team1Players, currentMatch.team1Id);
+                }
+                if (details.team2Players) {
+                    details.team2Players = await enrichPlayers(details.team2Players, currentMatch.team2Id);
+                }
+            }
+            updateData.details = details;
+        }
 
         // Validation for completion
         if (status === 'completed') {

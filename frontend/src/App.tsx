@@ -5,12 +5,14 @@ import { TournamentPage } from './pages/TournamentPage';
 import { PlayoffsPage } from './pages/PlayoffsPage';
 import { Footer } from './components/Footer';
 import { MainPage } from './pages/MainPage';
+import { AdminPage } from './pages/AdminPage';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/aut-gang-tournament/*" element={<AdminPage />} />
         <Route path="/swiss/*" element={<TournamentPage />} />
         <Route path="/playoffs/*" element={<PlayoffsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

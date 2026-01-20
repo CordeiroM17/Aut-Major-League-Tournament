@@ -10,6 +10,7 @@ export interface IPlayerStats {
   k: number;
   d: number;
   a: number;
+  opgg?: string;
 }
 
 export interface IGame {
@@ -39,7 +40,8 @@ const playerStatsSchema = new Schema<IPlayerStats>({
   champion: { type: String, required: true },
   k: { type: Number, required: true },
   d: { type: Number, required: true },
-  a: { type: Number, required: true }
+  a: { type: Number, required: true },
+  opgg: { type: String }
 });
 
 const gameSchema = new Schema<IGame>({

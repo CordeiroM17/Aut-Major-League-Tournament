@@ -13,7 +13,7 @@ export const PlayerRow: React.FC<{ player: PlayerStats; align: 'left' | 'right' 
         className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg border border-slate-200 shadow-sm"
         alt={player.champion}
       />
-      <div className={`flex flex-col sm:items-center ${isLeft ? 'items-start sm:flex-row' : 'items-end sm:flex-row-reverse sm:text-right'} sm:space-x-3 sm:space-x-reverse:0`}>
+      <a href={player.opgg} target="_blank" className={`flex flex-col sm:items-center cursor-pointer ${isLeft ? 'items-start sm:flex-row' : 'items-end sm:flex-row-reverse sm:text-right'} sm:space-x-3 sm:space-x-reverse:0`}>
         {/* Mobile: Name then KDA. Desktop: KDA then Name (depending on visual order) */}
         
         {/* Name */}
@@ -25,7 +25,7 @@ export const PlayerRow: React.FC<{ player: PlayerStats; align: 'left' | 'right' 
         <span className={`text-[10px] text-indigo-600 font-bold sm:text-sm ${isLeft ? 'order-2 sm:order-1' : 'order-2 sm:order-1'}`}>
           {player.k}/{player.d}/{player.a}
         </span>
-      </div>
+      </a>
     </>
   );
 

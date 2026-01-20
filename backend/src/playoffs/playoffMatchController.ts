@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { createPlayoffMatch, setPlayoffMatchWinner, getPlayoffMatch, getAllPlayoffMatches } from './playoffMatchService';
+import { enrichPlayers } from '../utils/playerUtils';
 
 export const createPlayoffMatchController = async (req: Request, res: Response) => {
   try {
@@ -30,8 +31,22 @@ export const setPlayoffMatchWinnerController = async (req: Request, res: Respons
     if (games.length > maxGames) {
       return res.status(400).json({ message: `Games array too long for stage (${maxGames} max)` });
     }
+
+    // Enrich players in games
+    const gamesPromises = games.map(async (game: any) => {
+        if (game.team1Players) {
+            game.team1Players = await enrichPlayers(game.team1Players, match.team1Id);
+        }
+        if (game.team2Players) {
+            game.team2Players = await enrichPlayers(game.team2Players, match.team2Id);
+        }
+        return game;
+    });
+
+    const enrichedGames = await Promise.all(gamesPromises);
+
     // Actualizar match con resultados y ganador
-    match.games = games;
+    match.games = enrichedGames;
     match.winnerId = winnerId;
     match.status = 'completed';
     await match.save();
