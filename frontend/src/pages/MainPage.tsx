@@ -41,23 +41,23 @@ export const MainPage: React.FC = () => {
             <div className="flex gap-4">
               <button
               className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
-              onClick={() => navigate('/playoffs')}
-              >
-                Playoffs
-              </button>
-              <button
-              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
               onClick={() => navigate('/swiss')}
               >
                 Swiss
+              </button>
+              <button
+              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
+              onClick={() => navigate('/playoffs')}
+              >
+                Playoffs
               </button>
             </div>
           </div>
         </div>
       </header>
       <main>
-        <div className="bg-[#152a42]">
-          <div className="flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="bg-[#152a42] min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+          <div className="w-full flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
             <img className="w-auto max-w-48 sm:max-w-64" src="Aut-Logo.png" alt="Aut Logo" />
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white text-center">Demostrá tu nivel, competí por la gloria</h1>
             <p className="text-white text-center text-sm lg:text-lg">AUT Major League es una competencia amateur de League of Legends creada para impulsar el talento emergente y brindar una experiencia competitiva única. </p>
