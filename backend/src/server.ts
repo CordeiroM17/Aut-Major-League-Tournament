@@ -72,7 +72,7 @@ app.post('/api/generatetoken', (req: Request, res: Response) => {
   }
 
   if (user === envUser && password === envPassword) {
-    const token = require('jsonwebtoken').sign({ user }, jwtSecret, { expiresIn: '24h' });
+    const token = require('jsonwebtoken').sign({ user }, jwtSecret, { expiresIn: '2d' });
     return res.json({ token });
   } else {
     return res.status(401).json({ error: 'Credenciales inválidas.' });

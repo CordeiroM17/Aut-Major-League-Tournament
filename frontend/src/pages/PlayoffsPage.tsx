@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Trophy, Loader, Link } from 'lucide-react';
+import { Trophy, Loader, Calendar } from 'lucide-react';
 import { PlayoffBracket } from '../components/PlayoffsBracket.tsx';
 import { TournamentLiveButton } from '../components/TournamentLiveButton.tsx';
+import { useNavigate } from 'react-router-dom';
 
 // Tipos locales para el estado (similares a los de PlayoffsBracket)
 interface Team {
@@ -23,6 +24,7 @@ export const PlayoffsPage: React.FC = () => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,26 +91,43 @@ export const PlayoffsPage: React.FC = () => {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center space-x-3">
+            <button onClick={() => navigate('/')} className="flex items-center space-x-3 text-decoration-none bg-transparent border-none cursor-pointer">
               <div className="bg-indigo-600 p-2 rounded-lg">
-                <Trophy className="w-6 h-6 text-white" />
+                <Trophy className="w-4 h-4 xs:w-6 xs:h-6 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-slate-900">Playoffs</h1>
-            </Link>
+              <h1 className="text-sm xs:text-xl font-bold text-slate-900">Playoffs</h1>
+            </button>
             <div>
-              <Link
-              className="text-xs cursor-pointer font-semibold uppercase flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200"
-              to="/swiss"
+              <button
+              onClick={() => navigate('/swiss')}
+              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
               >
                 Formato Suizo
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       </header>
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col items-center">
-          <PlayoffBracket matches={matches} />
+      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+        <TournamentLiveButton  />
+        <div className="flex flex-col items-center ">
+          {matches.length === 0 ? (
+            <div className="w-full text-center py-20 bg-white rounded-xl border border-slate-200 shadow-sm">
+              <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-slate-900">Ronda no iniciada</h3>
+              <p className="text-slate-500 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
+              <div className="mt-4 flex justify-center">
+                <button
+                onClick={() => navigate('/swiss')}
+                className="text-xs cursor-pointer font-semibold uppercase flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
+                >
+                  Regresar alFormato Suizo
+                </button>
+              </div>
+            </div>
+          ) : (
+            <PlayoffBracket matches={matches} />
+          )}
         </div>
       </main>
     </div>
