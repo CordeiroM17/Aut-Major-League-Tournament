@@ -12,6 +12,7 @@ export interface ITeam extends Document {
   seed: number;
   logo: string;
   players: IPlayer[];
+  description?: string;
 }
 
 const playerSchema = new Schema<IPlayer>({
@@ -25,7 +26,8 @@ const teamSchema = new Schema<ITeam>({
   name: { type: String, required: true },
   seed: { type: Number, required: true },
   logo: { type: String, required: true },
-  players: [playerSchema]
+  players: [playerSchema],
+  description: { type: String, required: false },
 }, {
   timestamps: true
 });

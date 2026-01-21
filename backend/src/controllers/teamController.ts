@@ -16,7 +16,7 @@ export const getTeamsController = async (req: Request, res: Response) => {
 
 export const createTeamController = async (req: Request, res: Response) => {
   try {
-    const { id, name, seed, logo, players } = req.body;
+    const { id, name, seed, logo, players, description } = req.body;
 
     if (!id || !name || !seed || !logo || !players) {
        res.status(400).json({ message: 'Missing required fields: id, name, seed, logo, players' });
@@ -48,7 +48,8 @@ export const createTeamController = async (req: Request, res: Response) => {
       name,
       seed,
       logo,
-      players: sanitizedPlayers
+      players: sanitizedPlayers,
+      description: description || '',
     };
 
     const newTeam = await createTeam(teamData);
