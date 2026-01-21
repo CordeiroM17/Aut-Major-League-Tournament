@@ -96,10 +96,10 @@ export const TopPlayers: React.FC = () => {
 
   return (
     <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden h-full">
-      <div className="bg-gradient-to-r from-indigo-900 to-indigo-800 px-6 py-4 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-blue-primary to-blue-secondary px-6 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-            <div className="bg-indigo-500/20 p-2 rounded-lg">
-                <Crosshair className="w-5 h-5 text-indigo-100" />
+            <div className="bg-gold/20 p-2 rounded-lg">
+                <Crosshair className="w-5 h-5 text-gold" />
             </div>
             <h3 className="font-bold text-white uppercase tracking-wider text-sm">Top Players (KDA)</h3>
         </div>
@@ -132,7 +132,7 @@ export const TopPlayers: React.FC = () => {
               </div>
               
               <div className="text-right">
-                <p className="text-xl font-black text-indigo-600">{player.kda.toFixed(2)}</p>
+                <p className="text-xl font-black text-gold">{player.kda.toFixed(2)}</p>
                 <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">KDA RATIO</p>
               </div>
             </div>

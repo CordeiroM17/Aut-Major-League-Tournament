@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { TournamentLiveButton } from '../components/TournamentLiveButton';
 import { TopPlayers } from '../components/TopPlayers';
 import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/Header';
 
 export const TournamentPage: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
@@ -136,51 +137,33 @@ export const TournamentPage: React.FC = () => {
   }), [standings]);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-blue-surface text-slate-900 relative overflow-hidden">
       <MatchModal 
         match={selectedMatch} 
         teams={data.teams} 
         onClose={() => setSelectedMatch(null)} 
       />
+      
 
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <button onClick={() => navigate('/')} className="flex items-center space-x-3 bg-transparent border-none cursor-pointer">
-              <div className="bg-indigo-600 p-2 rounded-lg">
-                <Trophy className="w-4 h-4 xs:w-6 xs:h-6 text-white"/>
-              </div>
-              <h1 className="text-sm xs:text-xl font-bold text-slate-900">Formato Suizo</h1>
-            </button>
-            <div>
-              <button
-              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
-              onClick={() => navigate('/playoffs')}
-              >
-              Playoffs
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header active="swiss" />
 
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <TournamentLiveButton />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8 space-y-6">
             <div className="flex items-center justify-center xs:justify-start space-x-2">
-              <Calendar className="w-5 h-5 text-indigo-500" />
-              <h2 className="text-lg font-bold text-slate-700">PARTIDOS POR RONDA</h2>
+              <Calendar className="w-5 h-5 text-gold" />
+              <h2 className="text-lg font-bold text-text-main">PARTIDOS POR RONDA</h2>
             </div>
 
-            <div className="flex p-1 space-x-1 bg-slate-200/50 rounded-xl">
+            <div className="flex p-1 space-x-1 bg-blue-primary rounded-xl">
               {data.rounds.map((round) => (
                 <button
                   key={round.number}
                   onClick={() => setActiveRound(round.number)}
                   className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-lg transition-all duration-200 uppercase tracking-tighter cursor-pointer ${
                     activeRound === round.number
-                      ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
+                      ? 'bg-white text-gold shadow-sm border border-slate-200'
                       : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200'
                   }`}
                 >
@@ -219,7 +202,7 @@ export const TournamentPage: React.FC = () => {
                               key={match.id} 
                               onClick={() => !isPending && setSelectedMatch(match)}
                               disabled={isPending}
-                              className={`w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-indigo-300 hover:shadow-md cursor-pointer'}`}
+                              className={`w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-gold hover:shadow-md cursor-pointer'}`}
                             >
                               <div className="p-4 grid grid-cols-3 items-center justify-between">
                                 <div className={`flex items-center justify-start space-x-4 flex-1 ${!isPending && match.winnerId === team1?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
@@ -227,7 +210,7 @@ export const TournamentPage: React.FC = () => {
                                     <img src={team1?.logo} alt="" className="hidden sm:block w-10 h-10 bg-slate-50 border border-slate-100" />
                                   </div>
                                   <div className="text-left m-0 relative">
-                                    <p className={`text-[10px] xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
+                                    <p className={`text-[10px] xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team1?.id ? 'text-gold' : 'text-slate-900'}`}>
                                       {team1?.name}
                                     </p>
                                     {!isPending && match.winnerId === team1?.id && (
@@ -246,18 +229,18 @@ export const TournamentPage: React.FC = () => {
                                   ) : (
                                     <>
                                       <div className="flex items-center space-x-3 bg-slate-50 rounded-lg px-4 py-1.5 border border-slate-100">
-                                        <span className={`text-sm sm:text-lg font-black ${match.winnerId === team1?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score1}</span>
+                                        <span className={`text-sm sm:text-lg font-black ${match.winnerId === team1?.id ? 'text-gold' : 'text-slate-400'}`}>{match.score1}</span>
                                         <span className="text-slate-300 font-light">-</span>
-                                        <span className={`text-sm sm:text-lg font-black ${match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-400'}`}>{match.score2}</span>
+                                        <span className={`text-sm sm:text-lg font-black ${match.winnerId === team2?.id ? 'text-gold' : 'text-slate-400'}`}>{match.score2}</span>
                                       </div>
-                                      <span className="text-[8px] xs:text-[10px] sm:text-xs text-center font-black text-indigo-400 uppercase mt-1 transition-opacity tracking-widest">Ver Estadísticas</span>
+                                      <span className="text-[8px] xs:text-[10px] sm:text-xs text-center font-black text-gold uppercase mt-1 transition-opacity tracking-widest">Ver Estadísticas</span>
                                     </>
                                   )}
                                 </div>
 
                                 <div className={`flex items-center justify-end space-x-4 flex-1 ${!isPending && match.winnerId === team2?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
                                   <div className="text-right m-0 relative">
-                                    <p className={`text-[10px] xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team2?.id ? 'text-indigo-600' : 'text-slate-900'}`}>
+                                    <p className={`text-[10px] xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team2?.id ? 'text-gold' : 'text-slate-900'}`}>
                                       {team2?.name}
                                     </p>
                                     {!isPending && match.winnerId === team2?.id && (
@@ -284,8 +267,8 @@ export const TournamentPage: React.FC = () => {
 
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center justify-center xs:justify-start space-x-2">
-              <LayoutGrid className="w-5 h-5 text-indigo-500" />
-              <h2 className="text-lg font-bold text-slate-700">CLASIFICACIÓN</h2>
+              <LayoutGrid className="w-5 h-5 text-gold" />
+              <h2 className="text-lg font-bold text-text-main">CLASIFICACIÓN</h2>
             </div>
 
             <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex items-center justify-center">
@@ -295,7 +278,7 @@ export const TournamentPage: React.FC = () => {
                     <span className="text-xs sm:text-sm lg:text-xs font-black text-slate-500 uppercase">{statsCounts.qualified} CLASIFICADOS</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-gold" />
                     <span className="text-xs sm:text-sm lg:text-xs font-black text-slate-500 uppercase">{statsCounts.active} ACTIVOS</span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -320,7 +303,7 @@ export const TournamentPage: React.FC = () => {
                       return (
                         <tr key={stat.teamId} className={`${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs sm:text-sm font-bold ${index < 8 ? 'text-indigo-600' : 'text-slate-400'}`}>
+                            <span className={`text-xs sm:text-sm font-bold ${index < 8 ? 'text-gold' : 'text-slate-400'}`}>
                               {String(index + 1).padStart(2, '0')}
                             </span>
                           </td>
@@ -348,13 +331,13 @@ export const TournamentPage: React.FC = () => {
                 </table>
             </div>
 
-            <div className="bg-indigo-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
-              <div className="font-bold text-sm mb-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-indigo-300">
+            <div className="bg-blue-secondary rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+              <div className="font-bold text-sm mb-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-gold">
                 <Info className="w-4 h-4" />
                 <h3 className="uppercase tracking-widest">Formato Suizo</h3>
               </div>
 
-              <div className="space-y-3 text-xs sm:text-sm font-medium text-indigo-100 leading-relaxed">
+              <div className="space-y-3 text-xs sm:text-sm font-medium text-text-main leading-relaxed">
                 <p>
                   Todos los equipos comienzan con un marcador <strong>0-0</strong>.
                 </p>
@@ -381,7 +364,7 @@ export const TournamentPage: React.FC = () => {
                   eliminados.
                 </p>
               </div>
-              <div className="font-bold text-sm mt-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-indigo-300">
+              <div className="font-bold text-sm mt-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-gold">
                   <Info className="w-4 h-4" />
                   <h3 className="uppercase tracking-widest">Click en partido para ver KDA</h3>
                 </div>

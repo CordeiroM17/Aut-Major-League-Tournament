@@ -38,29 +38,29 @@ export const TeamModal: React.FC<TeamModalProps> = ({ open, onClose, logo, name,
   const subs = players.slice(5);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ background: 'rgba(12, 28, 47, 0.88)' }}>
-      <div className="bg-[#101a27] rounded-xl shadow-lg p-8 max-w-lg w-full relative" style={{ marginTop: '96px', maxHeight: '80vh', overflowY: 'auto' }}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-blue-secondary/90">
+      <div className="bg-blue-surface rounded-xl shadow-lg p-4 mx-4 max-w-lg w-full relative" style={{ marginTop: '96px', maxHeight: '80vh', overflowY: 'auto' }}>
         <button
-          className="absolute top-4 right-4 text-[#d7b84a] text-2xl font-bold hover:text-[#f3f3f3]"
+          className="absolute top-4 right-4 text-gold text-5xl font-bold hover:text-text-main cursor-pointer"
           onClick={onClose}
           aria-label="Cerrar"
         >
           ×
         </button>
         <div className="flex flex-col items-center mb-6">
-          <img src={logo} alt={name} className="w-24 h-24 rounded-full mb-2 object-cover border-2 border-[#d7b84a]" />
-          <h2 className="text-2xl font-bold text-[#d7b84a] mb-1">{name}</h2>
-          <p className="text-[#f3f3f3] text-center mb-2">{description}</p>
+          <img src={logo} alt={name} className="w-24 h-24 rounded-full mb-2 object-cover border-2 border-gold" />
+          <h2 className="text-2xl font-bold text-gold mb-1">{name}</h2>
+          <p className="text-text-main text-center mb-2">{description}</p>
         </div>
         <div>
-          <h3 className="text-lg font-bold text-[#d7b84a] mb-2">Jugadores</h3>
-          <ul className="divide-y divide-[#2a3a54]">
+          <h3 className="text-lg font-bold text-gold mb-2">Jugadores</h3>
+          <ul className="divide-y divide-slate-700">
             {mainPlayers.map((player, idx) => (
               <li key={idx} className="py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex flex-row items-center justify-between w-full">
                   <div className="flex items-center">
-                    <span className="font-semibold text-[#f3f3f3]">{player.name}</span>
-                    {player.isSub && <span className="ml-2 text-xs text-[#d7b84a]">(Suplente)</span>}
+                    <p className="font-semibold text-sm xs:text-base text-text-main">{player.name}</p>
+                    {player.isSub && <h3 className="text-2xl font-bold text-gold mb-1">(Suplente)</h3>}
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="align-middle">
@@ -72,17 +72,15 @@ export const TeamModal: React.FC<TeamModalProps> = ({ open, onClose, logo, name,
                           title={player.role}
                         />
                       ) : (
-                        <span className="text-sm text-[#d7b84a]">{player.role}</span>
+                        <span className="text-sm text-gold">{player.role}</span>
                       )}
                     </span>
-                    <a
-                      href={player.opgg}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#d7b84a] hover:underline text-sm"
+                    <button
+                      onClick={() => window.open(player.opgg, '_blank')}
+                      className="text-gold hover:underline text-sm cursor-pointer"
                     >
-                      opgg
-                    </a>
+                      op.gg
+                    </button>
                   </div>
                 </div>
               </li>
@@ -90,14 +88,14 @@ export const TeamModal: React.FC<TeamModalProps> = ({ open, onClose, logo, name,
           </ul>
           {subs.length > 0 && (
             <>
-              <h3 className="text-lg font-bold text-[#d7b84a] mt-6 mb-2">Suplentes</h3>
-              <ul className="divide-y divide-[#2a3a54]">
+              <h3 className="text-lg font-bold text-gold mt-6 mb-2">Suplentes</h3>
+              <ul className="divide-y divide-slate-700">
                 {subs.map((player, idx) => (
                   <li key={idx} className="py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex flex-row items-center justify-between w-full">
                       <div className="flex items-center">
-                        <span className="font-semibold text-[#f3f3f3]">{player.name}</span>
-                        {player.isSub && <span className="ml-2 text-xs text-[#d7b84a]">(Suplente)</span>}
+                        <p className="font-semibold text-sm xs:text-base text-text-main">{player.name}</p>
+                        {player.isSub && <h3 className="text-2xl font-bold text-gold mb-1">(Suplente)</h3>}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="align-middle">
@@ -109,17 +107,15 @@ export const TeamModal: React.FC<TeamModalProps> = ({ open, onClose, logo, name,
                               title={player.role}
                             />
                           ) : (
-                            <span className="text-sm text-[#d7b84a]">{player.role}</span>
+                            <span className="text-sm text-gold">{player.role}</span>
                           )}
                         </span>
-                        <a
-                          href={player.opgg}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#d7b84a] hover:underline text-sm"
+                        <button
+                          onClick={() => window.open(player.opgg, '_blank')}
+                          className="text-gold hover:underline text-sm cursor-pointer"
                         >
-                          opgg
-                        </a>
+                          op.gg
+                        </button>
                       </div>
                     </div>
                   </li>

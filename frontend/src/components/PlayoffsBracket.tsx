@@ -30,18 +30,18 @@ const MatchCard: React.FC<{ match: Match; isFinal?: boolean }> = ({ match, isFin
       )}
       <div className="p-3 space-y-2">
         {/* Team 1 */}
-        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam1Winner ? 'bg-indigo-50/80' : 'group-hover:bg-slate-50'}`}>
+        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam1Winner ? 'bg-gold/20' : 'group-hover:bg-slate-50'}`}>
           <div className="flex items-center space-x-3 overflow-hidden">
              {match.team1.logo ? (
                  <img src={match.team1.logo} alt={match.team1.name} className="w-6 h-6 rounded-full object-cover border border-slate-100" />
              ) : (
                 <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex-shrink-0" />
              )}
-            <span className={`text-xs font-bold truncate ${isTeam1Winner ? 'text-indigo-900' : 'text-slate-500'}`}>
+            <span className={`text-xs font-bold truncate ${isTeam1Winner ? 'text-blue-primary' : 'text-slate-500'}`}>
               {match.team1.name}
             </span>
           </div>
-          <span className={`text-sm font-black ${isTeam1Winner ? 'text-indigo-600' : 'text-slate-400'}`}>
+          <span className={`text-sm font-black ${isTeam1Winner ? 'text-gold' : 'text-slate-400'}`}>
             {match.team1.score}
           </span>
         </div>
@@ -50,18 +50,18 @@ const MatchCard: React.FC<{ match: Match; isFinal?: boolean }> = ({ match, isFin
         <div className="h-px bg-slate-100 mx-2" />
 
         {/* Team 2 */}
-        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam2Winner ? 'bg-indigo-50/80' : 'group-hover:bg-slate-50'}`}>
+        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam2Winner ? 'bg-gold/20' : 'group-hover:bg-slate-50'}`}>
            <div className="flex items-center space-x-3 overflow-hidden">
              {match.team2.logo ? (
                  <img src={match.team2.logo} alt={match.team2.name} className="w-6 h-6 rounded-full object-cover border border-slate-100" />
              ) : (
                 <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex-shrink-0" />
              )}
-            <span className={`text-xs font-bold truncate ${isTeam2Winner ? 'text-indigo-900' : 'text-slate-500'}`}>
+            <span className={`text-xs font-bold truncate ${isTeam2Winner ? 'text-blue-primary' : 'text-slate-500'}`}>
               {match.team2.name}
             </span>
           </div>
-          <span className={`text-sm font-black ${isTeam2Winner ? 'text-indigo-600' : 'text-slate-400'}`}>
+          <span className={`text-sm font-black ${isTeam2Winner ? 'text-gold' : 'text-slate-400'}`}>
             {match.team2.score}
           </span>
         </div>
@@ -124,17 +124,17 @@ export const PlayoffBracket: React.FC<PlayoffBracketProps> = ({ matches }) => {
       <div className={`${minWidthClass} transition-all duration-500`}>
         <div className={`grid ${gridClass} gap-16 w-full mb-8 transition-all duration-500`} >
           {showQF && (
-            <div className="text-center bg-indigo-600 text-white p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4">
+            <div className="text-center bg-gold text-blue-primary p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4">
                 Cuartos de final
             </div>
           )}
           {showSF && (
-            <div className="text-center bg-indigo-600 text-white p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-100">
+            <div className="text-center bg-gold text-blue-primary p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-100">
                 Semifinales
             </div>
           )}
           {showF && (
-            <div className="text-center bg-indigo-600 text-white p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-200">
+            <div className="text-center bg-gold text-blue-primary p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-200">
                 Final
             </div>  
           )}
