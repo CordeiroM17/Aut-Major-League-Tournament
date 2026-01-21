@@ -29,73 +29,129 @@ export const MainPage: React.FC = () => {
 
   return (
     <div className="bg-[#152a42]">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <button onClick={() => navigate('/')} className="flex items-center space-x-3 bg-transparent border-none cursor-pointer">
-            <div className="bg-indigo-600 p-2 rounded-lg">
-              <Trophy className="w-4 h-4 xs:w-6 xs:h-6 text-white"/>
+      <header className="bg-[#18283a] border-b border-[#152A42] sticky top-0 z-30 shadow-sm" style={{ height: '100px' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+          {/* Logo and title */}
+          <div className="flex items-center h-full w-full justify-between">
+            <div className="flex items-center h-full">
+              <img src="/src/resources/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />
             </div>
-            <h1 className="hidden xs:block text-sm xs:text-xl font-bold text-slate-900">AUT League</h1>
-          </button>
-            <div className="flex gap-4">
-              <button
-              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
-              onClick={() => navigate('/swiss')}
-              >
-                Swiss
-              </button>
-              <button
-              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
-              onClick={() => navigate('/playoffs')}
-              >
-                Playoffs
-              </button>
+            <div className="flex items-center h-full justify-center flex-1">
+              {[
+                { label: 'Overview', href: '/', active: true },
+                { label: 'Equipos', href: '#equipos' },
+                { label: 'Reglamento', href: '/reglamento' },
+                { label: 'Inscribirse', href: 'https://forms.gle/cEAKt88AKbkG64FU9' },
+                { label: 'Discord', href: '/discord' },
+                { label: 'Swiss', href: '/swiss' },
+                { label: 'Playoffs', href: '/playoffs' }
+              ].map((link, idx, arr) => (
+                <React.Fragment key={link.label}>
+                  <button
+                    className={`px-6 text-[18px] font-bold transition-colors duration-200 ${link.active ? 'text-[#d7b84a]' : 'text-white hover:text-[#d7b84a]'} bg-transparent`}
+                    style={{ outline: 'none', border: 'none', background: 'none', cursor: 'pointer' }}
+                    onClick={() => {
+                      if (link.label === 'Equipos') {
+                        const equiposSection = document.getElementById('equipos');
+                        if (equiposSection) {
+                          equiposSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        return;
+                      }
+                      if (link.label === 'Overview') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        return;
+                      }
+                      if (link.href.startsWith('http')) {
+                        window.open(link.href, '_blank');
+                      } else {
+                        navigate(link.href);
+                      }
+                    }}
+                  >
+                    {link.label}
+                  </button>
+                  {idx < arr.length - 1 && (
+                    <span className="h-8 border-l border-[#f3f3f3] mx-2"></span>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         </div>
       </header>
       <main>
-        <div className="bg-[#152a42] min-h-[calc(100vh-4rem)] flex flex-col justify-center">
-          <div className="w-full flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="bg-[#152a42] min-h-[calc(100vh-4rem)] flex flex-col justify-center relative overflow-hidden">
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            src="/src/resources/Loop_1.webm"
+            autoPlay
+            loop
+            muted
+            style={{ opacity: 0.5 }} // Cambia el valor de opacity aquí para ajustar la opacidad del video
+          />
+          <div className="w-full flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
             <img className="w-auto max-w-48 sm:max-w-64" src="Aut-Logo.png" alt="Aut Logo" />
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white text-center">Demostrá tu nivel, competí por la gloria</h1>
-            <p className="text-white text-center text-sm lg:text-lg">AUT Major League es una competencia amateur de League of Legends creada para impulsar el talento emergente y brindar una experiencia competitiva única. </p>
-            <p className="text-[#d7b84a] text-center text-sm lg:text-lg">Torneo exclusivo para el servidor LAS (Latin America South).</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#f3f3f3] text-center">Demostrá tu nivel, competí por la gloria</h1>
+            <p className="text-[#f3f3f3] text-center text-sm lg:text-lg">AUT Major League es una competencia amateur de League of Legends creada para impulsar el talento emergente y brindar una experiencia competitiva única. </p>
+            <p className="text-[#d7b84a] text-center text-sm lg:text-lg pb-6">Torneo exclusivo para el servidor LAS (Latin America South).</p>
             <a 
             href="https://forms.gle/cEAKt88AKbkG64FU9"
-            className="border-2 border-[#d7b84a] px-8 py-4 bold text-[#d7b84a]" 
+            className="border-2 border-[#d7b84a] px-8 py-4 bold rounded-md text-[18px] shadow-md cursor-pointer transition-all duration-300"
             target="_blank"
+            style={{ background: 'rgba(21, 42, 66, 0.7)', color: '#d7b84a' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(212, 183, 73, 0.95)'; e.currentTarget.style.color = '#152A42'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(21, 42, 66, 0.7)'; e.currentTarget.style.color = '#d7b84a'; }}
             >
               ¡Inscribete Aqui!
             </a>
           </div>
         </div>
-        <div className="bg-white">
-          <div className="flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div className="bg-[#152a42]">
+          <div className="flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 text-[#f3f3f3]">
             <div className="flex flex-col items-center gap-4">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-[#152a42]">Formato del torneo</h2>
-              <p className="text-[#152a42] text-center text-sm lg:text-lg">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-[#f3f3f3]">Formato del torneo</h2>
+              <p className="text-[#f3f3f3] text-center text-sm lg:text-lg pb-12">
                 La estructura de la competencia de la AUT Major League emplea un sistema diseñado para garantizar la equidad y maximizar el tiempo de juego de los participantes.
               </p>
             </div>
             <div className="flex gap-4">
-              <button onClick={() => navigate('/swiss')} className="px-8 py-4 w-32 text-center bold bg-[#e5e7eb] text-[#4b5563] rounded-md text-[18px] shadow-md cursor-pointer hover:bg-slate-300 transition-colors">
+              <button
+                onClick={() => navigate('/swiss')}
+                className="px-8 py-4 w-32 text-center bold border-2 border-[#d7b84a] rounded-md text-[18px] shadow-md cursor-pointer transition-all duration-300"
+                style={{ background: 'rgba(21, 42, 66, 0.7)', color: '#d7b84a' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(212, 183, 73, 0.95)'; e.currentTarget.style.color = '#152A42'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(21, 42, 66, 0.7)'; e.currentTarget.style.color = '#d7b84a'; }}
+              >
                 Swiss
               </button>
-              <button onClick={() => navigate('/playoffs')} className="px-8 py-4 w-32 text-center bold bg-[#e5e7eb] text-[#4b5563] rounded-md text-[18px] shadow-md cursor-pointer hover:bg-slate-300 transition-colors">
+              <button
+                onClick={() => navigate('/playoffs')}
+                className="px-8 py-4 w-32 text-center bold border-2 border-[#d7b84a] rounded-md text-[18px] shadow-md cursor-pointer transition-all duration-300"
+                style={{ background: 'rgba(21, 42, 66, 0.7)', color: '#d7b84a' }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(212, 183, 73, 0.95)'; e.currentTarget.style.color = '#152A42'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(21, 42, 66, 0.7)'; e.currentTarget.style.color = '#d7b84a'; }}
+              >
                 Playoffs
               </button>
             </div>
           </div>
         </div>
-        <div className="bg-white border-t border-[#152a42]">
-          <div className="grid grid-cols-1 gap-8 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div id="equipos" className="bg-[#d7b84a] border-t border-[#152a42] relative overflow-hidden">
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            src="/src/resources/Loop_1.webm"
+            autoPlay
+            loop
+            muted
+            style={{ opacity: 0.3 }} // Cambia el valor de opacity aquí para ajustar la opacidad del video
+          />
+          <div className="grid grid-cols-1 gap-8 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] items-center justify-items-center gap-8">
               <div className="w-full h-full flex flex-col items-center text-center w-full bg-[#152a42] p-8 gap-4 rounded-xl shadow-lg border border-slate-700">
                 <div className="flex items-center justify-center w-16 h-16 text-3xl font-bold text-[#d7b84a] rounded-full border-2 border-[#d7b84a]">1</div>
                 <div>
-                  <span className="block text-xl sm:text-2xl lg:text-3xl text-white font-bold mb-1">Fase Regular</span>
+                  <span className="block text-xl sm:text-2xl lg:text-3xl text-[#f3f3f3] font-bold mb-1">Fase Regular</span>
                   <span className="text-lg sm:text-xl lg:text-2xl text-[#d7b84a] font-bold">(Sistema Suizo)</span>
                 </div>
                 <p className="text-sm lg:text-lg text-slate-300 leading-relaxed">Se compite en formato suizo, asegurando enfrentamientos contra oponentes con un historial de victorias similar. Este sistema permite una clasificación justa basada en el desempeño real durante el torneo.</p>
@@ -103,7 +159,7 @@ export const MainPage: React.FC = () => {
               <div className="w-full h-full flex flex-col items-center text-center w-full bg-[#152a42] p-8 gap-4 rounded-xl shadow-lg border border-slate-700">
                 <div className="flex items-center justify-center w-16 h-16 text-3xl font-bold text-[#d7b84a] rounded-full border-2 border-[#d7b84a]">2</div>
                 <div>
-                  <span className="block text-xl sm:text-2xl lg:text-3xl text-white font-bold mb-1">Fase Final</span>
+                  <span className="block text-xl sm:text-2xl lg:text-3xl text-[#f3f3f3] font-bold mb-1">Fase Final</span>
                   <span className="text-lg sm:text-xl lg:text-2xl text-[#d7b84a] font-bold">(Playoffs)</span>
                 </div>
                 <p className="text-sm lg:text-lg text-slate-300 leading-relaxed">Los equipos con mejor rendimiento en la fase suiza avanzan a un cuadro de eliminación directa. En esta instancia, la precisión y la estrategia definen al campeón de la liga. Demostrá tu nivel y competí por la gloria.</p>
@@ -112,7 +168,7 @@ export const MainPage: React.FC = () => {
           <div className="flex flex-col justify-start items-center w-full">
               <div className="w-full bg-[#152a42] p-6 rounded-xl shadow-lg border border-slate-700">
                   <div className="flex items-center justify-between mb-6 border-b border-slate-700 pb-4">
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white uppercase tracking-wider">Equipos</h3>
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#f3f3f3] uppercase tracking-wider">Equipos</h3>
                       <span className="text-xs font-bold text-[#d7b84a] bg-[#d7b84a]/10 px-2 py-1 rounded border border-[#d7b84a]/20">{teams.length} Equipos</span>
                   </div>
                   

@@ -5,6 +5,8 @@ import { TournamentPage } from './pages/TournamentPage';
 import { PlayoffsPage } from './pages/PlayoffsPage';
 import { Footer } from './components/Footer';
 import { MainPage } from './pages/MainPage';
+import { ReglamentoPage } from './pages/ReglamentoPage';
+import { DiscordPage } from './pages/DiscordPage';
 import { AdminPage } from './pages/AdminPage';
 
 const App: React.FC = () => {
@@ -15,6 +17,8 @@ const App: React.FC = () => {
         <Route path="/aut-gang-tournament/*" element={<AdminPage />} />
         <Route path="/swiss/*" element={<TournamentPage />} />
         <Route path="/playoffs/*" element={<PlayoffsPage />} />
+        <Route path="/reglamento" element={<ReglamentoPage />} />
+        <Route path="/discord" element={<DiscordPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
