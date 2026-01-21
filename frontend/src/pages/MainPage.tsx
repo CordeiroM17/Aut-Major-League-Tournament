@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { TopPlayers } from '../components/TopPlayers';
 import { Match, Team } from '../types';
+import { TeamModal, TeamPlayer } from '../components/TeamModal';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Trophy } from 'lucide-react';
 
 export const MainPage: React.FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState<any | null>(null);
   const navigate = useNavigate();
+  // Helper to get description (if exists)
+  const getTeamDescription = (team: any) => team.description || `Descripción de ${team.name}`;
+
+  // Helper to get players (with isSub if present)
+  const getTeamPlayers = (team: any): TeamPlayer[] => {
+    if (!team.players) return [];
+    return team.players.map((p: any) => ({
+      name: p.name,
+      role: p.role,
+      opgg: p.opgg,
+      isSub: p.isSub || false,
+    }));
+  };
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -122,18 +138,30 @@ export const MainPage: React.FC = () => {
                       <span className="text-xs font-bold text-[#d7b84a] bg-[#d7b84a]/10 px-2 py-1 rounded border border-[#d7b84a]/20">{teams.length} Equipos</span>
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
                       {teams.map((team, index) => (
-                      <div key={team.id} className="flex items-center justify-between p-2 pl-3 bg-[#0f1e31] rounded-lg border border-slate-800 hover:border-slate-600 transition-colors">
-                          <div className="flex items-center space-x-3">
-                              <span className="text-slate-500 font-mono text-xs w-5">{(index + 1).toString().padStart(2, '0')}</span>
-                              <img src={team.logo} className="w-6 h-6 rounded-full border border-slate-700 bg-slate-800 object-cover" alt="" />
-                              <span className="text-xs sm:text-sm font-bold text-slate-200 truncate">
-                                  {team.name}
-                              </span>
-                          </div>
+                      <div
+                      key={team.id}
+                      className="flex items-center justify-between p-2 pl-3 bg-[#0f1e31] rounded-lg border border-slate-800 hover:border-slate-600 transition-colors cursor-pointer"
+                      onClick={() => { setSelectedTeam(team); setModalOpen(true); }}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <span className="text-slate-500 font-mono text-xs w-5">{(index + 1).toString().padStart(2, '0')}</span>
+                          <img src={team.logo} className="w-6 h-6 rounded-full border border-slate-700 bg-slate-800 object-cover" alt="" />
+                          <span className="text-xs sm:text-sm font-bold text-slate-200 truncate">
+                            {team.name}
+                          </span>
+                        </div>
                       </div>
                       ))}
+                            <TeamModal
+                              open={modalOpen && !!selectedTeam}
+                              onClose={() => setModalOpen(false)}
+                              logo={selectedTeam?.logo || ''}
+                              name={selectedTeam?.name || ''}
+                              description={selectedTeam ? getTeamDescription(selectedTeam) : ''}
+                              players={selectedTeam ? getTeamPlayers(selectedTeam) : []}
+                            />
                       {teams.length === 0 && (
                           <div className="col-span-2 text-center py-4">
                             <p className="text-slate-500 italic">Equipos no disponibles</p>
