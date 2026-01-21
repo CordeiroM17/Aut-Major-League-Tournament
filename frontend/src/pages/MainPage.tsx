@@ -10,7 +10,21 @@ export const MainPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // ...existing code...
+    const fetchTeams = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/teams`);
+        const data = await res.json();
+        if (data.status === 'success') {
+          setTeams(data.data);
+        } else {
+          setTeams([]);
+        }
+      } catch (err) {
+        setTeams([]);
+        console.error('Error fetching teams:', err);
+      }
+    };
+    fetchTeams();
   }, []);
 
   return (
