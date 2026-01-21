@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TopPlayers } from '../components/TopPlayers';
 import { Match, Team } from '../types';
 import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/Header';
 import { Trophy } from 'lucide-react';
 
 export const MainPage: React.FC = () => {
@@ -9,77 +10,12 @@ export const MainPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [teamsRes] = await Promise.all([
-          fetch(`${import.meta.env.VITE_API_URL}/api/teams`),
-        ]);
-        
-        const teamsJson = await teamsRes.json();
-
-        if (teamsJson.status === 'success') {
-          setTeams(teamsJson.data);
-        }
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-    fetchData();
+    // ...existing code...
   }, []);
 
   return (
     <div className="bg-[#152a42]">
-      <header className="bg-[#18283a] border-b border-[#152A42] sticky top-0 z-30 shadow-sm" style={{ height: '100px' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-          {/* Logo and title */}
-          <div className="flex items-center h-full w-full justify-between">
-            <div className="flex items-center h-full">
-              <img src="/src/resources/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />
-            </div>
-            <div className="flex items-center h-full justify-center flex-1">
-              {[
-                { label: 'Overview', href: '/', active: true },
-                { label: 'Equipos', href: '#equipos' },
-                { label: 'Reglamento', href: '/reglamento' },
-                { label: 'Inscribirse', href: 'https://forms.gle/cEAKt88AKbkG64FU9' },
-                { label: 'Discord', href: '/discord' },
-                { label: 'Swiss', href: '/swiss' },
-                { label: 'Playoffs', href: '/playoffs' }
-              ].map((link, idx, arr) => (
-                <React.Fragment key={link.label}>
-                  <button
-                    className={`px-6 text-[18px] font-bold transition-colors duration-200 ${link.active ? 'text-[#d7b84a]' : 'text-white hover:text-[#d7b84a]'} bg-transparent`}
-                    style={{ outline: 'none', border: 'none', background: 'none', cursor: 'pointer' }}
-                    onClick={() => {
-                      if (link.label === 'Equipos') {
-                        const equiposSection = document.getElementById('equipos');
-                        if (equiposSection) {
-                          equiposSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                        return;
-                      }
-                      if (link.label === 'Overview') {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        return;
-                      }
-                      if (link.href.startsWith('http')) {
-                        window.open(link.href, '_blank');
-                      } else {
-                        navigate(link.href);
-                      }
-                    }}
-                  >
-                    {link.label}
-                  </button>
-                  {idx < arr.length - 1 && (
-                    <span className="h-8 border-l border-[#f3f3f3] mx-2"></span>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header active="overview" />
       <main>
         <div className="bg-[#152a42] min-h-[calc(100vh-4rem)] flex flex-col justify-center relative overflow-hidden">
           <video

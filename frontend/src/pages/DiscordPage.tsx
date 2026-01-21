@@ -1,8 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/Header';
 
 export const DiscordPage: React.FC = () => {
-  const navigate = useNavigate();
   return (
     <div className="min-h-screen text-[#f3f3f3] relative overflow-hidden">
       {/* Overlay to match header color */}
@@ -15,61 +14,8 @@ export const DiscordPage: React.FC = () => {
         muted
         style={{ opacity: 0.9 }}
       />
-      <header className="bg-[#18283a] border-b border-[#152A42] sticky top-0 z-30 shadow-sm" style={{ height: '100px' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-          <div className="flex items-center h-full w-full justify-between">
-            <div className="flex items-center h-full">
-              <img src="/src/resources/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />
-            </div>
-            <div className="flex items-center h-full justify-center flex-1">
-              {[
-                { label: 'Overview', href: '/', active: false },
-                { label: 'Equipos', href: '#equipos', active: false },
-                { label: 'Reglamento', href: '/reglamento', active: false },
-                { label: 'Inscribirse', href: 'https://forms.gle/cEAKt88AKbkG64FU9', active: false },
-                { label: 'Discord', href: '/discord', active: true },
-                { label: 'Swiss', href: '/swiss', active: false },
-                { label: 'Playoffs', href: '/playoffs', active: false }
-              ].map((link, idx, arr) => (
-                <React.Fragment key={link.label}>
-                  <button
-                    className={`px-6 text-[18px] font-bold transition-colors duration-200 ${link.active ? 'text-[#d7b84a]' : 'text-white hover:text-[#d7b84a]'} bg-transparent`}
-                    style={{ outline: 'none', border: 'none', background: 'none', cursor: 'pointer' }}
-                    onClick={() => {
-                      if (link.label === 'Equipos') {
-                          navigate('/');
-                          setTimeout(() => {
-                            const equiposSection = document.getElementById('equipos');
-                            if (equiposSection) {
-                              equiposSection.scrollIntoView({ behavior: 'smooth' });
-                            }
-                          }, 300);
-                          return;
-                        }
-                      if (link.label === 'Overview') {
-                          navigate('/');
-                          return;
-                        }
-                      if (link.href.startsWith('http')) {
-                        window.open(link.href, '_blank');
-                      } else {
-                        navigate(link.href);
-                      }
-                    }}
-                  >
-                    {link.label}
-                  </button>
-                  {idx < arr.length - 1 && (
-                    <span className="h-8 border-l border-[#f3f3f3] mx-2"></span>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-[#18283a] bg-opacity-90 rounded-xl shadow-lg p-12 gap-8 mt-16">
+      <Header active="discord" />
+      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-[#18283a] bg-opacity-90 rounded-xl shadow-lg p-12 gap-8 mt-16 pb-4">
         <div className="flex flex-col justify-center items-start flex-1">
           <div className="flex items-center mb-4">
             <img
@@ -95,7 +41,7 @@ export const DiscordPage: React.FC = () => {
             Unirme ›
           </a>
         </div>
-        <div className="flex flex-col items-center justify-center flex-1">
+        <div className="flex flex-col items-center justify-center flex-1 pt-4">
           <img src="/src/resources/logo.png" alt="AUT Major League" className="w-64 drop-shadow-lg" />
         </div>
       </div>
