@@ -75,7 +75,7 @@ export const ReglamentoPage: React.FC = () => {
     }
   ];
   return (
-    <div className="bg-blue-primary min-h-screen text-text-main">
+    <div className="bg-[#152a42] min-h-screen text-[#f3f3f3]">
       <Header active="reglamento" />
       <div className="relative w-full h-[220px] sm:h-[320px] flex flex-col items-center justify-center overflow-hidden px-2 sm:px-0 pb-8">
         <video
@@ -92,10 +92,6 @@ export const ReglamentoPage: React.FC = () => {
         </div>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
-        {/* Importante - left, header color, fills left side */}
-        <div className="bg-blue-primary p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
-          <h2 className="text-2xl font-bold text-gold mb-4">Importante.</h2>
-          <p className="text-base text-text-main leading-relaxed mb-6">Esta es tu página de Servicios. Es una gran oportunidad para proveer información. Haz doble clic en la caja de texto para editar tu contenido y asegurarte de agregar todos los detalles relevantes que quieras compartir con tus visitantes.</p>
         {/* Presentación izquierda */}
         <div className="bg-[#152A42] p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
           <span className="text-2xl font-bold text-[#d7b84a] mb-4">REGLAMENTO OFICIAL: AUT MAJOR LEAGUE</span>
@@ -104,11 +100,6 @@ export const ReglamentoPage: React.FC = () => {
           </p>
           <img src="/src/resources/poro.png" alt="Poro" className="w-24 sm:w-32 mx-auto mt-2" />
         </div>
-        {/* Nombre de la regla - right, darker color, fills right side */}
-        <div className="bg-blue-surface p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
-          <div className="flex items-center mb-4">
-            <h2 className="text-gold text-2xl font-bold mr-2">1</h2>
-            <h2 className="text-xl font-bold text-gold">Nombre de la regla</h2>
         {/* Reglas a la derecha */}
         <div className="bg-[#101a28] p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
           <div className="space-y-8">
@@ -126,7 +117,6 @@ export const ReglamentoPage: React.FC = () => {
               </div>
             ))}
           </div>
-          <p className="text-base text-text-main leading-relaxed">Esta es tu página de Servicios. Es una gran oportunidad para proveer información. Haz doble clic en la caja de texto para editar tu contenido y asegurarte de agregar todos los detalles relevantes que quieras compartir con tus visitantes.</p>
           <p className="text-xs text-[#d7b84a] mt-8">Nota Final: La organización se reserva el derecho de tomar decisiones finales ante cualquier situación no prevista en este reglamento para asegurar la integridad de la Aut Major League.</p>
         </div>
       </div>
