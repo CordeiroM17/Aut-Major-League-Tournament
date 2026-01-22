@@ -565,6 +565,31 @@ export const AdminPage: React.FC = () => {
                                                     </div>
                                                 ))}
                                             </div>
+                                            {/* TEAM 1 BANS */}
+                                            <div className="mt-4">
+                                                <label className="label-std">Bans Team 1</label>
+                                                <div className="flex gap-2">
+                                                    {Array(5).fill(0).map((_, i) => (
+                                                        <input
+                                                            key={i}
+                                                            placeholder={`Ban ${i+1}`}
+                                                            className="input-sm w-24"
+                                                            value={matchUpdateData.details.team1Bans[i] || ''}
+                                                            onChange={e => {
+                                                                const newBans = [...matchUpdateData.details.team1Bans];
+                                                                newBans[i] = e.target.value;
+                                                                setMatchUpdateData({
+                                                                    ...matchUpdateData,
+                                                                    details: {
+                                                                        ...matchUpdateData.details,
+                                                                        team1Bans: newBans
+                                                                    }
+                                                                });
+                                                            }}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
                                         {/* TEAM 2 PLAYERS */}
                                         <div>
@@ -580,6 +605,31 @@ export const AdminPage: React.FC = () => {
                                                         <input placeholder="Role (opcional)" className="input-sm w-20" value={p.role} onChange={e => updatePlayerStat(2, i, 'role', e.target.value)} />
                                                     </div>
                                                 ))}
+                                            </div>
+                                            {/* TEAM 2 BANS */}
+                                            <div className="mt-4">
+                                                <label className="label-std">Bans Team 2</label>
+                                                <div className="flex gap-2">
+                                                    {Array(5).fill(0).map((_, i) => (
+                                                        <input
+                                                            key={i}
+                                                            placeholder={`Ban ${i+1}`}
+                                                            className="input-sm w-24"
+                                                            value={matchUpdateData.details.team2Bans[i] || ''}
+                                                            onChange={e => {
+                                                                const newBans = [...matchUpdateData.details.team2Bans];
+                                                                newBans[i] = e.target.value;
+                                                                setMatchUpdateData({
+                                                                    ...matchUpdateData,
+                                                                    details: {
+                                                                        ...matchUpdateData.details,
+                                                                        team2Bans: newBans
+                                                                    }
+                                                                });
+                                                            }}
+                                                        />
+                                                    ))}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -699,6 +749,25 @@ export const AdminPage: React.FC = () => {
                                                         <input placeholder="Score 2" type="number" className="input-sm w-16" value={game.score2} onChange={e => updateGameStat(gameIdx, 'score2', parseInt(e.target.value))} />
                                                     </div>
                                                 </div>
+                                                {/* TEAM 1 BANS */}
+                                                <div className="mb-2">
+                                                    <label className="label-std">Bans Team 1</label>
+                                                    <div className="flex gap-2">
+                                                        {Array(5).fill(0).map((_, i) => (
+                                                            <input
+                                                                key={i}
+                                                                placeholder={`Ban ${i+1}`}
+                                                                className="input-sm w-20"
+                                                                value={game.team1Bans?.[i] || ''}
+                                                                onChange={e => {
+                                                                    const newBans = [...(game.team1Bans || [])];
+                                                                    newBans[i] = e.target.value;
+                                                                    updateGameStat(gameIdx, 'team1Bans', newBans);
+                                                                }}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </div>
 
                                                 {/* TEAM 1 PLAYERS */}
                                                 <div className="mb-2">
@@ -728,6 +797,25 @@ export const AdminPage: React.FC = () => {
                                                             <input placeholder="Role" className="input-sm w-12" value={p.role} onChange={e => updateGamePlayer(gameIdx, 2, pIdx, 'role', e.target.value)} />
                                                         </div>
                                                     ))}
+                                                    {/* TEAM 2 BANS */}
+                                                    <div className="mt-2">
+                                                        <label className="label-std">Bans Team 2</label>
+                                                        <div className="flex gap-2">
+                                                            {Array(5).fill(0).map((_, i) => (
+                                                                <input
+                                                                    key={i}
+                                                                    placeholder={`Ban ${i+1}`}
+                                                                    className="input-sm w-20"
+                                                                    value={game.team2Bans?.[i] || ''}
+                                                                    onChange={e => {
+                                                                        const newBans = [...(game.team2Bans || [])];
+                                                                        newBans[i] = e.target.value;
+                                                                        updateGameStat(gameIdx, 'team2Bans', newBans);
+                                                                    }}
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}

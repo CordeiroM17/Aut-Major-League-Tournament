@@ -19,6 +19,8 @@ export const setPlayoffMatchWinnerController = async (req: Request, res: Respons
   try {
     const { id } = req.params;
     const { winnerId, games } = req.body;
+    console.log('--- setPlayoffMatchWinnerController ---');
+    console.log('Request body:', JSON.stringify(req.body, null, 2));
     if (!id || !winnerId || !games || !Array.isArray(games) || games.length === 0) {
       return res.status(400).json({ message: 'Missing required fields: id, winnerId, games' });
     }
@@ -49,9 +51,12 @@ export const setPlayoffMatchWinnerController = async (req: Request, res: Respons
     match.games = enrichedGames;
     match.winnerId = winnerId;
     match.status = 'completed';
+    console.log('Match before save:', JSON.stringify(match, null, 2));
     await match.save();
+    console.log('Match after save:', JSON.stringify(match, null, 2));
     res.status(200).json({ status: 'success', data: match });
   } catch (error) {
+    console.error('Error in setPlayoffMatchWinnerController:', error);
     res.status(500).json({ message: 'Error setting playoff match winner', error });
   }
 };
