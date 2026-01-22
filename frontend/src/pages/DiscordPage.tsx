@@ -3,9 +3,9 @@ import { Header } from '../components/Header';
 
 export const DiscordPage: React.FC = () => {
   return (
-    <div className="min-h-screen text-[#f3f3f3] relative overflow-hidden">
+    <div className="min-h-screen text-text-main relative overflow-hidden">
       {/* Overlay to match header color */}
-      <div className="fixed top-0 left-0 w-full h-full bg-[#101a28] opacity-90 -z-9 pointer-events-none"></div>
+      <div className="fixed top-0 left-0 w-full h-full bg-blue-surface opacity-90 -z-9 pointer-events-none"></div>
       <video
         className="fixed top-0 left-0 w-full h-full object-cover -z-10"
         src="/src/resources/Loop_1.webm"
@@ -15,7 +15,7 @@ export const DiscordPage: React.FC = () => {
         style={{ opacity: 0.9 }}
       />
       <Header active="discord" />
-      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-[#18283a] bg-opacity-90 rounded-xl shadow-lg p-12 gap-8 mt-16 pb-4">
+      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-blue-header bg-opacity-90 rounded-xl shadow-lg p-12 gap-8 my-16">
         <div className="flex flex-col justify-center items-start flex-1">
           <div className="flex items-center mb-4">
             <img
@@ -27,19 +27,17 @@ export const DiscordPage: React.FC = () => {
             />
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">
-            Únete a nuestro canal de <span className="text-[#d7b84a]">Discord</span>
+            Únete a nuestro canal de <span className="text-gold">Discord</span>
           </h1>
-          <p className="mb-8 text-[#f3f3f3]">
+          <p className="mb-8 text-text-main">
             Reunimos equipos apasionados, enfrentamientos de alto nivel y una comunidad que vive el juego con seriedad y compromiso. AUT Major League es una competencia amateur de League of Legends creada para impulsar el talento emergente y brindar una experiencia competitiva organizada y transparente.
           </p>
-          <a
-            href="https://discord.gg/zgZ8a8EYbm"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-[#d7b84a] text-[#d7b84a] px-8 py-3 rounded-md font-bold text-lg hover:bg-[#d7b84a] hover:text-[#18283a] transition-colors duration-200"
+          <button
+            onClick={() => window.open('https://discord.gg/zgZ8a8EYbm', '_blank')}
+            className="cursor-pointer border border-gold text-gold px-8 py-3 rounded-md font-bold text-lg hover:bg-gold hover:text-blue-header transition-colors duration-200"
           >
             Unirme ›
-          </a>
+          </button>
         </div>
         <div className="flex flex-col items-center justify-center flex-1 pt-4">
           <img src="/src/resources/logo.png" alt="AUT Major League" className="w-64 drop-shadow-lg" />

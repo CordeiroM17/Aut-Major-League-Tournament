@@ -347,7 +347,7 @@ export const AdminPage: React.FC = () => {
                             onClick={() => setActiveTab(tab)}
                             className={`px-6 py-3 font-bold text-sm uppercase tracking-wide transition-colors ${
                                 activeTab === tab 
-                                ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50' 
+                                ? 'text-gold border-b-2 border-gold bg-gold/10' 
                                 : 'text-slate-500 hover:text-slate-800'
                             }`}
                         >
@@ -426,7 +426,7 @@ export const AdminPage: React.FC = () => {
                                 ))}
                             </div>
 
-                            <button onClick={handleCreateTeam} className="mt-8 bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-indigo-700 transition-colors w-full">
+                            <button onClick={handleCreateTeam} className="mt-8 bg-gold text-blue-primary px-6 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors w-full">
                                 Crear Equipo
                             </button>
                         </div>
@@ -495,7 +495,7 @@ export const AdminPage: React.FC = () => {
                                         <div 
                                             key={m.id} 
                                             onClick={() => setSelectedMatch(m)}
-                                            className={`p-3 border rounded-lg cursor-pointer hover:bg-slate-50 transition-colors ${selectedMatch?.id === m.id ? 'border-indigo-500 bg-indigo-50' : 'border-slate-200'}`}
+                                            className={`p-3 border rounded-lg cursor-pointer hover:bg-slate-50 transition-colors ${selectedMatch?.id === m.id ? 'border-gold bg-gold/10' : 'border-slate-200'}`}
                                         >
                                             <div className="flex justify-between text-xs font-bold text-slate-500 mb-1">
                                                 <span>Ronda {m.round}</span>
@@ -652,7 +652,7 @@ export const AdminPage: React.FC = () => {
                                         <div 
                                             key={m.id} 
                                             onClick={() => setSelectedPlayoffMatch(m)}
-                                            className={`p-3 border rounded-lg cursor-pointer hover:bg-slate-50 transition-colors ${selectedPlayoffMatch?.id === m.id ? 'border-indigo-500 bg-indigo-50' : 'border-slate-200'}`}
+                                            className={`p-3 border rounded-lg cursor-pointer hover:bg-slate-50 transition-colors ${selectedPlayoffMatch?.id === m.id ? 'border-gold bg-gold/10' : 'border-slate-200'}`}
                                         >
                                             <div className="flex justify-between text-xs font-bold text-slate-500 mb-1">
                                                 <span>{m.stage}</span>
@@ -736,7 +736,7 @@ export const AdminPage: React.FC = () => {
                                     <div className="mt-4">
                                         <button 
                                             onClick={() => setPlayoffGames([...playoffGames, createEmptyGame(playoffGames.length + 1)])}
-                                            className="w-full border-2 border-dashed border-indigo-200 text-indigo-500 font-bold py-2 rounded-lg hover:bg-indigo-50"
+                                            className="w-full border-2 border-dashed border-gold/30 text-gold font-bold py-2 rounded-lg hover:bg-gold/5"
                                         >
                                             + Add Game
                                         </button>
@@ -765,16 +765,16 @@ export const AdminPage: React.FC = () => {
             {/* STYLES */}
             <style>{`
                 .input-std {
-                    @apply bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition-all;
+                    @apply bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-gold transition-all;
                 }
                 .input-sm {
-                    @apply bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:ring-1 focus:ring-indigo-500;
+                    @apply bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:ring-1 focus:ring-gold;
                 }
                 .label-std {
                     @apply block text-xs font-bold text-slate-500 uppercase mb-1 tracking-wider;
                 }
                 .btn-primary {
-                    @apply bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors shadow-sm;
+                    @apply bg-gold text-blue-primary font-bold py-2 px-4 rounded-lg hover:bg-gold/90 transition-colors shadow-sm;
                 }
             `}</style>
         </div>

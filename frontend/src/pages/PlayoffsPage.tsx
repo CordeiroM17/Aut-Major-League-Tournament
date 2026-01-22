@@ -3,6 +3,7 @@ import { Trophy, Loader, Calendar } from 'lucide-react';
 import { PlayoffBracket } from '../components/PlayoffsBracket.tsx';
 import { TournamentLiveButton } from '../components/TournamentLiveButton.tsx';
 import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/Header.tsx';
 
 // Tipos locales para el estado (similares a los de PlayoffsBracket)
 interface Team {
@@ -88,26 +89,7 @@ export const PlayoffsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <button onClick={() => navigate('/')} className="flex items-center space-x-3 text-decoration-none bg-transparent border-none cursor-pointer">
-              <div className="bg-indigo-600 p-2 rounded-lg">
-                <Trophy className="w-4 h-4 xs:w-6 xs:h-6 text-white" />
-              </div>
-              <h1 className="text-sm xs:text-xl font-bold text-slate-900">Playoffs</h1>
-            </button>
-            <div>
-              <button
-              onClick={() => navigate('/swiss')}
-              className="text-[10px] xs:text-xs text-center cursor-pointer font-semibold uppercase flex items-center bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
-              >
-                Formato Suizo
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header active="playoffs" />
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <TournamentLiveButton  />
         <div className="flex flex-col items-center ">

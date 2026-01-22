@@ -1,9 +1,36 @@
 @import "tailwindcss";
 
-@theme {
-  --breakpoint-xs: 425px;
+@font-face {
+  font-family: 'Raleway';
+  src: url('./resources/Raleway-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
 }
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('./resources/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+}
+
+@theme {
+  --font-raleway: 'Raleway', sans-serif;
+  --font-bricolage: 'Bricolage Grotesque', sans-serif;
+  --breakpoint-xs: 425px;
+  
+  --color-gold: #d7b84a;
+  --color-blue-primary: #152a42;
+  --color-blue-secondary: #0f1e31;
+  --color-blue-surface: #101a28;
+  --color-blue-header: #18283a;
+  --color-text-main: #f3f3f3;
+}
+
+h1, h2 {
+  font-family: var(--font-bricolage);
+}
+
+p, button {
+  font-family: var(--font-raleway);
 }

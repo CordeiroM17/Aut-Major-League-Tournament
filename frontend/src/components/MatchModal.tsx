@@ -32,7 +32,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({ match, teams, onClose })
             </div>
             
             <div className="flex flex-col items-center justify-center">
-              <div className="text-2xl sm:text-4xl font-black text-indigo-600 whitespace-nowrap">
+              <div className="text-2xl sm:text-4xl font-black text-gold whitespace-nowrap">
                 {match.score1} : {match.score2}
               </div>
               <Swords className="w-6 h-6 sm:w-8 sm:h-8 text-slate-300 mt-1 sm:mt-2" />
