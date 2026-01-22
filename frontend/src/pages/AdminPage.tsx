@@ -384,6 +384,19 @@ export const AdminPage: React.FC = () => {
                                     <label className="label-std">Logo URL</label>
                                     <input placeholder="https://..." className="input-std w-full" value={newTeam.logo} onChange={e => setNewTeam({...newTeam, logo: e.target.value})} />
                                 </div>
+                                <div className="col-span-2">
+                                    <label className="label-std">Descripción (máx 100 caracteres)</label>
+                                    {/* Abajo se cambia el limite de caracteres */}
+                                    <textarea
+                                        className="input-std w-full"
+                                        maxLength={100} // <-- Acaaaaaaa se cambia el limite de caracteressss
+                                        rows={2}
+                                        placeholder="Descripción del equipo..."
+                                        value={newTeam.description || ''}
+                                        onChange={e => setNewTeam({...newTeam, description: e.target.value})}
+                                    />
+                                    <div className="text-xs text-slate-400 text-right">{(newTeam.description?.length || 0)}/100</div>
+                                </div>
                             </div>
                             
                             <h3 className="text-sm font-bold text-slate-500 uppercase mb-4">Jugadores (Titulares y Suplentes)</h3>
