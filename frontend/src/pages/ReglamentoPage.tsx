@@ -80,7 +80,7 @@ export const ReglamentoPage: React.FC = () => {
       <div className="relative w-full h-[220px] sm:h-[320px] flex flex-col items-center justify-center overflow-hidden px-2 sm:px-0 pb-8">
         <video
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
-          src="/src/resources/Loop_1.webm"
+          src="/resources/Loop_1.webm"
           autoPlay
           loop
           muted
@@ -98,7 +98,7 @@ export const ReglamentoPage: React.FC = () => {
           <p className="text-base text-[#f3f3f3] leading-relaxed mb-6">
             Bienvenidos a la Aut Major League. A continuación se detallan las normas y estructura del torneo. La organización se reserva el derecho de tomar decisiones finales ante cualquier situación no prevista en este reglamento para asegurar la integridad de la Aut Major League.
           </p>
-          <img src="/src/resources/poro.png" alt="Poro" className="w-24 sm:w-32 mx-auto mt-2" />
+          <img src="/resources/poro.png" alt="Poro" className="w-24 sm:w-32 mx-auto mt-2" />
         </div>
         {/* Reglas a la derecha */}
         <div className="bg-[#101a28] p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">

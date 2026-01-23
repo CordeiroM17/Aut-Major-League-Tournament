@@ -41,7 +41,7 @@ export const Header: React.FC<{ active?: string }> = ({ active }) => {
     <header className="bg-blue-header border-b border-blue-primary sticky top-0 z-30 shadow-sm" style={{ height: '100px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         <div className="flex items-center h-full">
-          <img src="/src/resources/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />
+          <img src="/resources/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />
         </div>
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center h-full justify-end flex-1">
