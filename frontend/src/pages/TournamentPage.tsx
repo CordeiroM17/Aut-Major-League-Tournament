@@ -187,7 +187,7 @@ export const TournamentPage: React.FC = () => {
                  <div className="h-full text-center py-20 px-10 xs:px-20 bg-blue-primary rounded-sm">
                    <Calendar className="w-12 h-12 text-text-main mx-auto mb-4" />
                    <h3 className="text-lg font-bold text-text-main">Ronda no iniciada</h3>
-                   <p className="text-text-main text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
+                   <p className="text-text-main/70 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
                  </div>
               ) : (
                 groupedMatches.map(([recordKey, matches]) => {
@@ -340,43 +340,30 @@ export const TournamentPage: React.FC = () => {
                 </table>
             </div>
 
-            <div className="bg-blue-primary rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
-              <div className="font-bold text-sm mb-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-gold">
-                <Info className="w-4 h-4" />
-                <h3 className="uppercase tracking-widest">Informacion</h3>
+            <div className="bg-blue-primary rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
+              <div className="font-bold text-sm mb-4 flex items-center justify-start space-x-2">
+                <Info className="w-8 h-8 text-gold" />
+                <h3 className="uppercase tracking-widest text-lg">Información</h3>
               </div>
 
-              <div className="space-y-3 text-xs sm:text-sm font-medium text-text-main leading-relaxed">
+              <div className="space-y-3 text-xs sm:text-sm font-medium text-text-main/70 leading-relaxed mb-4">
                 <p>
-                  Todos los equipos comienzan con un marcador <strong>0-0</strong>.
+                  La fase suiza garantiza que los equipos con rendimientos similares se enfrenten entre si.
                 </p>
 
                 <p>
-                  Los equipos se enfrentan siempre contra rivales con el mismo número de
-                  victorias y derrotas.
+                  <strong>3 Victorias:</strong> Clasificación a Playoffs.
                 </p>
 
                 <p>
-                  <strong>3 Victorias</strong> = Clasificación directa a la siguiente fase.
+                  <strong>3 Derrotas:</strong> Eliminación del torneo.
                 </p>
 
-                <p>
-                  <strong>3 Derrotas</strong> = Eliminación automática del torneo.
-                </p>
-
-                <p>
-                  No hay empates: cada partida suma una victoria o una derrota.
-                </p>
-
-                <p>
-                  El formato continúa hasta que todos los equipos estén clasificados o
-                  eliminados.
-                </p>
               </div>
-              <div className="font-bold text-sm mt-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-gold">
-                  <Info className="w-4 h-4" />
-                  <h3 className="uppercase tracking-widest">Click en partido para ver KDA</h3>
-                </div>
+
+              <button className="w-full border-2 border-gold px-8 py-4 bold rounded-sm text-[16px] shadow-md cursor-pointer transition-all duration-300 bg-blue-primary/70 text-gold hover:bg-gold/95 hover:text-blue-primary">
+                Ver Reglamento
+              </button>
             </div>
 
           </div>
