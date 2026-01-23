@@ -24,53 +24,52 @@ const MatchCard: React.FC<{ match: Match; isFinal?: boolean }> = ({ match, isFin
   const isTeam2Winner = match.winner === 'team2';
 
   return (
-    <div className={`relative bg-white border ${isFinal ? 'border-amber-200 shadow-amber-100/50 ring-1 ring-amber-100' : 'border-slate-200'} rounded-xl shadow-sm w-full overflow-hidden z-20 transition-transform hover:scale-105 duration-200 group`}>
-       {isFinal && (
-        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300" />
+    <div className={`relative bg-blue-header border ${isFinal ? 'border-gold shadow-gold/30 ring-2 ring-gold' : 'border-blue-secondary'} rounded-xl shadow-lg w-full overflow-hidden z-20 transition-transform hover:scale-105 duration-200 group`}> 
+      {isFinal && (
+        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-gold via-yellow-400 to-gold" />
       )}
       <div className="p-3 space-y-2">
         {/* Team 1 */}
-        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam1Winner ? 'bg-gold/20' : 'group-hover:bg-slate-50'}`}>
+        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam1Winner ? 'bg-gold/20' : 'group-hover:bg-blue-secondary/60'}`}> 
           <div className="flex items-center space-x-3 overflow-hidden">
              {match.team1.logo ? (
-                 <img src={match.team1.logo} alt={match.team1.name} className="w-6 h-6 rounded-full object-cover border border-slate-100" />
+                 <img src={match.team1.logo} alt={match.team1.name} className="w-6 h-6 rounded-full object-cover border border-gold/40" />
              ) : (
-                <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex-shrink-0" />
+                <div className="w-6 h-6 rounded-full bg-blue-secondary border border-gold/30 flex-shrink-0" />
              )}
-            <span className={`text-xs font-bold truncate ${isTeam1Winner ? 'text-blue-primary' : 'text-text-dark'}`}>
+            <span className={`text-xs font-bold truncate ${isTeam1Winner ? 'text-gold' : 'text-text-main'}`}> 
               {match.team1.name}
             </span>
           </div>
-          <span className={`text-sm font-black ${isTeam1Winner ? 'text-gold' : 'text-slate-400'}`}>
+          <span className={`text-sm font-black ${isTeam1Winner ? 'text-gold' : 'text-slate-400'}`}> 
             {match.team1.score}
           </span>
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-slate-100 mx-2" />
+        <div className="h-px bg-gold/30 mx-2" />
 
         {/* Team 2 */}
-        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam2Winner ? 'bg-gold/20' : 'group-hover:bg-slate-50'}`}>
+        <div className={`flex justify-between items-center p-2 rounded-lg transition-colors ${isTeam2Winner ? 'bg-gold/20' : 'group-hover:bg-blue-secondary/60'}`}> 
            <div className="flex items-center space-x-3 overflow-hidden">
              {match.team2.logo ? (
-                 <img src={match.team2.logo} alt={match.team2.name} className="w-6 h-6 rounded-full object-cover border border-slate-100" />
+                 <img src={match.team2.logo} alt={match.team2.name} className="w-6 h-6 rounded-full object-cover border border-gold/40" />
              ) : (
-                <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex-shrink-0" />
+                <div className="w-6 h-6 rounded-full bg-blue-secondary border border-gold/30 flex-shrink-0" />
              )}
-            <span className={`text-xs font-bold truncate ${isTeam2Winner ? 'text-blue-primary' : 'text-text-dark'}`}>
+            <span className={`text-xs font-bold truncate ${isTeam2Winner ? 'text-gold' : 'text-text-main'}`}> 
               {match.team2.name}
             </span>
           </div>
-          <span className={`text-sm font-black ${isTeam2Winner ? 'text-gold' : 'text-slate-400'}`}>
+          <span className={`text-sm font-black ${isTeam2Winner ? 'text-gold' : 'text-slate-400'}`}> 
             {match.team2.score}
           </span>
         </div>
       </div>
-      
       {isFinal && (
         <div className="absolute -top-1 -right-1">
-             <div className="bg-amber-100 rounded-bl-lg p-1">
-                <Crown className="w-4 h-4 text-amber-500 fill-amber-300" />
+             <div className="bg-gold/20 rounded-bl-lg p-1">
+                <Crown className="w-4 h-4 text-gold fill-gold/80" />
              </div>
         </div>
       )}
@@ -111,35 +110,44 @@ export const PlayoffBracket: React.FC<PlayoffBracketProps> = ({ matches }) => {
      return (
          <>
             {/* Horizontal from card */}
-            <div className="absolute left-full top-1/2 w-8 h-px bg-black" />
+            <div className="absolute left-full top-1/2 w-8 h-px bg-gold" />
             {/* Vertical Segment */}
-            <div className={`absolute left-[calc(100%+32px)] w-px bg-black ${isTop ? 'h-[calc(50%+24px)] top-1/2' : 'h-[calc(50%+24px)] bottom-1/2'}`} />
+            <div className={`absolute left-[calc(100%+32px)] w-px bg-gold ${isTop ? 'h-[calc(50%+24px)] top-1/2' : 'h-[calc(50%+24px)] bottom-1/2'}`} />
             {/* Horizontal into SF (only on one of the pair, ideally, but we can rely on the SF incoming line) */}
          </>
      )
   }
 
   return (
-    <div className="w-full overflow-x-auto pb-8">
-      <div className={`${minWidthClass} transition-all duration-500`}>
+    <div
+      className="w-full overflow-x-auto pb-8 bg-blue-surface/0 scrollbar-none"
+      style={{
+        backgroundColor: 'rgba(16,26,40,0)', // transparente
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+      }}
+    >
+      <div className={`${minWidthClass} transition-all duration-500`}
+        style={{scrollbarWidth: 'none'}}
+      >
         <div className={`grid ${gridClass} gap-16 w-full mb-8 transition-all duration-500`} >
           {showQF && (
-            <div className="text-center bg-gold text-blue-primary p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4">
+            <div className="text-center bg-blue-header text-gold p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 border border-gold">
                 Cuartos de final
             </div>
           )}
           {showSF && (
-            <div className="text-center bg-gold text-blue-primary p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-100">
+            <div className="text-center bg-blue-header text-gold p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-100 border border-gold">
                 Semifinales
             </div>
           )}
           {showF && (
-            <div className="text-center bg-gold text-blue-primary p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-200">
+            <div className="text-center bg-blue-header text-gold p-2 rounded-lg uppercase font-bold text-xs shadow-md animate-in fade-in slide-in-from-top-4 delay-200 border border-gold">
                 Final
             </div>  
           )}
         </div>
-        
+
        <div className={`grid ${gridClass} gap-16 w-full transition-all duration-500`}>
           {/* Quarter Finals Column */}
           {showQF && (
@@ -164,17 +172,17 @@ export const PlayoffBracket: React.FC<PlayoffBracketProps> = ({ matches }) => {
                         {sfMatches.map((match, i) => (
                             <div key={match.id} className="relative flex items-center cursor-pointer">
                                 {/* Incoming Connector from QF Pair - Only if QF showed */}
-                                {showQF && <div className="absolute -left-8 w-8 h-px bg-black" />}
+                                {showQF && <div className="absolute -left-8 w-8 h-px bg-gold" />}
                                 
                                 <MatchCard match={match} />
 
                                 {/* Outgoing Connector to Final - Only if Final showed */}
                                 {showF && (
-                                    <>
-                                        <div className="absolute left-full w-8 h-px bg-black" />
-                                        {/* Vertical Joiner */}
-                                        <div className={`absolute left-[calc(100%+32px)] w-px bg-black ${i === 0 ? 'h-[calc(50%+140px)] top-1/2' : 'h-[calc(50%+140px)] bottom-1/2'}`} />
-                                    </>
+                                  <>
+                                    <div className="absolute left-full w-8 h-px bg-gold" />
+                                    {/* Vertical Joiner */}
+                                    <div className={`absolute left-[calc(100%+32px)] w-px bg-gold ${i === 0 ? 'h-[calc(50%+140px)] top-1/2' : 'h-[calc(50%+140px)] bottom-1/2'}`} />
+                                  </>
                                 )}
                             </div>
                         ))}
@@ -189,37 +197,37 @@ export const PlayoffBracket: React.FC<PlayoffBracketProps> = ({ matches }) => {
                         <div className="relative flex flex-col items-center cursor-pointer">
                             <div className="relative w-full">
                                 {/* Incoming Connector - Only if SF showed */}
-                                {showSF && <div className="absolute -left-8 top-1/2 w-8 h-px bg-black" />}
+                                {showSF && <div className="absolute -left-8 top-1/2 w-8 h-px bg-gold" />}
                                 <MatchCard match={finalMatch} isFinal />
                             </div>
                             
                             <div className="mt-6 text-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-                                    <span className="text-amber-500 font-bold tracking-widest uppercase text-[10px] bg-amber-50 px-3 py-1 rounded-full border border-amber-100">Grand Final Winner</span>
-                                    <div className="text-2xl font-black text-slate-800 mt-3 flex flex-col items-center flex-wrap break-words w-full">
-                                        {finalMatch.winner === 'team1' ? (
-                                            <>
-                                                {finalMatch.team1.logo && <img src={finalMatch.team1.logo} className="w-16 h-16 rounded-full mb-2 border-2 border-amber-400 p-0.5" />}
-                                                {finalMatch.team1.name}
-                                            </>
-                                        ) : finalMatch.winner === 'team2' ? (
-                                            <>
-                                                {finalMatch.team2.logo && <img src={finalMatch.team2.logo} className="w-16 h-16 rounded-full mb-2 border-2 border-amber-400 p-0.5" />}
-                                                {finalMatch.team2.name}
-                                            </>
-                                        ) : (
-                                            <span className="text-slate-400 text-sm italic">Por definir</span>
-                                        )}
-                                    </div>
+                                <span className="text-gold font-bold tracking-widest uppercase text-[10px] bg-blue-header px-3 py-1 rounded-full border border-gold">Grand Final Winner</span>
+                                <div className="text-2xl font-black text-gold mt-3 flex flex-col items-center flex-wrap break-words w-full">
+                                  {finalMatch.winner === 'team1' ? (
+                                    <>
+                                      {finalMatch.team1.logo && <img src={finalMatch.team1.logo} className="w-16 h-16 rounded-full mb-2 border-2 border-gold p-0.5" />}
+                                      {finalMatch.team1.name}
+                                    </>
+                                  ) : finalMatch.winner === 'team2' ? (
+                                    <>
+                                      {finalMatch.team2.logo && <img src={finalMatch.team2.logo} className="w-16 h-16 rounded-full mb-2 border-2 border-gold p-0.5" />}
+                                      {finalMatch.team2.name}
+                                    </>
+                                  ) : (
+                                    <span className="text-slate-400 text-sm italic">Por definir</span>
+                                  )}
                                 </div>
+                              </div>
                         </div>
                     )}
                     {/* Third Place Match */}
                     {thirdPlaceMatch && (
                         <div className="absolute top-[calc(100%-80px)] left-0 right-0 flex flex-col items-center">
-                             <div className="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-                                <span className="w-2 h-2 rounded-full bg-orange-400" />
+                              <div className="flex items-center space-x-2 text-xs font-bold text-gold uppercase tracking-wider mb-3 bg-blue-header px-3 py-1 rounded-full border border-gold">
+                                <span className="w-2 h-2 rounded-full bg-gold" />
                                 <span>Tercer Puesto</span>
-                             </div>
+                              </div>
                              <MatchCard match={thirdPlaceMatch} />
                         </div>
                     )}
@@ -227,6 +235,10 @@ export const PlayoffBracket: React.FC<PlayoffBracketProps> = ({ matches }) => {
             )}
        </div>
       </div>
+      {/* Ocultar scrollbar en navegadores Webkit solo en esta sección */}
+      <style>{`
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+      `}</style>
     </div>
   );
 };
