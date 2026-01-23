@@ -24,7 +24,7 @@ const MatchCard: React.FC<{ match: Match; isFinal?: boolean }> = ({ match, isFin
   const isTeam2Winner = match.winner === 'team2';
 
   return (
-    <div className={`relative bg-blue-header border ${isFinal ? 'border-gold shadow-gold/30 ring-2 ring-gold' : 'border-blue-secondary'} rounded-xl shadow-lg w-full overflow-hidden z-20 transition-transform hover:scale-105 duration-200 group`}> 
+    <div className={`relative bg-blue-header border ${isFinal ? 'border-gold shadow-gold/30 ring-2 ring-gold' : 'border-blue-secondary'} rounded-xl shadow-lg w-full overflow-hidden z-20 transition-transform duration-200 group`}>
       {isFinal && (
         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-gold via-yellow-400 to-gold" />
       )}

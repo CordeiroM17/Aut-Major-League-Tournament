@@ -308,33 +308,29 @@ export const TournamentPage: React.FC = () => {
                       <th className="px-4 py-2 text-xs sm:text-sm font-bold text-text-main/70 uppercase text-center">W-L</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-slate-100">
                     {standings.map((stat, index) => {
                       const team = getTeamById(stat.teamId);
                       return (
-                        <tr key={stat.teamId} className={`h-8 bg-blue-primary ${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
+                        <tr key={stat.teamId} className={`${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs sm:text-sm font-bold ${
-                              stat.status === 'qualified' ? 'text-emerald-500' :
-                              stat.status === 'eliminated' ? 'text-rose-500' :
-                              'text-gold'
-                            }`}>
+                            <span className={`text-xs sm:text-sm font-bold ${index < 8 ? 'text-gold' : 'text-slate-400'}`}>
                               {String(index + 1).padStart(2, '0')}
                             </span>
                           </td>
                           <td className="px-4 py-3">
                             <div className="flex items-center space-x-3">
                               <img src={team?.logo} className="w-5 h-5 rounded-full border border-slate-100" alt="" />
-                              <span className="text-xs sm:text-sm font-bold text-text-main ">
+                              <span className="text-xs sm:text-sm font-bold text-slate-700 ">
                                 {team?.name}
                               </span>
                             </div>
                           </td>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs sm:text-sm font-black px-2 py-0.5 rounded  bg-none ${
-                              stat.status === 'qualified' ? 'text-emerald-500' : 
-                              stat.status === 'eliminated' ? 'text-rose-500' : 
-                              'text-gold'
+                            <span className={`text-xs sm:text-sm font-black px-2 py-0.5 rounded border ${
+                              stat.status === 'qualified' ? 'text-emerald-700 bg-emerald-100 border-emerald-200' : 
+                              stat.status === 'eliminated' ? 'text-rose-700 bg-rose-100 border-rose-200' : 
+                              'text-text-dark bg-slate-100 border-slate-200'
                             }`}>
                               {stat.wins}-{stat.losses}
                             </span>
