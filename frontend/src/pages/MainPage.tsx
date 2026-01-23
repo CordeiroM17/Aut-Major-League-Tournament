@@ -50,7 +50,7 @@ export const MainPage: React.FC = () => {
         <div className="bg-blue-primary min-h-[calc(100vh-4rem)] flex flex-col justify-center relative overflow-hidden">
           <video
             className="absolute top-0 left-0 w-full h-full object-cover z-0"
-            src="/resources/Loop_1.webm"
+            src="/images/Loop_1.webm"
             autoPlay
             loop
             muted
@@ -76,7 +76,7 @@ export const MainPage: React.FC = () => {
               <p className="text-text-main text-center text-sm lg:text-lg pb-4">
                 La estructura de la competencia de la AUT Major League emplea un sistema diseñado para garantizar la equidad y maximizar el tiempo de juego de los participantes.
               </p>
-              <img src="/resources/lux.png" alt="Lux" className="w-24 sm:w-32 mx-auto" />
+              <img src="/images/lux.png" alt="Lux" className="w-24 sm:w-32 mx-auto" />
             </div>
             <div className="flex gap-4">
               <button
@@ -97,7 +97,7 @@ export const MainPage: React.FC = () => {
         <div id="equipos" className="bg-gold border-t border-blue-primary relative overflow-hidden">
           <video
             className="absolute top-0 left-0 w-full h-full object-cover z-0"
-            src="/resources/Loop_1.webm"
+            src="/images/Loop_1.webm"
             autoPlay
             loop
             muted

@@ -2,14 +2,14 @@
 
 @font-face {
   font-family: 'Raleway';
-  src: url('./resources/Raleway-VariableFont_wght.ttf') format('truetype');
+  src: url('./fonts/Raleway-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Bricolage Grotesque';
-  src: url('./resources/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+  src: url('./fonts/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
   font-weight: 200 800;
   font-style: normal;
 }

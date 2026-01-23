@@ -8,7 +8,7 @@ export const DiscordPage: React.FC = () => {
       <div className="fixed top-0 left-0 w-full h-full bg-blue-surface opacity-90 -z-9 pointer-events-none"></div>
       <video
         className="fixed top-0 left-0 w-full h-full object-cover -z-10"
-        src="/resources/Loop_1.webm"
+        src="/images/Loop_1.webm"
         autoPlay
         loop
         muted
@@ -23,7 +23,7 @@ export const DiscordPage: React.FC = () => {
               alt="Discord"
               className="w-12 h-12 mr-2 object-contain"
               style={{ aspectRatio: '1 / 1', maxWidth: '3rem', maxHeight: '3rem' }}
-              onError={(e) => { e.currentTarget.src = '/resources/discord-icon.png'; }}
+              onError={(e) => { e.currentTarget.src = '/images/discord-icon.png'; }}
             />
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">
@@ -40,7 +40,7 @@ export const DiscordPage: React.FC = () => {
           </button>
         </div>
         <div className="flex flex-col items-center justify-center flex-1 pt-4">
-          <img src="/resources/logo.png" alt="AUT Major League" className="w-64 drop-shadow-lg" />
+          <img src="/images/logo.png" alt="AUT Major League" className="w-64 drop-shadow-lg" />
         </div>
       </div>
     </div>
