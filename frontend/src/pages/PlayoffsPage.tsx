@@ -88,22 +88,29 @@ export const PlayoffsPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-blue-surface text-text-main font-raleway relative overflow-hidden">
+      {/* Fondo Demacia con transparencia */}
+      <img
+        src="/images/fondodemacia.webp"
+        alt="Fondo Demacia"
+        className="pointer-events-none select-none fixed inset-0 w-full h-full object-cover opacity-5 z-0"
+        aria-hidden="true"
+      />
       <Header active="playoffs" />
-      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <TournamentLiveButton  />
+      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
+        <TournamentLiveButton />
         <div className="flex flex-col items-center ">
           {matches.length === 0 ? (
-            <div className="w-full text-center py-20 bg-white rounded-xl border border-slate-200 shadow-sm">
-              <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-slate-900">Ronda no iniciada</h3>
+            <div className="w-full text-center py-20 bg-blue-header rounded-xl border border-gold shadow-lg">
+              <Calendar className="w-12 h-12 text-gold mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-gold">Ronda no iniciada</h3>
               <p className="text-text-dark text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
               <div className="mt-4 flex justify-center">
                 <button
-                onClick={() => navigate('/swiss')}
-                className="text-xs cursor-pointer font-semibold uppercase flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 border border-slate-200 text-slate-600 transition-colors duration-200 hover:bg-slate-200"
+                  onClick={() => navigate('/swiss')}
+                  className="text-xs cursor-pointer font-semibold uppercase flex items-center space-x-2 bg-blue-secondary rounded-full px-4 py-1 border border-gold text-gold transition-colors duration-200 hover:bg-gold hover:text-blue-secondary"
                 >
-                  Regresar alFormato Suizo
+                  Regresar al Formato Suizo
                 </button>
               </div>
             </div>
