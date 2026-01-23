@@ -3,29 +3,26 @@ import multer from 'multer';
 import path from 'path';
 
 // Multer Storage Configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Navigate from src/controllers to public/uploads
-    cb(null, path.join(__dirname, '../../public/uploads'));
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
+// Cloudinary Configuration
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// File Filter (Optional: specific types)
-const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  if (file.mimetype.startsWith('image/')) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only images are allowed'));
-  }
-};
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'tournament-uploads',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+  } as any, // Type assertion needed for some multer-storage-cloudinary versions
+});
 
 export const upload = multer({ 
   storage: storage,
-  fileFilter: fileFilter,
   limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
 
@@ -34,19 +31,16 @@ export const uploadImage = (req: Request, res: Response) => {
     return res.status(400).json({ status: 'fail', message: 'No file uploaded' });
   }
 
-  // Construct URL. Modify generic 'localhost' if deployed, but good for dev
-  // If behind proxy or specialized domain, might need config.
-  // For now, returning relative path or full URL based on request host.
-  const protocol = req.protocol;
-  const host = req.get('host');
-  const fileUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
+  // Cloudinary returns the URL in `path` or `secure_url` depending on the version/types
+  // casting 'any' to avoid strict type issues with basic Express.Multer.File which doesn't know about Cloudinary fields
+  const fileData = req.file as any;
 
   res.status(200).json({
     status: 'success',
     data: {
-      filename: req.file.filename,
-      path: req.file.path,
-      url: fileUrl
+      filename: fileData.filename,
+      path: fileData.path, // Cloudinary URL
+      url: fileData.path   // Cloudinary URL
     }
   });
 };
