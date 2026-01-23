@@ -157,12 +157,12 @@ export const TournamentPage: React.FC = () => {
               <span className="flex-1 h-px bg-text-dark ml-3" />
             </div>
 
-            <div className="flex space-x-1 xs:space-x-2 rounded-xl">
+            <div className="flex space-x-1 xs:space-x-2">
               {data.rounds.map((round) => (
                 <button
                   key={round.number}
                   onClick={() => setActiveRound(round.number)}
-                  className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-lg bg-blue-primary transition-all duration-200 uppercase tracking-tighter cursor-pointer border xs:border-2 ${
+                  className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-sm bg-blue-primary transition-all duration-200 uppercase tracking-tighter cursor-pointer border xs:border-2 border-text-dark ${
                     activeRound === round.number
                       ? 'bg-gold text-blue-primary'
                       : 'text-text-dark hover:text-slate-900 hover:bg-gold/70 hover:text-blue-primary'
@@ -175,7 +175,7 @@ export const TournamentPage: React.FC = () => {
 
             <div className="space-y-10">
               {groupedMatches.length === 0 ? (
-                 <div className="h-full text-center py-20 px-10 xs:px-20 bg-blue-primary rounded-xl">
+                 <div className="h-full text-center py-20 px-10 xs:px-20 bg-blue-primary rounded-sm">
                    <Calendar className="w-12 h-12 text-text-main mx-auto mb-4" />
                    <h3 className="text-lg font-bold text-text-main">Ronda no iniciada</h3>
                    <p className="text-text-main text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
@@ -185,7 +185,7 @@ export const TournamentPage: React.FC = () => {
                   const [w, l] = recordKey.split('-').map(Number);
                   return (
                     <div key={recordKey} className="space-y-6">
-                      <div className="flex items-center justify-between bg-slate-200/60 px-4 py-2 rounded-lg border border-slate-300/50">
+                      <div className="flex items-center justify-between bg-blue-primary px-4 py-2 rounded-sm border border-slate-300/50">
                         <span className="text-xs font-black text-slate-700 uppercase tracking-widest">
                           RONDA {activeRound} ({recordKey})
                         </span>
@@ -203,20 +203,20 @@ export const TournamentPage: React.FC = () => {
                               key={match.id} 
                               onClick={() => !isPending && setSelectedMatch(match)}
                               disabled={isPending}
-                              className={`w-full text-left bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-gold hover:shadow-md cursor-pointer'}`}
+                              className={`w-full text-left bg-blue-primary rounded-sm overflow-hidden group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-gold hover:shadow-md cursor-pointer'}`}
                             >
                               <div className="p-4 grid grid-cols-3 items-center justify-between">
                                 <div className={`flex items-center justify-start space-x-4 flex-1 ${!isPending && match.winnerId === team1?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
-                                  <div className="block relative">
-                                    <img src={team1?.logo} alt="" className="hidden sm:block w-10 h-10 bg-slate-50 border border-slate-100" />
+                                  <div className="hidden sm:block relative">
+                                    <img src={team1?.logo} alt="" className="w-10 h-10 bg-slate-50 border border-slate-100" />
                                   </div>
                                   <div className="text-left m-0 relative">
-                                    <p className={`text-[10px] xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team1?.id ? 'text-gold' : 'text-slate-900'}`}>
+                                    <p className={`text-[10px] text-text-main uppercase xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team1?.id ? 'text-gold' : 'text-slate-900'}`}>
                                       {team1?.name}
                                     </p>
                                     {!isPending && match.winnerId === team1?.id && (
-                                      <div className="absolute -top-6 -left-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
-                                        <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                                      <div className="absolute -top-6 -left-1 sm:-left-7 bg-gold rounded-full w-6 h-6 flex items-center justify-center">
+                                        <span className="text-[10px] text-blue-surface font-bold">W</span>
                                       </div>
                                     )}
                                   </div>
@@ -224,15 +224,15 @@ export const TournamentPage: React.FC = () => {
 
                                 <div className="flex flex-col items-center px-6">
                                   {isPending ? (
-                                    <div className="bg-slate-100 rounded-lg px-3 py-1 border border-slate-200">
-                                      <span className="text-[10px] sm:text-xs font-black text-text-dark tracking-wider">VS</span>
+                                    <div className="px-3 py-1">
+                                      <span className="text-[10px] sm:text-xs font-black text-text-main tracking-wider">VS</span>
                                     </div>
                                   ) : (
                                     <>
-                                      <div className="flex items-center space-x-3 bg-slate-50 rounded-lg px-4 py-1.5 border border-slate-100">
-                                        <span className={`text-sm sm:text-lg font-black ${match.winnerId === team1?.id ? 'text-gold' : 'text-slate-400'}`}>{match.score1}</span>
-                                        <span className="text-slate-300 font-light">-</span>
-                                        <span className={`text-sm sm:text-lg font-black ${match.winnerId === team2?.id ? 'text-gold' : 'text-slate-400'}`}>{match.score2}</span>
+                                      <div className="flex items-center space-x-3 px-4 py-1.5">
+                                        <span className={`text-lg sm:text-lg font-black ${match.winnerId === team1?.id ? 'text-gold' : 'text-slate-400'}`}>{match.score1}</span>
+                                        <span className="text-slate-400 font-light">-</span>
+                                        <span className={`text-lg sm:text-lg font-black ${match.winnerId === team2?.id ? 'text-gold' : 'text-slate-400'}`}>{match.score2}</span>
                                       </div>
                                       <span className="text-[8px] xs:text-[10px] sm:text-xs text-center font-black text-gold uppercase mt-1 transition-opacity tracking-widest">Ver Estadísticas</span>
                                     </>
@@ -241,17 +241,17 @@ export const TournamentPage: React.FC = () => {
 
                                 <div className={`flex items-center justify-end space-x-4 flex-1 ${!isPending && match.winnerId === team2?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
                                   <div className="text-right m-0 relative">
-                                    <p className={`text-[10px] xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team2?.id ? 'text-gold' : 'text-slate-900'}`}>
+                                    <p className={`text-[10px] text-text-main uppercase xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team2?.id ? 'text-gold' : 'text-slate-900'}`}>
                                       {team2?.name}
                                     </p>
                                     {!isPending && match.winnerId === team2?.id && (
-                                      <div className="absolute -top-6 -right-1 bg-emerald-500 rounded-full p-0.5 border-2 border-white">
-                                        <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                                      <div className="absolute -top-6 -right-1 sm:-right-7 bg-gold rounded-full w-6 h-6 flex items-center justify-center z-10">
+                                        <span className="text-[10px] font-black text-blue-surface">W</span>
                                       </div>
                                     )}
                                   </div>
-                                  <div className="block relative">
-                                    <img src={team2?.logo} alt="" className="hidden sm:block w-10 h-10 bg-slate-50 border border-slate-100 ml-4" />
+                                  <div className="hidden sm:block relative">
+                                    <img src={team2?.logo} alt="" className="w-10 h-10 bg-slate-50 border border-slate-100 ml-4" />
                                   </div>
                                 </div>
                               </div>
