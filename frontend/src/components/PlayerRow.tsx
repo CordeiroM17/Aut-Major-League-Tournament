@@ -17,12 +17,12 @@ export const PlayerRow: React.FC<{ player: PlayerStats; align: 'left' | 'right' 
         {/* Mobile: Name then KDA. Desktop: KDA then Name (depending on visual order) */}
         
         {/* Name */}
-        <span className={`text-xs font-black text-slate-900 sm:text-sm ${isLeft ? 'order-1 sm:order-2 sm:ml-3' : 'order-1 sm:order-2 sm:mr-3'}`}>
+        <span className={`text-xs font-black text-text-main sm:text-sm ${isLeft ? 'order-1 sm:order-2 sm:ml-3' : 'order-1 sm:order-2 sm:mr-3'}`}>
           {player.name}
         </span>
 
         {/* KDA */}
-        <span className={`text-[10px] text-indigo-600 font-bold sm:text-sm ${isLeft ? 'order-2 sm:order-1' : 'order-2 sm:order-1'}`}>
+        <span className={`text-[10px] text-gold font-bold sm:text-sm ${isLeft ? 'order-2 sm:order-1' : 'order-2 sm:order-1'}`}>
           {player.k}/{player.d}/{player.a}
         </span>
       </a>
