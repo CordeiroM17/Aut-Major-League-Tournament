@@ -138,6 +138,15 @@ export const TournamentPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-blue-surface text-slate-900 relative overflow-hidden">
+      <div 
+        className="absolute inset-0 z-0 opacity-5 pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/fondodemacia.webp')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
       <MatchModal 
         match={selectedMatch} 
         teams={data.teams} 
@@ -147,7 +156,7 @@ export const TournamentPage: React.FC = () => {
 
       <Header active="swiss" />
 
-      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
         <TournamentLiveButton />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8 space-y-6">
@@ -184,15 +193,15 @@ export const TournamentPage: React.FC = () => {
                 groupedMatches.map(([recordKey, matches]) => {
                   const [w, l] = recordKey.split('-').map(Number);
                   return (
-                    <div key={recordKey} className="space-y-6">
-                      <div className="flex items-center justify-between bg-blue-primary px-4 py-2 rounded-sm border border-slate-300/50">
-                        <span className="text-xs font-black text-slate-700 uppercase tracking-widest">
+                    <div key={recordKey} className="space-y-4">
+                      <div className="flex items-center justify-between bg-blue-primary px-4 py-2 rounded-sm">
+                        <span className="text-xs font-black text-text-main uppercase tracking-widest">
                           RONDA {activeRound} ({recordKey})
                         </span>
                         <RecordSquares wins={w} losses={l} total={4} />
                       </div>
 
-                      <div className="grid grid-cols-1 gap-8">
+                      <div className="grid grid-cols-1 gap-4">
                         {matches.map((match) => {
                           const team1 = getTeamById(match.team1Id);
                           const team2 = getTeamById(match.team2Id);
@@ -216,7 +225,7 @@ export const TournamentPage: React.FC = () => {
                                     </p>
                                     {!isPending && match.winnerId === team1?.id && (
                                       <div className="absolute -top-6 -left-1 sm:-left-7 bg-gold rounded-full w-6 h-6 flex items-center justify-center">
-                                        <span className="text-[10px] text-blue-surface font-bold">W</span>
+                                        <span className="text-[10px] text-blue-surface font-bold font-sans">W</span>
                                       </div>
                                     )}
                                   </div>
@@ -246,7 +255,7 @@ export const TournamentPage: React.FC = () => {
                                     </p>
                                     {!isPending && match.winnerId === team2?.id && (
                                       <div className="absolute -top-6 -right-1 sm:-right-7 bg-gold rounded-full w-6 h-6 flex items-center justify-center z-10">
-                                        <span className="text-[10px] font-black text-blue-surface">W</span>
+                                        <span className="text-[10px] font-bold text-blue-surface font-sans">W</span>
                                       </div>
                                     )}
                                   </div>
@@ -267,61 +276,65 @@ export const TournamentPage: React.FC = () => {
           </div>
 
           <div className="lg:col-span-4 space-y-6">
-            <div className="flex items-center justify-center xs:justify-start space-x-2">
+            <div className="flex items-center justify-center xs:justify-start">
               <LayoutGrid className="w-5 h-5 text-gold" />
               <h2 className="text-lg font-bold text-text-main">CLASIFICACIÓN</h2>
               <span className="flex-1 h-px bg-text-dark ml-3" />
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex items-center justify-center">
-               <div className="flex flex-col xs:flex-row lg:flex-col 2xl:flex-row gap-4  justify-between">
+            <div className="bg-blue-primary rounded-sm py-3 flex items-center justify-center mb-0">
+               <div className="flex flex-col xs:flex-row lg:flex-col 2xl:flex-row gap-4 justify-between">
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    <span className="text-xs sm:text-sm lg:text-xs font-black text-text-dark uppercase">{statsCounts.qualified} CLASIFICADOS</span>
+                    <span className="text-xs sm:text-sm lg:text-xs font-bold text-text-main/70 uppercase">{statsCounts.qualified} CLASIFICADOS</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-gold" />
-                    <span className="text-xs sm:text-sm lg:text-xs font-black text-text-dark uppercase">{statsCounts.active} ACTIVOS</span>
+                    <span className="text-xs sm:text-sm lg:text-xs font-bold text-text-main/70 uppercase">{statsCounts.active} ACTIVOS</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                    <span className="text-xs sm:text-sm lg:text-xs font-black text-text-dark uppercase">{statsCounts.eliminated} ELIMINADOS</span>
+                    <span className="text-xs sm:text-sm lg:text-xs font-bold text-text-main/70 uppercase">{statsCounts.eliminated} ELIMINADOS</span>
                   </div>
                </div>
             </div>
             
-            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                <table className="w-full text-left">
-                  <thead className="bg-slate-50/50 border-b border-slate-200">
+            <div className="rounded-sm overflow-hidden">
+                <table className="w-full text-left border-separate border-spacing-y-4">
+                  <thead className="bg-blue-primary">
                     <tr>
-                      <th className="px-4 py-3 text-xs sm:text-sm font-black text-slate-400 uppercase text-center">Pos</th>
-                      <th className="px-4 py-3 text-xs sm:text-sm font-black text-slate-400 uppercase">Equipo</th>
-                      <th className="px-4 py-3 text-xs sm:text-sm font-black text-slate-400 uppercase text-center">W-L</th>
+                      <th className="px-4 py-2 text-xs sm:text-sm font-bold text-text-main/70 uppercase text-center">Pos</th>
+                      <th className="px-4 py-2 text-xs sm:text-sm font-bold text-text-main/70 uppercase">Equipo</th>
+                      <th className="px-4 py-2 text-xs sm:text-sm font-bold text-text-main/70 uppercase text-center">W-L</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody>
                     {standings.map((stat, index) => {
                       const team = getTeamById(stat.teamId);
                       return (
-                        <tr key={stat.teamId} className={`${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
+                        <tr key={stat.teamId} className={`h-8 bg-blue-primary ${stat.status === 'qualified' ? 'bg-emerald-50/20' : stat.status === 'eliminated' ? 'bg-rose-50/20' : ''}`}>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs sm:text-sm font-bold ${index < 8 ? 'text-gold' : 'text-slate-400'}`}>
+                            <span className={`text-xs sm:text-sm font-bold ${
+                              stat.status === 'qualified' ? 'text-emerald-500' :
+                              stat.status === 'eliminated' ? 'text-rose-500' :
+                              'text-gold'
+                            }`}>
                               {String(index + 1).padStart(2, '0')}
                             </span>
                           </td>
                           <td className="px-4 py-3">
                             <div className="flex items-center space-x-3">
                               <img src={team?.logo} className="w-5 h-5 rounded-full border border-slate-100" alt="" />
-                              <span className="text-xs sm:text-sm font-bold text-slate-700 ">
+                              <span className="text-xs sm:text-sm font-bold text-text-main ">
                                 {team?.name}
                               </span>
                             </div>
                           </td>
                           <td className="px-4 py-3 text-center">
-                            <span className={`text-xs sm:text-sm font-black px-2 py-0.5 rounded border ${
-                              stat.status === 'qualified' ? 'text-emerald-700 bg-emerald-100 border-emerald-200' : 
-                              stat.status === 'eliminated' ? 'text-rose-700 bg-rose-100 border-rose-200' : 
-                              'text-text-dark bg-slate-100 border-slate-200'
+                            <span className={`text-xs sm:text-sm font-black px-2 py-0.5 rounded  bg-none ${
+                              stat.status === 'qualified' ? 'text-emerald-500' : 
+                              stat.status === 'eliminated' ? 'text-rose-500' : 
+                              'text-gold'
                             }`}>
                               {stat.wins}-{stat.losses}
                             </span>
@@ -333,10 +346,10 @@ export const TournamentPage: React.FC = () => {
                 </table>
             </div>
 
-            <div className="bg-blue-secondary rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
+            <div className="bg-blue-primary rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
               <div className="font-bold text-sm mb-4 flex items-center justify-center xs:text-left xs:justify-start space-x-2 text-gold">
                 <Info className="w-4 h-4" />
-                <h3 className="uppercase tracking-widest">Formato Suizo</h3>
+                <h3 className="uppercase tracking-widest">Informacion</h3>
               </div>
 
               <div className="space-y-3 text-xs sm:text-sm font-medium text-text-main leading-relaxed">
