@@ -16,11 +16,11 @@ export interface TeamModalProps {
   players: TeamPlayer[];
 }
 
-import topIcon from '../images/top.png';
-import jgIcon from '../images/jg.png';
-import midIcon from '../images/mid.png';
-import adcIcon from '../images/adc.png';
-import suppIcon from '../images/supp.png';
+import topIcon from '/images/top.png';
+import jgIcon from '/images/jg.png';
+import midIcon from '/images/mid.png';
+import adcIcon from '/images/adc.png';
+import suppIcon from '/images/supp.png';
 
 const roleImages: Record<string, string> = {
   TOP: topIcon,
