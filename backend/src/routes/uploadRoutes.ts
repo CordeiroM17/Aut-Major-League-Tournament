@@ -13,6 +13,7 @@ const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
       }
       return res.status(400).json({ status: 'fail', message: err.message });
     } else if (err) {
+      console.error('Upload Error:', err); // Log the full error
       return res.status(400).json({ status: 'fail', message: err.message });
     }
     next();

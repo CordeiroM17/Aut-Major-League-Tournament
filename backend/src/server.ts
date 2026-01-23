@@ -1,3 +1,4 @@
+import 'dotenv/config';
 // Extender el tipo Request para incluir user
 declare global {
   namespace Express {
@@ -34,7 +35,7 @@ import uploadRoutes from './routes/uploadRoutes';
 import path from 'path';
 import fs from 'fs';
 
-dotenv.config();
+// dotenv.config() removed, imported at top
 connectMongo(); 
 
 // Ensure public/uploads directory exists
