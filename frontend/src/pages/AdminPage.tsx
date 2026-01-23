@@ -4,8 +4,44 @@ import { Save, Plus, Trash2, Edit2, Check, RefreshCw } from 'lucide-react';
 
 export const AdminPage: React.FC = () => {
     const [token, setToken] = useState<string>(localStorage.getItem('adminToken') || '');
-    const [activeTab, setActiveTab] = useState<'teams' | 'matches' | 'playoffs'>('teams');
+    const [activeTab, setActiveTab] = useState<'teams' | 'matches' | 'playoffs' | 'upload'>('teams');
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+    // Upload State
+    const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
+    const [lastUploadedUrl, setLastUploadedUrl] = useState<string>('');
+
+    const handleFileUpload = async (file: File) => {
+        if (!token) return showMessage('error', 'Token requerido');
+        
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            setUploadStatus('uploading');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/upload`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                    // No Content-Type header needed, let browser set boundary for FormData
+                },
+                body: formData
+            });
+            const json = await res.json();
+            
+            if (res.ok) {
+                setUploadStatus('success');
+                showMessage('success', 'Imagen subida correctamente');
+                setLastUploadedUrl(json.data.url);
+            } else {
+                setUploadStatus('error');
+                showMessage('error', json.message || 'Error al subir imagen');
+            }
+        } catch (e) {
+            setUploadStatus('error');
+            showMessage('error', 'Error de red al subir imagen');
+        }
+    };
 
     // Initial Data Fetching
     const [teams, setTeams] = useState<Team[]>([]);
@@ -365,6 +401,64 @@ export const AdminPage: React.FC = () => {
                 {/* TEAMS CONTENT */}
                 {activeTab === 'teams' && (
                     <div className="space-y-6">
+                        {/* UPLOAD SECTION IN TEAMS */}
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                             <h2 className="text-lg font-bold text-slate-800 mb-4">Subir Logo / Imagen</h2>
+                             <div className="flex gap-6 items-start">
+                                <div 
+                                    className={`flex-1 border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
+                                        uploadStatus === 'uploading' ? 'border-blue-400 bg-blue-50' : 'border-slate-300 hover:border-gold hover:bg-slate-50'
+                                    }`}
+                                    style={{ minHeight: '120px' }}
+                                    onDragOver={(e) => e.preventDefault()}
+                                    onDrop={async (e) => {
+                                        e.preventDefault();
+                                        const file = e.dataTransfer.files[0];
+                                        if (file) handleFileUpload(file);
+                                    }}
+                                    onClick={() => document.getElementById('fileInputTeams')?.click()}
+                                >
+                                    <input type="file" id="fileInputTeams" className="hidden" accept="image/*" onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) handleFileUpload(file);
+                                        e.target.value = ''; // Reset input so same file can be selected again
+                                    }} />
+                                    
+                                    {uploadStatus === 'uploading' ? (
+                                        <div className="animate-pulse flex flex-col items-center">
+                                             <RefreshCw className="w-6 h-6 text-blue-500 animate-spin mb-2" />
+                                             <p className="font-bold text-blue-600 text-sm">Subiendo...</p>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <p className="font-bold text-slate-700 text-sm">Arrastra o click aquí</p>
+                                        </>
+                                    )}
+                                </div>
+                                
+                                {lastUploadedUrl && (
+                                    <div className="flex-1 bg-slate-50 rounded-xl border border-slate-200 p-4 flex gap-4 items-center">
+                                         <img src={lastUploadedUrl} alt="Preview" className="w-16 h-16 object-cover rounded bg-white border border-slate-200" />
+                                         <div className="flex-1 min-w-0">
+                                             <p className="text-xs text-slate-500 mb-1">URL Lista para usar:</p>
+                                             <div className="flex items-center gap-2">
+                                                 <input readOnly value={lastUploadedUrl} className="bg-white border border-slate-200 rounded px-2 py-1 text-xs w-full text-slate-600 font-mono" />
+                                                 <button onClick={() => {navigator.clipboard.writeText(lastUploadedUrl); showMessage('success', 'Copiado!');}} className="text-gold hover:text-amber-600">
+                                                     <Save className="w-4 h-4" />
+                                                 </button>
+                                             </div>
+                                             <button onClick={() => {
+                                                 setNewTeam({...newTeam, logo: lastUploadedUrl});
+                                                 showMessage('success', 'URL aplicada al campo Logo');
+                                             }} className="text-xs text-blue-600 font-bold mt-2 hover:underline">
+                                                 Usar en nuevo equipo
+                                             </button>
+                                         </div>
+                                    </div>
+                                )}
+                             </div>
+                        </div>
+
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <h2 className="text-lg font-bold text-slate-800 mb-6">Crear Nuevo Equipo</h2>
                             <div className="grid grid-cols-2 gap-6 mb-6">
@@ -860,7 +954,6 @@ export const AdminPage: React.FC = () => {
                         </div>
                      </div>
                 )}
-
             </div>
             
             {/* STYLES */}
