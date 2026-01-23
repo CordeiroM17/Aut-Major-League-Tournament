@@ -154,17 +154,18 @@ export const TournamentPage: React.FC = () => {
             <div className="flex items-center justify-center xs:justify-start space-x-2">
               <Calendar className="w-5 h-5 text-gold" />
               <h2 className="text-lg font-bold text-text-main">PARTIDOS POR RONDA</h2>
+              <span className="flex-1 h-px bg-text-dark ml-3" />
             </div>
 
-            <div className="flex p-1 space-x-1 bg-blue-primary rounded-xl">
+            <div className="flex space-x-1 xs:space-x-2 rounded-xl">
               {data.rounds.map((round) => (
                 <button
                   key={round.number}
                   onClick={() => setActiveRound(round.number)}
-                  className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-lg transition-all duration-200 uppercase tracking-tighter cursor-pointer ${
+                  className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-lg bg-blue-primary transition-all duration-200 uppercase tracking-tighter cursor-pointer border xs:border-2 ${
                     activeRound === round.number
-                      ? 'bg-white text-gold shadow-sm border border-slate-200'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200'
+                      ? 'bg-gold text-blue-primary'
+                      : 'text-text-dark hover:text-slate-900 hover:bg-gold/70 hover:text-blue-primary'
                   }`}
                 >
                   Ronda {round.number}
@@ -174,10 +175,10 @@ export const TournamentPage: React.FC = () => {
 
             <div className="space-y-10">
               {groupedMatches.length === 0 ? (
-                 <div className="h-full text-center py-20 px-10 xs:px-20 bg-white rounded-xl border border-slate-200 shadow-sm">
-                   <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                   <h3 className="text-lg font-bold text-slate-900">Ronda no iniciada</h3>
-                   <p className="text-slate-500 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
+                 <div className="h-full text-center py-20 px-10 xs:px-20 bg-blue-primary rounded-xl">
+                   <Calendar className="w-12 h-12 text-text-main mx-auto mb-4" />
+                   <h3 className="text-lg font-bold text-text-main">Ronda no iniciada</h3>
+                   <p className="text-text-main text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
                  </div>
               ) : (
                 groupedMatches.map(([recordKey, matches]) => {
@@ -224,7 +225,7 @@ export const TournamentPage: React.FC = () => {
                                 <div className="flex flex-col items-center px-6">
                                   {isPending ? (
                                     <div className="bg-slate-100 rounded-lg px-3 py-1 border border-slate-200">
-                                      <span className="text-[10px] sm:text-xs font-black text-slate-500 tracking-wider">VS</span>
+                                      <span className="text-[10px] sm:text-xs font-black text-text-dark tracking-wider">VS</span>
                                     </div>
                                   ) : (
                                     <>
@@ -269,21 +270,22 @@ export const TournamentPage: React.FC = () => {
             <div className="flex items-center justify-center xs:justify-start space-x-2">
               <LayoutGrid className="w-5 h-5 text-gold" />
               <h2 className="text-lg font-bold text-text-main">CLASIFICACIÓN</h2>
+              <span className="flex-1 h-px bg-text-dark ml-3" />
             </div>
 
             <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex items-center justify-center">
                <div className="flex flex-col xs:flex-row lg:flex-col 2xl:flex-row gap-4  justify-between">
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                    <span className="text-xs sm:text-sm lg:text-xs font-black text-slate-500 uppercase">{statsCounts.qualified} CLASIFICADOS</span>
+                    <span className="text-xs sm:text-sm lg:text-xs font-black text-text-dark uppercase">{statsCounts.qualified} CLASIFICADOS</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-gold" />
-                    <span className="text-xs sm:text-sm lg:text-xs font-black text-slate-500 uppercase">{statsCounts.active} ACTIVOS</span>
+                    <span className="text-xs sm:text-sm lg:text-xs font-black text-text-dark uppercase">{statsCounts.active} ACTIVOS</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                    <span className="text-xs sm:text-sm lg:text-xs font-black text-slate-500 uppercase">{statsCounts.eliminated} ELIMINADOS</span>
+                    <span className="text-xs sm:text-sm lg:text-xs font-black text-text-dark uppercase">{statsCounts.eliminated} ELIMINADOS</span>
                   </div>
                </div>
             </div>
@@ -319,7 +321,7 @@ export const TournamentPage: React.FC = () => {
                             <span className={`text-xs sm:text-sm font-black px-2 py-0.5 rounded border ${
                               stat.status === 'qualified' ? 'text-emerald-700 bg-emerald-100 border-emerald-200' : 
                               stat.status === 'eliminated' ? 'text-rose-700 bg-rose-100 border-rose-200' : 
-                              'text-slate-500 bg-slate-100 border-slate-200'
+                              'text-text-dark bg-slate-100 border-slate-200'
                             }`}>
                               {stat.wins}-{stat.losses}
                             </span>

@@ -18,13 +18,13 @@
   --font-raleway: 'Raleway', sans-serif;
   --font-bricolage: 'Bricolage Grotesque', sans-serif;
   --breakpoint-xs: 425px;
-  
   --color-gold: #d7b84a;
   --color-blue-primary: #152a42;
   --color-blue-secondary: #0f1e31;
   --color-blue-surface: #101a28;
   --color-blue-header: #18283a;
   --color-text-main: #f3f3f3;
+  --color-text-dark: #64748B;
 }
 
 h1, h2 {

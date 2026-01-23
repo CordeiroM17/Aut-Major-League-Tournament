@@ -348,7 +348,7 @@ export const AdminPage: React.FC = () => {
                             className={`px-6 py-3 font-bold text-sm uppercase tracking-wide transition-colors ${
                                 activeTab === tab 
                                 ? 'text-gold border-b-2 border-gold bg-gold/10' 
-                                : 'text-slate-500 hover:text-slate-800'
+                                : 'text-text-dark hover:text-slate-800'
                             }`}
                         >
                             {tab}
@@ -399,7 +399,7 @@ export const AdminPage: React.FC = () => {
                                 </div>
                             </div>
                             
-                            <h3 className="text-sm font-bold text-slate-500 uppercase mb-4">Jugadores (Titulares y Suplentes)</h3>
+                            <h3 className="text-sm font-bold text-text-dark uppercase mb-4">Jugadores (Titulares y Suplentes)</h3>
                             <div className="space-y-3">
                                 {newTeamPlayers.map((player, i) => (
                                     <div key={i} className="flex gap-4 items-center">
@@ -453,7 +453,7 @@ export const AdminPage: React.FC = () => {
                                         <img src={t.logo} className="w-10 h-10 rounded-full bg-slate-50" alt="" />
                                         <div>
                                             <p className="font-bold text-slate-900">{t.name}</p>
-                                            <p className="text-xs text-slate-500">Seed: {t.seed} • ID: {t.id}</p>
+                                            <p className="text-xs text-text-dark">Seed: {t.seed} • ID: {t.id}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -501,7 +501,7 @@ export const AdminPage: React.FC = () => {
                             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-[600px] overflow-y-auto">
                                 <div className="flex justify-between items-center mb-4">
                                      <h2 className="text-lg font-bold text-slate-800">Partidos</h2>
-                                     <button onClick={fetchMatches}><RefreshCw className="w-4 h-4 text-slate-500" /></button>
+                                     <button onClick={fetchMatches}><RefreshCw className="w-4 h-4 text-text-dark" /></button>
                                 </div>
                                 <div className="space-y-2">
                                     {matches.sort((a,b) => b.round - a.round).map(m => (
@@ -510,7 +510,7 @@ export const AdminPage: React.FC = () => {
                                             onClick={() => setSelectedMatch(m)}
                                             className={`p-3 border rounded-lg cursor-pointer hover:bg-slate-50 transition-colors ${selectedMatch?.id === m.id ? 'border-gold bg-gold/10' : 'border-slate-200'}`}
                                         >
-                                            <div className="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                            <div className="flex justify-between text-xs font-bold text-text-dark mb-1">
                                                 <span>Ronda {m.round}</span>
                                                 <span className={`${m.status === 'completed' ? 'text-emerald-600' : 'text-amber-600'}`}>{m.status}</span>
                                             </div>
@@ -708,7 +708,7 @@ export const AdminPage: React.FC = () => {
                              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 h-[600px] overflow-y-auto">
                                 <div className="flex justify-between items-center mb-4">
                                      <h2 className="text-lg font-bold text-slate-800">Partidos Playoffs</h2>
-                                     <button onClick={fetchPlayoffMatches}><RefreshCw className="w-4 h-4 text-slate-500" /></button>
+                                     <button onClick={fetchPlayoffMatches}><RefreshCw className="w-4 h-4 text-text-dark" /></button>
                                 </div>
                                 <div className="space-y-2">
                                     {playoffMatches.map(m => (
@@ -717,7 +717,7 @@ export const AdminPage: React.FC = () => {
                                             onClick={() => setSelectedPlayoffMatch(m)}
                                             className={`p-3 border rounded-lg cursor-pointer hover:bg-slate-50 transition-colors ${selectedPlayoffMatch?.id === m.id ? 'border-gold bg-gold/10' : 'border-slate-200'}`}
                                         >
-                                            <div className="flex justify-between text-xs font-bold text-slate-500 mb-1">
+                                            <div className="flex justify-between text-xs font-bold text-text-dark mb-1">
                                                 <span>{m.stage}</span>
                                                 <span className={`${m.status === 'completed' ? 'text-emerald-600' : 'text-amber-600'}`}>{m.status}</span>
                                             </div>
@@ -784,7 +784,7 @@ export const AdminPage: React.FC = () => {
 
                                                 {/* TEAM 1 PLAYERS */}
                                                 <div className="mb-2">
-                                                    <p className="text-xs font-bold text-slate-500 mb-1">Team 1 Players</p>
+                                                    <p className="text-xs font-bold text-text-dark mb-1">Team 1 Players</p>
                                                     {game.team1Players.map((p, pIdx) => (
                                                         <div key={pIdx} className="flex gap-1 mb-1">
                                                             <input placeholder="Name" className="input-sm flex-1" value={p.name} onChange={e => updateGamePlayer(gameIdx, 1, pIdx, 'name', e.target.value)} />
@@ -799,7 +799,7 @@ export const AdminPage: React.FC = () => {
 
                                                 {/* TEAM 2 PLAYERS */}
                                                 <div>
-                                                    <p className="text-xs font-bold text-slate-500 mb-1">Team 2 Players</p>
+                                                    <p className="text-xs font-bold text-text-dark mb-1">Team 2 Players</p>
                                                     {game.team2Players.map((p, pIdx) => (
                                                         <div key={pIdx} className="flex gap-1 mb-1">
                                                             <input placeholder="Name" className="input-sm flex-1" value={p.name} onChange={e => updateGamePlayer(gameIdx, 2, pIdx, 'name', e.target.value)} />
@@ -872,7 +872,7 @@ export const AdminPage: React.FC = () => {
                     @apply bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:ring-1 focus:ring-gold;
                 }
                 .label-std {
-                    @apply block text-xs font-bold text-slate-500 uppercase mb-1 tracking-wider;
+                    @apply block text-xs font-bold text-text-dark uppercase mb-1 tracking-wider;
                 }
                 .btn-primary {
                     @apply bg-gold text-blue-primary font-bold py-2 px-4 rounded-lg hover:bg-gold/90 transition-colors shadow-sm;

@@ -141,7 +141,7 @@ export const MainPage: React.FC = () => {
                     onClick={() => { setSelectedTeam(team); setModalOpen(true); }}
                     >
                       <div className="flex items-center space-x-3">
-                        <span className="text-slate-500 font-mono text-xs w-5">{(index + 1).toString().padStart(2, '0')}</span>
+                        <span className="text-text-dark font-mono text-xs w-5">{(index + 1).toString().padStart(2, '0')}</span>
                         <img src={team.logo} className="w-6 h-6 rounded-full border border-slate-700 bg-slate-800 object-cover" alt="" />
                         <span className="text-xs sm:text-sm font-bold text-slate-200 truncate">
                           {team.name}
@@ -159,7 +159,7 @@ export const MainPage: React.FC = () => {
                           />
                     {teams.length === 0 && (
                       <div className="col-span-2 text-center py-4">
-                        <p className="text-slate-500 italic">Equipos no disponibles</p>
+                        <p className="text-text-dark italic">Equipos no disponibles</p>
                       </div>
                     )}
                 </div>

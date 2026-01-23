@@ -37,14 +37,27 @@ export const TournamentLiveButton: React.FC = () => {
     <div className="flex items-center">
       <a
         href="https://www.twitch.tv/autmajorleague"
-        className={`flex items-center space-x-2 bg-slate-100 rounded-full px-4 py-1 transition-colors duration-200 mb-6 bg-slate-100 rounded-full border border-slate-200 w-full justify-center ${isLive ? 'ring-2 ring-emerald-400 cursor-pointer' : ''}`}
+        className={`flex items-center justify-between space-x-2 bg-blue-primary px-4 py-4 transition-colors duration-200 mb-6 rounded-lg w-full border-text-dark border xs:border-2 ${isLive ? 'ring-2 ring-emerald-400 cursor-pointer' : ''}`}
         disabled={loading}
         title={isLive ? 'En directo' : 'Canal de twitch'}
       >
-        <div className={`w-2 h-2 rounded-full ${isLive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
-        <span className={`text-[10px] font-semibold uppercase tracking-wider ${isLive ? 'text-emerald-700' : 'text-slate-600'}`}>
-          {isLive ? 'En directo' : 'Canal de twitch'}
-        </span>
+        <div className="flex items-center space-x-2">
+          <a href="https://www.twitch.tv/autmajorleague" target="_blank" rel="noopener noreferrer" className="group p-2 bg-gold/20 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gold">
+                <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"/>
+            </svg>
+          </a>
+          <div className="flex flex-col">
+            <h2 className="text-xs xs:text-sm bold text-gold uppercase">Transmision</h2>
+            <p className="text-xs xs:text-sm text-text-main uppercase">Canal de twitch</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-2">
+          <div className={`w-2 h-2 rounded-full ${isLive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+          <span className={`text-[10px] xs:text-xs font-semibold uppercase tracking-wider ${isLive ? 'text-emerald-700' : 'text-text-dark'}`}>
+            {isLive ? 'Live' : 'Desconectado'}
+          </span>
+        </div>
       </a>    
     </div>
     

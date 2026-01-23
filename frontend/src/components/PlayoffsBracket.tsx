@@ -37,7 +37,7 @@ const MatchCard: React.FC<{ match: Match; isFinal?: boolean }> = ({ match, isFin
              ) : (
                 <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex-shrink-0" />
              )}
-            <span className={`text-xs font-bold truncate ${isTeam1Winner ? 'text-blue-primary' : 'text-slate-500'}`}>
+            <span className={`text-xs font-bold truncate ${isTeam1Winner ? 'text-blue-primary' : 'text-text-dark'}`}>
               {match.team1.name}
             </span>
           </div>
@@ -57,7 +57,7 @@ const MatchCard: React.FC<{ match: Match; isFinal?: boolean }> = ({ match, isFin
              ) : (
                 <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex-shrink-0" />
              )}
-            <span className={`text-xs font-bold truncate ${isTeam2Winner ? 'text-blue-primary' : 'text-slate-500'}`}>
+            <span className={`text-xs font-bold truncate ${isTeam2Winner ? 'text-blue-primary' : 'text-text-dark'}`}>
               {match.team2.name}
             </span>
           </div>

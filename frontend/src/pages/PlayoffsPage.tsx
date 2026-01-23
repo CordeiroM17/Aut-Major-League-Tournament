@@ -97,7 +97,7 @@ export const PlayoffsPage: React.FC = () => {
             <div className="w-full text-center py-20 bg-white rounded-xl border border-slate-200 shadow-sm">
               <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-4" />
               <h3 className="text-lg font-bold text-slate-900">Ronda no iniciada</h3>
-              <p className="text-slate-500 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
+              <p className="text-text-dark text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
               <div className="mt-4 flex justify-center">
                 <button
                 onClick={() => navigate('/swiss')}
