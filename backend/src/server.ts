@@ -30,15 +30,34 @@ import teamRoutes from './routes/teamRoutes';
 import matchRoutes from './routes/matchRoutes';
 import tournamentRoutes from './routes/tournamentRoutes';
 import playoffMatchRoutes from './playoffs/playoffMatchRoutes';
+import uploadRoutes from './routes/uploadRoutes';
+import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 connectMongo(); 
+
+// Ensure public/uploads directory exists
+const publicDir = path.join(__dirname, '../public');
+const uploadsDir = path.join(publicDir, 'uploads');
+
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir);
+  console.log('Created public directory');
+}
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+  console.log('Created public/uploads directory');
+}
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from "public/uploads" directory
+app.use('/uploads', express.static(uploadsDir));
 
 // Middleware para GET públicos solo si el origen es permitido
 function publicGetOnlyFromAllowedOrigin(req: Request, res: Response, next: Function) {
@@ -59,6 +78,7 @@ app.use('/api/teams', publicGetOnlyFromAllowedOrigin, teamRoutes);
 app.use('/api/matches', publicGetOnlyFromAllowedOrigin, matchRoutes);
 app.use('/api/tournament', publicGetOnlyFromAllowedOrigin, tournamentRoutes);
 app.use('/api/playoffs', publicGetOnlyFromAllowedOrigin, playoffMatchRoutes);
+app.use('/api/upload', publicGetOnlyFromAllowedOrigin, uploadRoutes);
 
 // Endpoint para generar el token
 app.post('/api/generatetoken', (req: Request, res: Response) => {
