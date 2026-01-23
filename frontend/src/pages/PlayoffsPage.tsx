@@ -4,6 +4,7 @@ import { PlayoffBracket } from '../components/PlayoffsBracket.tsx';
 import { TournamentLiveButton } from '../components/TournamentLiveButton.tsx';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header.tsx';
+import { Footer } from '../components/Footer.tsx';
 
 // Tipos locales para el estado (similares a los de PlayoffsBracket)
 interface Team {
@@ -96,15 +97,14 @@ export const PlayoffsPage: React.FC = () => {
         className="pointer-events-none select-none fixed inset-0 w-full h-full object-cover opacity-5 z-0"
         aria-hidden="true"
       />
-      <Header active="playoffs" />
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
         <TournamentLiveButton />
         <div className="flex flex-col items-center ">
           {matches.length === 0 ? (
-            <div className="w-full text-center py-20 bg-blue-header rounded-xl border border-gold shadow-lg">
+            <div className="w-full text-center py-20 bg-blue-header rounded-sm border border-gold shadow-lg">
               <Calendar className="w-12 h-12 text-gold mx-auto mb-4" />
               <h3 className="text-lg font-bold text-gold">Ronda no iniciada</h3>
-              <p className="text-text-dark text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
+              <p className="text-text-main/70 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
               <div className="mt-4 flex justify-center">
                 <button
                   onClick={() => navigate('/swiss')}
@@ -119,6 +119,7 @@ export const PlayoffsPage: React.FC = () => {
           )}
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

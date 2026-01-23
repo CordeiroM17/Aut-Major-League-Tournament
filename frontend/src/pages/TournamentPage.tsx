@@ -9,6 +9,7 @@ import { TournamentLiveButton } from '../components/TournamentLiveButton';
 import { TopPlayers } from '../components/TopPlayers';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 export const TournamentPage: React.FC = () => {
   const [activeRound, setActiveRound] = useState<number>(1);
@@ -138,23 +139,19 @@ export const TournamentPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-blue-surface text-slate-900 relative overflow-hidden">
-      <div 
-        className="absolute inset-0 z-0 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage: "url('/images/fondodemacia.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
       <MatchModal 
         match={selectedMatch} 
         teams={data.teams} 
         onClose={() => setSelectedMatch(null)} 
       />
       
+      <img
+        src="/images/fondodemacia.webp"
+        alt="Fondo Demacia"
+        className="pointer-events-none select-none fixed inset-0 w-full h-full object-cover opacity-5 z-0"
+        aria-hidden="true"
+      />
 
-      <Header active="swiss" />
 
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 relative z-10">
         <TournamentLiveButton />
@@ -171,7 +168,7 @@ export const TournamentPage: React.FC = () => {
                 <button
                   key={round.number}
                   onClick={() => setActiveRound(round.number)}
-                  className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-sm bg-blue-primary transition-all duration-200 uppercase tracking-tighter cursor-pointer border xs:border-2 border-text-dark ${
+                  className={`flex-1 py-3 text-xs sm:text-sm font-bold rounded-sm bg-blue-header transition-all duration-200 uppercase tracking-tighter cursor-pointer border xs:border-2 border-text-dark ${
                     activeRound === round.number
                       ? 'bg-gold text-blue-primary'
                       : 'text-text-dark hover:text-slate-900 hover:bg-gold/70 hover:text-blue-primary'
@@ -184,9 +181,9 @@ export const TournamentPage: React.FC = () => {
 
             <div className="space-y-10">
               {groupedMatches.length === 0 ? (
-                 <div className="h-full text-center py-20 px-10 xs:px-20 bg-blue-primary rounded-sm">
-                   <Calendar className="w-12 h-12 text-text-main mx-auto mb-4" />
-                   <h3 className="text-lg font-bold text-text-main">Ronda no iniciada</h3>
+                 <div className="h-full text-center py-20 px-10 xs:px-20 bg-blue-header rounded-sm border border-gold shadow-lg">
+                   <Calendar className="w-12 h-12 text-gold mx-auto mb-4" />
+                   <h3 className="text-lg font-bold text-gold">Ronda no iniciada</h3>
                    <p className="text-text-main/70 text-sm">Los emparejamientos para esta ronda aún no están disponibles.</p>
                  </div>
               ) : (
@@ -194,7 +191,7 @@ export const TournamentPage: React.FC = () => {
                   const [w, l] = recordKey.split('-').map(Number);
                   return (
                     <div key={recordKey} className="space-y-4">
-                      <div className="flex items-center justify-between bg-blue-primary px-4 py-2 rounded-sm">
+                      <div className="flex items-center justify-between bg-blue-header px-4 py-2 rounded-sm">
                         <span className="text-xs font-black text-text-main uppercase tracking-widest">
                           RONDA {activeRound} ({recordKey})
                         </span>
@@ -212,12 +209,12 @@ export const TournamentPage: React.FC = () => {
                               key={match.id} 
                               onClick={() => !isPending && setSelectedMatch(match)}
                               disabled={isPending}
-                              className={`w-full text-left bg-blue-primary rounded-sm overflow-hidden group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-gold hover:shadow-md cursor-pointer'}`}
+                              className={`w-full text-left bg-blue-header rounded-sm overflow-hidden group transition-all duration-300 h-[100px] ${isPending ? 'opacity-80 cursor-default' : 'hover:border-gold hover:shadow-md cursor-pointer'}`}
                             >
                               <div className="p-4 grid grid-cols-3 items-center justify-between">
                                 <div className={`flex items-center justify-start space-x-4 flex-1 ${!isPending && match.winnerId === team1?.id ? 'opacity-100' : isPending ? 'opacity-100' : 'opacity-50'}`}>
-                                  <div className="hidden sm:block relative">
-                                    <img src={team1?.logo} alt="" className="w-10 h-10 bg-slate-50 border border-slate-100" />
+                                  <div className="hidden sm:block rounded-full border-2 border-black relative overflow-hidden w-10 h-10">
+                                    <img src={team1?.logo} alt="" className="w-full h-full bg-slate-50 object-cover" />
                                   </div>
                                   <div className="text-left m-0 relative">
                                     <p className={`text-[10px] text-text-main uppercase xs:text-xs sm:text-sm font-bold ${!isPending && match.winnerId === team1?.id ? 'text-gold' : 'text-slate-900'}`}>
@@ -259,8 +256,8 @@ export const TournamentPage: React.FC = () => {
                                       </div>
                                     )}
                                   </div>
-                                  <div className="hidden sm:block relative">
-                                    <img src={team2?.logo} alt="" className="w-10 h-10 bg-slate-50 border border-slate-100 ml-4" />
+                                  <div className="hidden sm:block rounded-full border-2 border-black relative overflow-hidden w-10 h-10 ml-4">
+                                    <img src={team2?.logo} alt="" className="w-full h-full bg-slate-50 object-cover" />
                                   </div>
                                 </div>
                               </div>
@@ -276,13 +273,13 @@ export const TournamentPage: React.FC = () => {
           </div>
 
           <div className="lg:col-span-4 space-y-6">
-            <div className="flex items-center justify-center xs:justify-start">
+            <div className="flex items-center justify-center xs:justify-start space-x-2">
               <LayoutGrid className="w-5 h-5 text-gold" />
               <h2 className="text-lg font-bold text-text-main">CLASIFICACIÓN</h2>
               <span className="flex-1 h-px bg-text-dark ml-3" />
             </div>
 
-            <div className="bg-blue-primary rounded-sm py-3 flex items-center justify-center mb-0">
+            <div className="bg-blue-header rounded-sm py-3 flex items-center justify-center mb-0">
                <div className="flex flex-col xs:flex-row lg:flex-col 2xl:flex-row gap-4 justify-between">
                   <div className="flex items-center space-x-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
@@ -301,7 +298,7 @@ export const TournamentPage: React.FC = () => {
             
             <div className="rounded-sm overflow-hidden">
                 <table className="w-full text-left border-separate border-spacing-y-4">
-                  <thead className="bg-blue-primary">
+                  <thead className="bg-blue-header">
                     <tr>
                       <th className="px-4 py-2 text-xs sm:text-sm font-bold text-text-main/70 uppercase text-center">Pos</th>
                       <th className="px-4 py-2 text-xs sm:text-sm font-bold text-text-main/70 uppercase">Equipo</th>
@@ -314,7 +311,7 @@ export const TournamentPage: React.FC = () => {
                       const statusColor = stat.status === 'qualified' ? 'text-emerald-500' : stat.status === 'eliminated' ? 'text-rose-500' : 'text-gold';
 
                       return (
-                        <tr key={stat.teamId} className="bg-blue-primary">
+                        <tr key={stat.teamId} className="bg-blue-header">
                           <td className="px-4 py-3 text-center">
                             <span className={`text-xs sm:text-sm font-bold ${statusColor}`}>
                               {String(index + 1).padStart(2, '0')}
@@ -340,7 +337,7 @@ export const TournamentPage: React.FC = () => {
                 </table>
             </div>
 
-            <div className="bg-blue-primary rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
+            <div className="bg-blue-header rounded-sm p-6 text-white shadow-xl relative overflow-hidden">
               <div className="font-bold text-sm mb-4 flex items-center justify-start space-x-2">
                 <Info className="w-8 h-8 text-gold" />
                 <h3 className="uppercase tracking-widest text-lg">Información</h3>
@@ -361,7 +358,10 @@ export const TournamentPage: React.FC = () => {
 
               </div>
 
-              <button className="w-full border-2 border-gold px-8 py-4 bold rounded-sm text-[16px] shadow-md cursor-pointer transition-all duration-300 bg-blue-primary/70 text-gold hover:bg-gold/95 hover:text-blue-primary">
+              <button
+                onClick={() => navigate('/reglamento')}
+                className="flex items-center justify-center py-2 w-full font-bold border border-gold rounded-sm text-base shadow-md cursor-pointer transition-all duration-300 bg-blue-primary/70 text-gold hover:bg-gold/95 hover:text-blue-primary tracking-widest"
+              >
                 Ver Reglamento
               </button>
             </div>
@@ -369,6 +369,7 @@ export const TournamentPage: React.FC = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

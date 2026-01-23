@@ -37,7 +37,7 @@ export const TournamentLiveButton: React.FC = () => {
     <div className="flex items-center">
       <a
         href="https://www.twitch.tv/autmajorleague"
-        className={`flex items-center justify-between space-x-2 bg-blue-primary px-4 py-4 transition-colors duration-200 mb-6 rounded-sm w-full border xs:border-2 ${isLive ? 'border-emerald-500 cursor-pointer' : 'border-text-dark'}`}
+        className={`flex items-center justify-between space-x-2 bg-blue-header px-4 py-4 transition-colors duration-200 mb-6 rounded-sm w-full border xs:border-2 ${isLive ? 'border-emerald-500 cursor-pointer' : 'border-text-dark'}`}
         disabled={loading}
         title={isLive ? 'Live' : 'Desconectado'}
       >

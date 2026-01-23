@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { label: 'Overview', href: '/', activeKey: 'overview' },
@@ -10,9 +10,25 @@ const navLinks = [
   { label: 'Playoffs', href: '/playoffs', activeKey: 'playoffs' }
 ];
 
-export const Header: React.FC<{ active?: string }> = ({ active }) => {
+export const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const getActiveKey = () => {
+    const path = location.pathname;
+    const hash = location.hash;
+    
+    if (path === '/' && hash === '#equipos') return 'equipos';
+    if (path === '/') return 'overview';
+    if (path.startsWith('/reglamento')) return 'reglamento';
+    if (path.startsWith('/discord')) return 'discord';
+    if (path.startsWith('/swiss')) return 'swiss';
+    if (path.startsWith('/playoffs')) return 'playoffs';
+    return '';
+  };
+
+  const active = getActiveKey();
 
   const handleNav = (link: typeof navLinks[0]) => {
     setMenuOpen(false);
@@ -22,12 +38,21 @@ export const Header: React.FC<{ active?: string }> = ({ active }) => {
         const equiposSection = document.getElementById('equipos');
         if (equiposSection) {
           equiposSection.scrollIntoView({ behavior: 'smooth' });
+          // Manually ensuring hash is set might be good, but navigate('/') clears it usually. 
+          // We can pushState or just let the scroll happen.
+          // To make the activeKey work, we might need hash navigation or state.
+          // For now, let's just assume hash might be set by the user or we set it.
+          window.location.hash = 'equipos';
         }
       }, 300);
       return;
     }
     if (link.label === 'Overview') {
       navigate('/');
+      // Clear hash
+      if (window.location.hash) {
+        history.replaceState(null, '', ' ');
+      }
       return;
     }
     if (link.href.startsWith('http')) {
@@ -38,9 +63,9 @@ export const Header: React.FC<{ active?: string }> = ({ active }) => {
   };
 
   return (
-    <header className="bg-blue-header border-b border-blue-primary sticky top-0 z-30 shadow-sm" style={{ height: '100px' }}>
+    <header className="blurry-header border-b border-blue-primary sticky top-0 shadow-sm transition-all h-[100px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-        <div className="flex items-center h-full">
+        <div className="flex items-center h-full cursor-pointer" onClick={() => navigate('/')}>
           <img src="/images/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />
         </div>
         {/* Desktop nav */}

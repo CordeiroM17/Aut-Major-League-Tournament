@@ -1,4 +1,5 @@
 import React from 'react';
+import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 
 export const ReglamentoPage: React.FC = () => {
@@ -76,49 +77,52 @@ export const ReglamentoPage: React.FC = () => {
   ];
   return (
     <div className="bg-[#152a42] min-h-screen text-[#f3f3f3]">
-      <Header active="reglamento" />
-      <div className="relative w-full h-[220px] sm:h-[320px] flex flex-col items-center justify-center overflow-hidden px-2 sm:px-0 pb-8">
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover z-0"
-          src="/images/Loop_1.webm"
-          autoPlay
-          loop
-          muted
-          style={{ opacity: 0.3 }}
-        />
-        <div className="relative z-10 flex flex-col items-center justify-center h-full">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mt-2 mb-2">Reglamento oficial para la<br/>Aut Major League</h1>
-          <p className="text-lg sm:text-xl text-center mt-2 mb-2 font-semibold">Por Demacia y por la Gloria</p>
+      <video
+        className="fixed top-0 left-0 w-full h-full object-cover z-0"
+        src="/images/Loop_1.webm"
+        autoPlay
+        loop
+        muted
+        style={{ opacity: 0.15 }}
+      />
+      
+      <div className="relative z-10">
+        <div className="relative w-full h-[220px] sm:h-[320px] flex flex-col items-center justify-center overflow-hidden px-2 sm:px-0 pb-8">
+            <div className="relative z-10 flex flex-col items-center justify-center h-full">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mt-2 mb-2">Reglamento oficial para la<br/>Aut Major League</h1>
+            <p className="text-lg sm:text-xl text-center mt-2 mb-2 font-semibold">Por Demacia y por la Gloria</p>
+            </div>
         </div>
-      </div>
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
-        {/* Presentación izquierda */}
-        <div className="bg-[#152A42] p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
-          <span className="text-2xl font-bold text-[#d7b84a] mb-4">REGLAMENTO OFICIAL: AUT MAJOR LEAGUE</span>
-          <p className="text-base text-[#f3f3f3] leading-relaxed mb-6">
-            Bienvenidos a la Aut Major League. A continuación se detallan las normas y estructura del torneo. La organización se reserva el derecho de tomar decisiones finales ante cualquier situación no prevista en este reglamento para asegurar la integridad de la Aut Major League.
-          </p>
-          <img src="/images/poro.png" alt="Poro" className="w-24 sm:w-32 mx-auto mt-2" />
-        </div>
-        {/* Reglas a la derecha */}
-        <div className="bg-[#101a28] p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
-          <div className="space-y-8">
-            {reglas.map((regla, idx) => (
-              <div key={regla.titulo} className="flex items-start">
-                <span className="text-[#d7b84a] text-3xl font-bold mr-4 min-w-[2.5rem] text-center">{romanNumbers[idx]}</span>
-                <div>
-                  <span className="text-[#d7b84a] font-bold text-lg">{regla.titulo}</span>
-                  <ul className="list-disc pl-5 mt-2 space-y-1">
-                    {regla.items.map((item, i) => (
-                      <li key={i} className="text-[#f3f3f3]">{item}</li>
-                    ))}
-                  </ul>
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0 relative z-10">
+            {/* Presentación izquierda */}
+            <div className="bg-[#152A42]/90 p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
+            <span className="text-2xl font-bold text-[#d7b84a] mb-4">REGLAMENTO OFICIAL: AUT MAJOR LEAGUE</span>
+            <p className="text-base text-[#f3f3f3] leading-relaxed mb-6">
+                Bienvenidos a la Aut Major League. A continuación se detallan las normas y estructura del torneo. La organización se reserva el derecho de tomar decisiones finales ante cualquier situación no prevista en este reglamento para asegurar la integridad de la Aut Major League.
+            </p>
+            <img src="/images/poro.png" alt="Poro" className="w-24 sm:w-32 mx-auto mt-2" />
+            </div>
+            {/* Reglas a la derecha */}
+            <div className="bg-[#101a28]/90 p-6 sm:p-12 flex flex-col justify-start min-h-[220px] sm:min-h-[320px] w-full">
+            <div className="space-y-8">
+                {reglas.map((regla, idx) => (
+                <div key={regla.titulo} className="flex items-start">
+                    <span className="text-[#d7b84a] text-3xl font-bold mr-4 min-w-[2.5rem] text-center">{romanNumbers[idx]}</span>
+                    <div>
+                    <span className="text-[#d7b84a] font-bold text-lg">{regla.titulo}</span>
+                    <ul className="list-disc pl-5 mt-2 space-y-1">
+                        {regla.items.map((item, i) => (
+                        <li key={i} className="text-[#f3f3f3]">{item}</li>
+                        ))}
+                    </ul>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-[#d7b84a] mt-8">Nota Final: La organización se reserva el derecho de tomar decisiones finales ante cualquier situación no prevista en este reglamento para asegurar la integridad de la Aut Major League.</p>
+                ))}
+            </div>
+            <p className="text-xs text-[#d7b84a] mt-8">Nota Final: La organización se reserva el derecho de tomar decisiones finales ante cualquier situación no prevista en este reglamento para asegurar la integridad de la Aut Major League.</p>
+            </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

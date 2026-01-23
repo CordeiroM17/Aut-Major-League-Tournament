@@ -1,25 +1,23 @@
 import React from 'react';
+import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 
 export const DiscordPage: React.FC = () => {
   return (
-    <div className="min-h-screen text-text-main relative overflow-hidden">
-      {/* Overlay to match header color */}
-      <div className="fixed top-0 left-0 w-full h-full bg-blue-surface opacity-90 -z-9 pointer-events-none"></div>
+    <div className="min-h-screen bg-blue-surface text-text-main relative overflow-hidden">
       <video
-        className="fixed top-0 left-0 w-full h-full object-cover -z-10"
+        className="fixed top-0 left-0 w-full h-full object-cover z-0"
         src="/images/Loop_1.webm"
         autoPlay
         loop
         muted
-        style={{ opacity: 0.9 }}
+        style={{ opacity: 0.15 }}
       />
-      <Header active="discord" />
-      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-blue-header bg-opacity-90 rounded-xl shadow-lg p-12 gap-8 my-16">
+      <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-blue-header opacity-90 rounded-xl shadow-lg p-12 gap-8 my-16">
         <div className="flex flex-col justify-center items-start flex-1">
           <div className="flex items-center mb-4">
             <img
-              src="/public/discord-icon.png"
+              src="/discord-icon.png"
               alt="Discord"
               className="w-12 h-12 mr-2 object-contain"
               style={{ aspectRatio: '1 / 1', maxWidth: '3rem', maxHeight: '3rem' }}
@@ -43,6 +41,7 @@ export const DiscordPage: React.FC = () => {
           <img src="/images/logo.png" alt="AUT Major League" className="w-64 drop-shadow-lg" />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

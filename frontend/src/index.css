@@ -10,6 +10,10 @@ html {
   scrollbar-color: var(--color-gold) var(--color-blue-header);
 }
 
+body {
+  background-color: var(--color-blue-header);
+}
+
 body::-webkit-scrollbar {
   width: 10px;
   background: var(--color-blue-header);
@@ -60,4 +64,23 @@ h1, h2 {
 
 p, button {
   font-family: var(--font-raleway);
+}
+
+.blurry-header {
+    /* Required for the blur effect to be visible */
+    background-color: rgb(21, 42, 66, 0.7);
+    
+    /* Apply the blur effect to the background */
+    backdrop-filter: blur(20px); 
+    
+    /* Fallback for browsers that do not support backdrop-filter */
+    /* You might use a solid or semi-transparent background color */
+    /* background-color: rgba(255, 255, 255, 0.9); */
+
+    /* Additional styling for positioning and appearance */
+    position: sticky; /* Or 'fixed' */
+    top: 0;
+    z-index: 20;
+    padding: 1em;
+    /* Other styles like height, width, border-bottom etc. */
 }

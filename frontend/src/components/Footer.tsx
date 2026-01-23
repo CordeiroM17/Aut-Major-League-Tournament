@@ -2,8 +2,8 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
     return (
-      <footer className="flex flex-col items-center text-center gap-6 bg-blue-primary p-16 border-t border-slate-800">
-        <img className="w-32 opacity-90" src="Aut-Logo.png" alt="Aut Logo" />
+      <footer className="flex flex-col items-center text-center gap-6 bg-blue-header/50 p-16 z-10 relative">
+        <img className="w-32" src="Aut-Logo.png" alt="Aut Logo" />
         
         <div className="flex items-center gap-6">
            {/* Instagram */}
@@ -21,10 +21,8 @@ export const Footer: React.FC = () => {
            </a>
 
             {/* Discord */}
-           <a href="https://discord.gg/zgZ8a8EYbm" target="_blank" rel="noopener noreferrer" className="group p-3 bg-white/5 rounded-full hover:bg-gold transition-all duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                 <circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M7.5 7.5c3.5-1 5.5-1 9 0"/><path d="M7 16.5c3.5 1 6.5 1 10 0"/><path d="M2 12c0 5 2 9 7 11 0-4-2-6-3-7 4-1 8-1 12 0-1 1-3 3-3 7 5-2 7-6 7-11S17 2 12 2 7 2 2 12z"/>
-              </svg>
+           <a href="https://discord.gg/zgZ8a8EYbm" target="_blank" rel="noopener noreferrer" className="group p-3 bg-white/5 rounded-full hover:bg-gold transition-all duration-300 w-[48px] h-[48px]">
+              <img src="/images/discord-icon.png" alt="Discord Logo"/>
            </a>
         </div>
 
