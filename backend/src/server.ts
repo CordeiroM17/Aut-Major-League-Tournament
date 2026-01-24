@@ -85,14 +85,18 @@ app.use('/api/upload', publicGetOnlyFromAllowedOrigin, uploadRoutes);
 app.post('/api/generatetoken', (req: Request, res: Response) => {
   const { user, password } = req.body;
   const envUser = process.env.API_USER;
-  const envPassword = process.env.API_PASSWORD;
+  const envPasswordHash = process.env.API_PASSWORD; // Encrypted hash in env
   const jwtSecret = process.env.JWT_SECRET;
 
-  if (!envUser || !envPassword || !jwtSecret) {
+  if (!envUser || !envPasswordHash || !jwtSecret) {
     return res.status(500).json({ error: 'Credenciales no configuradas en el servidor.' });
   }
 
-  if (user === envUser && password === envPassword) {
+  // Hash received password to compare
+  const passwordHash = require('crypto').createHash('sha256').update(password).digest('hex');
+
+  if (user === envUser && passwordHash === envPasswordHash) {
+    // 2 days expiration
     const token = require('jsonwebtoken').sign({ user }, jwtSecret, { expiresIn: '2d' });
     return res.json({ token });
   } else {
