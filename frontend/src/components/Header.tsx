@@ -63,7 +63,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="blurry-header border-b border-blue-primary sticky top-0 shadow-sm transition-all h-[100px]">
+    <header className="blurry-header border-b border-blue-header sticky top-0 shadow-sm transition-all h-[100px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         <div className="flex items-center h-full cursor-pointer" onClick={() => navigate('/')}>
           <img src="/images/Logo 3.png" alt="Logo AUT" className="h-14 w-auto" />

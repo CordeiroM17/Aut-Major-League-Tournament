@@ -68,7 +68,7 @@ p, button {
 
 .blurry-header {
     /* Required for the blur effect to be visible */
-    background-color: rgb(21, 42, 66, 0.7);
+    background-color: rgba(24, 40, 58, 0.7);
     
     /* Apply the blur effect to the background */
     backdrop-filter: blur(20px); 

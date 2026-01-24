@@ -14,7 +14,8 @@ export const ReglamentoPage: React.FC = () => {
       items: [
         'Modalidad de Juego: Grieta del Invocador. Servidor LAS. Torneo de Reclutamiento.',
         'Charla Inaugural (Obligatoria): Todos los capitanes deben presentarse a la charla inaugural del torneo para la organización y logística del mismo. La fecha y hora se notificará por todos los canales de comunicación oficiales. En caso de inasistencia, se le quitará al equipo la posibilidad de realizar baneos en el primer mapa.',
-        'Formato de Competencia (Sistema Suizo): El torneo contará con 16 equipos confirmados. Se utilizará un Sistema Suizo donde los equipos con registros similares se enfrentarán entre sí. Las rondas iniciales serán a Partida Única (Bo1). La fase eliminatoria (Playoffs) se disputará bajo el sistema Fearless Draft: los campeones utilizados no podrán repetirse en la misma serie de b03 para los cuartos, semis y tercer lugar y b05 para la final.'
+        'Formato de Competencia (Sistema Suizo): El torneo contará con 16 equipos confirmados. Se utilizará un Sistema Suizo donde los equipos con registros similares se enfrentarán entre sí. Las rondas iniciales serán a Partida Única (Bo1). La fase eliminatoria (Playoffs) se disputará bajo el sistema Fearless Draft: los campeones utilizados no podrán repetirse en la misma serie de b03 para los cuartos, semis y tercer lugar y b05 para la final.',
+        'Delay de partida (Obligatorio): Todos los equipos deben tener un delay de partida activado para que el torneo pueda continuar sin problemas. La partida podria ser reiniciada si un equipo no cumple con el delay.',
       ]
     },
     {
@@ -26,7 +27,7 @@ export const ReglamentoPage: React.FC = () => {
       ]
     },
     {
-      titulo: 'PREMIACIÓN (FEBRERO 2026)',
+      titulo: 'PREMIACIÓN (MARZO 2026)',
       items: [
         'Primer Lugar: $500.000 ARS.',
         'Segundo Lugar: $100.000 ARS.',
@@ -38,7 +39,8 @@ export const ReglamentoPage: React.FC = () => {
       titulo: 'VISIBILIDAD Y STREAMING',
       items: [
         'Prohibición de Streamer Mode: está prohibido usar el "Streamer Mode" en partidas oficiales para que los casters puedan identificar a los jugadores por sus nicknames dentro del juego.',
-        'Coordinación de Transmisión: los equipos pueden solicitar el stream oficial (Twitch/Kick) avisando al Staff. Cada equipo es libre de transmitir sus propias partidas si así lo desea.'
+        'Coordinación de Transmisión: los equipos pueden solicitar el stream oficial (Twitch/Kick) avisando al Staff. Cada equipo es libre de transmitir sus propias partidas si así lo desea. Siempre y cuando se respete el delay de la partida.',
+        'El stream oficial se llevará a cabo en el canal oficial de Discord de la liga.',
       ]
     },
     {
@@ -46,7 +48,8 @@ export const ReglamentoPage: React.FC = () => {
       items: [
         'Responsabilidad de Capitanes: son los encargados de coordinar los horarios con sus rivales.',
         'Cambios de Horario: se deben acordar entre capitanes de equipos y se deben avisar con 24hs de antelación al Staff.',
-        'Supervisión técnica: el Staff podrá ingresar a las llamadas de Discord en cualquier momento para asegurar el Fairplay y brindar soporte.'
+        'Supervisión técnica: el Staff podrá ingresar a las llamadas de Discord en cualquier momento para asegurar el Fairplay y brindar soporte.',
+        'Los equipos pueden solicitar que el Staff ingrese a las llamadas de Discord en cualquier momento para asegurar el Fairplay y brindar soporte.'
       ]
     },
     {
@@ -70,8 +73,9 @@ export const ReglamentoPage: React.FC = () => {
     {
       titulo: 'REGLAS DENTRO DEL JUEGO',
       items: [
-        'Pausas: Cada equipo tiene derecho a pausas tácticas/técnicas (máximo 15 minutos) avisando previamente en el chat general (/pause).',
-        'Remakes: Solo se permitirá reiniciar la partida si ocurre un error crítico antes del minuto 1:30 y no hubo contacto entre jugadores.'
+        'Pausas: Cada equipo tiene derecho a pausas tácticas/técnicas (máximo 15 minutos) avisando previamente en el chat general. Es importante que al reanudar la partida ambos equipos esten de acuerdo.',
+        'Remakes: Solo se permitirá reiniciar la partida si ocurre un error crítico antes del minuto 1:30 y no hubo contacto entre jugadores.',
+        'El uso de scripts es estrictamente prohibido. El incumplimiento resultará en descalificación del equipo y baneo permanente del jugador.'
       ]
     }
   ];
@@ -88,10 +92,10 @@ export const ReglamentoPage: React.FC = () => {
       
       <div className="relative z-10">
         <div className="relative w-full h-[220px] sm:h-[320px] flex flex-col items-center justify-center overflow-hidden px-2 sm:px-0 pb-8">
-            <div className="relative z-10 flex flex-col items-center justify-center h-full">
+          <div className="relative z-10 flex flex-col items-center justify-center h-full">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mt-2 mb-2">Reglamento oficial para la<br/>Aut Major League</h1>
             <p className="text-lg sm:text-xl text-center mt-2 mb-2 font-semibold">Por Demacia y por la Gloria</p>
-            </div>
+          </div>
         </div>
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0 relative z-10">
             {/* Presentación izquierda */}

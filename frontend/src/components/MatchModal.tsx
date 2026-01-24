@@ -19,7 +19,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({ match, teams, onClose })
       <div className="bg-blue-surface w-full max-w-2xl rounded-sm border-2 border-gold shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
         <button 
           onClick={onClose}
-          className="absolute right-2 top-2 sm:right-4 sm:top-4 p-2 text-gold hover:text-text-main hover:cursor-pointer transition-colors z-10 text-3xl font-bold"
+          className="absolute right-2 top-2 sm:right-2 sm:top-2 p-2 text-gold hover:text-text-main hover:cursor-pointer transition-colors z-10 text-3xl font-bold"
         >
           <X className="w-7 h-7" />
         </button>
@@ -53,8 +53,8 @@ export const MatchModal: React.FC<MatchModalProps> = ({ match, teams, onClose })
                     {(!match.details.team1Bans || match.details.team1Bans.length === 0) && <span className="text-xs text-text-main italic">Sin bans</span>}
                  </div>
                  <div className="flex justify-center">
-                  <span className="text-[10px] w-8 text-center sm:text-xs font-bold text-text-main uppercase tracking-wider bg-blue-header px-1 py-0.5 rounded border border-gold">
-                    BAN
+                  <span className="text-[10px] w-8 text-center uppercase font-bold text-text-main tracking-wider bg-blue-header px-1 py-0.5 rounded border border-gold">
+                    Ban
                   </span>
                 </div>
                  {/* Team 2 Bans */}
