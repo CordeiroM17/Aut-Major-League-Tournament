@@ -11,6 +11,7 @@ export const DiscordPage: React.FC = () => {
         autoPlay
         loop
         muted
+        playsInline
         style={{ opacity: 0.15 }}
       />
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl mx-auto bg-blue-header opacity-90 rounded-xl shadow-lg p-12 gap-8 my-16">

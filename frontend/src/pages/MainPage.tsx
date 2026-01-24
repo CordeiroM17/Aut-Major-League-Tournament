@@ -54,6 +54,7 @@ export const MainPage: React.FC = () => {
             autoPlay
             loop
             muted
+            playsInline
             style={{ opacity: 0.20 }} // Opacity matching Discord
           />
           <div className="w-full flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
@@ -114,6 +115,7 @@ export const MainPage: React.FC = () => {
             autoPlay
             loop
             muted
+            playsInline
             style={{ opacity: 0.35 }} // Opacity matching other pages
           />
           <div className="grid grid-cols-1 gap-8 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">

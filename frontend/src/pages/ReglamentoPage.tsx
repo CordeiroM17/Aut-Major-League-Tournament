@@ -87,6 +87,7 @@ export const ReglamentoPage: React.FC = () => {
         autoPlay
         loop
         muted
+        playsInline
         style={{ opacity: 0.15 }}
       />
       
