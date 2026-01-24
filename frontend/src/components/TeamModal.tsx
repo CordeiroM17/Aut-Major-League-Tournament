@@ -21,6 +21,7 @@ import jgIcon from '/images/jg.png';
 import midIcon from '/images/mid.png';
 import adcIcon from '/images/adc.png';
 import suppIcon from '/images/supp.png';
+import { X } from 'lucide-react';
 
 const roleImages: Record<string, string> = {
   TOP: topIcon,
@@ -39,13 +40,13 @@ export const TeamModal: React.FC<TeamModalProps> = ({ open, onClose, logo, name,
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-blue-secondary/90">
-      <div className="bg-blue-surface rounded-xl shadow-lg p-4 mx-4 max-w-lg w-full relative" style={{ marginTop: '96px', maxHeight: '80vh', overflowY: 'auto' }}>
+      <div className="bg-blue-surface z-50 rounded-sm p-4 mx-4 max-w-lg w-full shadow-2xl relative border-2 border-gold" style={{ marginTop: '96px', maxHeight: '80vh', overflowY: 'auto' }}>
         <button
-          className="absolute top-4 right-4 text-gold text-5xl font-bold hover:text-text-main cursor-pointer"
+          className="absolute top-4 right-4 text-gold text-3xl hover:text-text-main cursor-pointer"
           onClick={onClose}
           aria-label="Cerrar"
         >
-          ×
+          <X className="w-7 h-7" />
         </button>
         <div className="flex flex-col items-center mb-6">
           <img src={logo} alt={name} className="w-24 h-24 rounded-full mb-2 object-cover border-2 border-gold" />

@@ -16,7 +16,7 @@ export const MatchModal: React.FC<MatchModalProps> = ({ match, teams, onClose })
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blue-secondary/90 backdrop-blur-sm">
-      <div className="bg-blue-surface w-full max-w-2xl rounded-2xl border-2 border-gold shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
+      <div className="bg-blue-surface w-full max-w-2xl rounded-sm border-2 border-gold shadow-2xl overflow-hidden relative animate-in fade-in zoom-in duration-200">
         <button 
           onClick={onClose}
           className="absolute right-2 top-2 sm:right-4 sm:top-4 p-2 text-gold hover:text-text-main hover:cursor-pointer transition-colors z-10 text-3xl font-bold"

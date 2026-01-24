@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
     return (
-      <footer className="flex flex-col items-center text-center gap-6 bg-blue-header/50 p-16 z-10 relative">
+      <footer className="flex flex-col items-center text-center gap-6 bg-blue-header/50 p-16 relative">
         <img className="w-32" src="Aut-Logo.png" alt="Aut Logo" />
         
         <div className="flex items-center gap-6">

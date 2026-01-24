@@ -70,7 +70,7 @@ export const MainPage: React.FC = () => {
           </div>
         </div>
         {/* FORMATO DEL TORNEO - NUEVO DISEÑO */}
-        <section className="bg-blue-primary border-b border-blue-secondary py-12 px-4">
+        <section className="bg-blue-primary border-b border-blue-secondary py-8 px-4">
           <div className="max-w-4xl mx-auto flex flex-col items-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center text-gold tracking-wide mb-2 uppercase" style={{letterSpacing: '0.04em'}}>FORMATO DEL TORNEO</h2>
             <p className="text-text-main text-center text-base sm:text-lg max-w-2xl mb-6">La estructura de la competencia de la AUT Major League emplea un sistema diseñado para garantizar la equidad y maximizar el tiempo de juego de los participantes.</p>
