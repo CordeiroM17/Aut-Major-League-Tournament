@@ -10,9 +10,12 @@ import { ReglamentoPage } from './pages/ReglamentoPage';
 import { DiscordPage } from './pages/DiscordPage';
 import { AdminPage } from './pages/AdminPage';
 
+import ScrollToTop from './components/ScrollToTop';
+
 const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />

@@ -58,7 +58,7 @@ export const MainPage: React.FC = () => {
             style={{ opacity: 0.20 }} // Opacity matching Discord
           />
           <div className="w-full flex flex-col items-center gap-4 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
-            <img className="w-auto max-w-48 sm:max-w-64" src="Aut-Logo.png" alt="Aut Logo" />
+            <img className="w-auto max-w-48 sm:max-w-64" src="/images/logo.png" alt="Aut Logo" />
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-text-main text-center">Demostrá tu nivel, competí por la gloria</h1>
             <p className="text-text-main text-center text-sm lg:text-lg">AUT Major League es una competencia amateur de League of Legends creada para impulsar el talento emergente y brindar una experiencia competitiva única. </p>
             <p className="text-gold text-center text-sm lg:text-lg pb-6">Torneo exclusivo para el servidor LAS (Latin America South).</p>
