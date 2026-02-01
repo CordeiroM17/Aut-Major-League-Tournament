@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Team, Match, MatchDetails, PlayerStats } from "../types";
-import { Save, Plus, Trash2, Edit2, Check, RefreshCw } from "lucide-react";
+import { Save, Plus, Trash2, Edit2, Check, RefreshCw, X } from "lucide-react";
 
 export const AdminPage: React.FC = () => {
   const [token, setToken] = useState<string>(
@@ -956,25 +956,27 @@ export const AdminPage: React.FC = () => {
             {/* RIGHT: EDIT FORM */}
             <div className="lg:col-span-8">
               {selectedMatch ? (
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 sticky top-6">
+                <div className="bg-blue-header p-6 rounded-sm shadow-sm border xs:border-2 border-text-dark sticky top-6">
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-bold text-slate-800">
+                    <h2 className="text-lg font-bold text-text-main">
                       Editar Partido: {selectedMatch.id}
                     </h2>
                     <button
                       onClick={() => setSelectedMatch(null)}
                       className="text-slate-400 hover:text-slate-600"
                     >
-                      <Trash2 className="w-5 h-5" />
+                      <X className="w-6 h-6 text-gold cursor-pointer" />
                     </button>
                   </div>
 
                   <div className="grid grid-cols-4 gap-4 mb-8">
                     <div className="col-span-1">
-                      <label className="label-std">Score Team 1</label>
+                      <label className="label-std text-md text-text-main mb-2">
+                        Score Team 1
+                      </label>
                       <input
                         type="number"
-                        className="input-std w-full"
+                        className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                         value={matchUpdateData.score1}
                         onChange={(e) =>
                           setMatchUpdateData({
@@ -985,10 +987,12 @@ export const AdminPage: React.FC = () => {
                       />
                     </div>
                     <div className="col-span-1">
-                      <label className="label-std">Score Team 2</label>
+                      <label className="label-std text-md text-text-main mb-2">
+                        Score Team 2
+                      </label>
                       <input
                         type="number"
-                        className="input-std w-full"
+                        className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                         value={matchUpdateData.score2}
                         onChange={(e) =>
                           setMatchUpdateData({
@@ -999,9 +1003,11 @@ export const AdminPage: React.FC = () => {
                       />
                     </div>
                     <div className="col-span-1">
-                      <label className="label-std">Winner ID</label>
+                      <label className="label-std text-md text-text-main mb-2">
+                        Winner ID
+                      </label>
                       <select
-                        className="input-std w-full"
+                        className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2 cursor-pointer"
                         value={matchUpdateData.winnerId}
                         onChange={(e) =>
                           setMatchUpdateData({
@@ -1026,9 +1032,11 @@ export const AdminPage: React.FC = () => {
                       </select>
                     </div>
                     <div className="col-span-1">
-                      <label className="label-std">Estado</label>
+                      <label className="label-std text-md text-text-main mb-2">
+                        Estado
+                      </label>
                       <select
-                        className="input-std w-full"
+                        className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2 cursor-pointer"
                         value={matchUpdateData.status}
                         onChange={(e) =>
                           setMatchUpdateData({
@@ -1046,7 +1054,7 @@ export const AdminPage: React.FC = () => {
                   <div className="space-y-8">
                     {/* TEAM 1 PLAYERS */}
                     <div>
-                      <h3 className="font-bold text-slate-700 mb-2 border-b pb-2">
+                      <h3 className="font-bold text-text-main mb-2 border-b pb-2">
                         Team 1 Stats (
                         {
                           teams.find((t) => t.id === selectedMatch.team1Id)
@@ -1059,7 +1067,7 @@ export const AdminPage: React.FC = () => {
                           <div key={i} className="flex gap-2">
                             <input
                               placeholder="Name"
-                              className="input-sm flex-1"
+                              className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.name}
                               onChange={(e) =>
                                 updatePlayerStat(1, i, "name", e.target.value)
@@ -1067,7 +1075,7 @@ export const AdminPage: React.FC = () => {
                             />
                             <input
                               placeholder="Champ"
-                              className="input-sm w-24"
+                              className="input-std w-24 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.champion}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1081,7 +1089,7 @@ export const AdminPage: React.FC = () => {
                             <input
                               placeholder="K"
                               type="number"
-                              className="input-sm w-16"
+                              className="input-std w-16 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.k}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1095,7 +1103,7 @@ export const AdminPage: React.FC = () => {
                             <input
                               placeholder="D"
                               type="number"
-                              className="input-sm w-16"
+                              className="input-std w-16 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.d}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1109,7 +1117,7 @@ export const AdminPage: React.FC = () => {
                             <input
                               placeholder="A"
                               type="number"
-                              className="input-sm w-16"
+                              className="input-std w-16 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.a}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1122,7 +1130,7 @@ export const AdminPage: React.FC = () => {
                             />
                             <input
                               placeholder="Role (opcional)"
-                              className="input-sm w-20"
+                              className="input-std w-20 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.role}
                               onChange={(e) =>
                                 updatePlayerStat(1, i, "role", e.target.value)
@@ -1133,15 +1141,17 @@ export const AdminPage: React.FC = () => {
                       </div>
                       {/* TEAM 1 BANS */}
                       <div className="mt-4">
-                        <label className="label-std">Bans Team 1</label>
-                        <div className="flex gap-2">
+                        <label className="label-std text-text-main">
+                          Bans Team 1
+                        </label>
+                        <div className="grid grid-cols-5 gap-2">
                           {Array(5)
                             .fill(0)
                             .map((_, i) => (
                               <input
                                 key={i}
                                 placeholder={`Ban ${i + 1}`}
-                                className="input-sm w-24"
+                                className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                                 value={
                                   matchUpdateData.details.team1Bans[i] || ""
                                 }
@@ -1165,7 +1175,7 @@ export const AdminPage: React.FC = () => {
                     </div>
                     {/* TEAM 2 PLAYERS */}
                     <div>
-                      <h3 className="font-bold text-slate-700 mb-2 border-b pb-2">
+                      <h3 className="font-bold text-text-main mb-2 border-b pb-2">
                         Team 2 Stats (
                         {
                           teams.find((t) => t.id === selectedMatch.team2Id)
@@ -1178,7 +1188,7 @@ export const AdminPage: React.FC = () => {
                           <div key={i} className="flex gap-2">
                             <input
                               placeholder="Name"
-                              className="input-sm flex-1"
+                              className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.name}
                               onChange={(e) =>
                                 updatePlayerStat(2, i, "name", e.target.value)
@@ -1186,7 +1196,7 @@ export const AdminPage: React.FC = () => {
                             />
                             <input
                               placeholder="Champ"
-                              className="input-sm w-24"
+                              className="input-sm w-24 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.champion}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1200,7 +1210,7 @@ export const AdminPage: React.FC = () => {
                             <input
                               placeholder="K"
                               type="number"
-                              className="input-sm w-16"
+                              className="input-sm w-16 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.k}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1214,7 +1224,7 @@ export const AdminPage: React.FC = () => {
                             <input
                               placeholder="D"
                               type="number"
-                              className="input-sm w-16"
+                              className="input-sm w-16 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.d}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1228,7 +1238,7 @@ export const AdminPage: React.FC = () => {
                             <input
                               placeholder="A"
                               type="number"
-                              className="input-sm w-16"
+                              className="input-sm w-16 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.a}
                               onChange={(e) =>
                                 updatePlayerStat(
@@ -1241,7 +1251,7 @@ export const AdminPage: React.FC = () => {
                             />
                             <input
                               placeholder="Role (opcional)"
-                              className="input-sm w-20"
+                              className="input-sm w-20 bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                               value={p.role}
                               onChange={(e) =>
                                 updatePlayerStat(2, i, "role", e.target.value)
@@ -1252,15 +1262,17 @@ export const AdminPage: React.FC = () => {
                       </div>
                       {/* TEAM 2 BANS */}
                       <div className="mt-4">
-                        <label className="label-std">Bans Team 2</label>
-                        <div className="flex gap-2">
+                        <label className="label-std text-text-main">
+                          Bans Team 2
+                        </label>
+                        <div className="grid grid-cols-5 gap-2">
                           {Array(5)
                             .fill(0)
                             .map((_, i) => (
                               <input
                                 key={i}
                                 placeholder={`Ban ${i + 1}`}
-                                className="input-sm w-24"
+                                className="input-std w-full bg-blue-secondary p-2 rounded-sm text-text-main mt-2"
                                 value={
                                   matchUpdateData.details.team2Bans[i] || ""
                                 }
@@ -1287,7 +1299,7 @@ export const AdminPage: React.FC = () => {
                   <div className="mt-8 flex justify-end">
                     <button
                       onClick={handleUpdateMatch}
-                      className="btn-primary flex items-center gap-2"
+                      className="mt-4 cursor-pointer bg-gold text-blue-primary px-6 py-2 rounded-lg font-bold hover:bg-gold/80 transition-colors flex items-center gap-2"
                     >
                       <Save className="w-5 h-5" />
                       Guardar Cambios
@@ -1295,7 +1307,7 @@ export const AdminPage: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="h-full flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-200 rounded-2xl">
+                <div className="h-full flex flex-col items-center justify-center p-6 text-slate-400 border-2 border-dashed border-slate-200 rounded-2xl">
                   <Edit2 className="w-12 h-12 mb-4" />
                   <p>Selecciona un partido para editar</p>
                 </div>
