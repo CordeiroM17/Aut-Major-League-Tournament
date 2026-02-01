@@ -566,7 +566,7 @@ export const AdminPage: React.FC = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 font-bold text-sm uppercase tracking-wide transition-colors cursor-pointer ${
+              className={`px-2 py-3 xs:px-6 font-bold text-[10px] xs:text-sm uppercase tracking-wide transition-colors cursor-pointer ${
                 activeTab === tab
                   ? "text-gold border-b-2 border-gold bg-gold/10"
                   : "text-text-dark hover:bg-gold/10"
@@ -674,7 +674,7 @@ export const AdminPage: React.FC = () => {
                 Crear Nuevo Equipo
               </h2>
               <div className="grid grid-cols-2 gap-6 mb-6">
-                <div>
+                <div className="col-span-2 xs:col-span-1">
                   <label className="label-std text-text-main">ID Equipo</label>
                   <input
                     placeholder="ej: aut-crows"
@@ -685,7 +685,7 @@ export const AdminPage: React.FC = () => {
                     }
                   />
                 </div>
-                <div>
+                <div className="col-span-2 xs:col-span-1">
                   <label className="label-std text-text-main">Nombre</label>
                   <input
                     placeholder="ej: AUT Crows"
@@ -696,7 +696,7 @@ export const AdminPage: React.FC = () => {
                     }
                   />
                 </div>
-                <div>
+                <div className="col-span-2 xs:col-span-1">
                   <label className="label-std text-text-main">Seed</label>
                   <input
                     placeholder="Num"
@@ -708,7 +708,7 @@ export const AdminPage: React.FC = () => {
                     }
                   />
                 </div>
-                <div>
+                <div className="col-span-2 xs:col-span-1">
                   <label className="label-std text-text-main">Logo URL</label>
                   <input
                     placeholder="https://..."
@@ -719,7 +719,7 @@ export const AdminPage: React.FC = () => {
                     }
                   />
                 </div>
-                <div className="col-span-2 ">
+                <div className="col-span-2">
                   <label className="label-std text-text-main">
                     Descripción (máx 100 caracteres)
                   </label>
@@ -743,10 +743,13 @@ export const AdminPage: React.FC = () => {
               <h3 className="text-sm font-bold text-text-main uppercase mb-4">
                 Jugadores (Titulares y Suplentes)
               </h3>
-              <div className="space-y-3 ">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-1 gap-6">
                 {newTeamPlayers.map((player, i) => (
-                  <div key={i} className="flex gap-4 items-center">
-                    <div className="w-14 text-xs font-bold text-slate-400 text-left uppercase">
+                  <div
+                    key={i}
+                    className="col-span-1 flex flex-col sm:flex-row gap-6 items-center"
+                  >
+                    <div className="w-full sm:w-16 text-xs font-bold text-slate-400 text-left xs:text-center sm:text-left uppercase">
                       {i < 5 ? "Titular" : "Suplente"}
                     </div>
                     <select
@@ -756,7 +759,7 @@ export const AdminPage: React.FC = () => {
                         newPlayers[i].role = e.target.value;
                         setNewTeamPlayers(newPlayers);
                       }}
-                      className="w-24 bg-blue-secondary p-2 rounded-sm text-text-main"
+                      className="w-full sm:w-24 bg-blue-secondary p-2 rounded-sm text-xs text-text-main cursor-pointer"
                     >
                       {["TOP", "JG", "MID", "ADC", "SUP", "SUB"].map((r) => (
                         <option key={r} value={r}>
@@ -764,6 +767,7 @@ export const AdminPage: React.FC = () => {
                         </option>
                       ))}
                     </select>
+
                     <input
                       placeholder={`Nombre Player ${i + 1}`}
                       className="flex-1 w-full bg-blue-secondary p-2 rounded-sm text-text-main text-sm"
