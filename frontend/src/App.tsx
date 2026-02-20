@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 import { TournamentPage } from "./pages/TournamentPage";
 import { PlayoffsPage } from "./pages/PlayoffsPage";
 import { Header } from "./components/Header";
