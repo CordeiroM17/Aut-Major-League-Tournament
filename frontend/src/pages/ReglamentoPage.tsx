@@ -25,12 +25,12 @@ export const ReglamentoPage: React.FC = () => {
       ],
     },
     {
-      titulo: "PREMIACIÓN (MARZO 2026)",
+      titulo: "PREMIACIÓN (ABRIL 2026)",
       items: [
-        "Primer Lugar: $500.000 ARS.",
-        "Segundo Lugar: $100.000 ARS.",
-        "Tercer Lugar: inscripción gratuita al siguiente torneo o $50.000 ARS (a elección del equipo).",
-        "Método de pago: Los premios se entregarán mediante transferencia de forma directa al capitán del equipo tras finalizar el torneo.",
+        "Primer Lugar: $200.000 ARS.",
+        "Segundo Lugar: $75.000 ARS.",
+        "Tercer Lugar: $25.000 ARS.",
+        "Método de pago: Los premios se entregarán mediante transferencia de forma directa al capitán del equipo tras finalizar el torneo. En forma de pesos argentinos. Si el capitan desea que el premio sea en dolares este se aplicara al cambio de dia de la fecha de la transferencia.",
       ],
     },
     {
